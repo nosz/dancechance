@@ -2826,7 +2826,7 @@ fromHash(); render();
     txt = txt.replace(/%N/g, nn || ERSATZ[LANGS[li][0]]);
     const b = document.createElement("div"); b.className = "runbub " + (g.w === "M" ? "bm" : "bn"); b.textContent = txt; b.setAttribute("aria-hidden", "true"); document.body.appendChild(b);
     /* Platz für die Sprechblase: so, dass der Kopf der Figur (und jeder anderen Figur) frei bleibt: erst über dem Kopf, sonst unter den Füßen; bei Kopfstand zuerst unten */
-    const d = dim(), w = b.offsetWidth, h = b.offsetHeight, zz = g.s.z || 1, kop = g.s.r === 180, seit = g.s.r === 90 || g.s.r === -90, ab = (seit ? 17 : 24) * zz + 12;
+    const d = dim(), w = b.offsetWidth, h = b.offsetHeight, zz = g.s.z || 1, kop = g.s.r === 180, seit = g.s.r === 90 || g.s.r === -90, ab = (seit ? 17 : 24) * zz + 38;   /* 38: Abstand über dem Kopf, damit auch Hüpfer (bis etwa 34 Pixel) den Kopf nicht in die Blase tauchen */
     const rects = [...document.querySelectorAll(".runner")].map(e => e.getBoundingClientRect()); let best = null;
     for(const c of (kop ? ["u", "o"] : ["o", "u"])){
       const bl0 = Math.max(4, Math.min(d.W - w - 4, g.s.x - w / 2)), bt0 = c === "o" ? g.s.y - ab - h : g.s.y + ab;
