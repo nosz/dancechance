@@ -2819,7 +2819,7 @@ fromHash(); render();
     b.style.setProperty("--zp", Math.round(waag ? Math.max(14, Math.min(h - 14, fy)) : Math.max(16, Math.min(w - 16, fx))) + "px");
   }
   const ERSATZ = {de:"Tänzer", en:"dancer", ksh:"Tänzer", swg:"Tänzerle"};
-  function sag(g, txt, ms, muss){ sprache();
+  function sag(g, txt, ms, muss, seitlich){ sprache();
     if(!muss && !redet) return;
     document.querySelectorAll(".runbub").forEach(x => x.remove());
     const vn = (typeof fname === "function" ? fname() : ""), nn = vn.slice(0, 12) + (vn.length > 12 ? "…" : "");
@@ -2828,7 +2828,7 @@ fromHash(); render();
     /* Platz für die Sprechblase: so, dass der Kopf der Figur (und jeder anderen Figur) frei bleibt: erst über dem Kopf, sonst unter den Füßen; bei Kopfstand zuerst unten */
     const d = dim(), w = b.offsetWidth, h = b.offsetHeight, zz = g.s.z || 1, kop = g.s.r === 180, seit = g.s.r === 90 || g.s.r === -90, ab = (seit ? 17 : 24) * zz + 38;   /* 38: Abstand über dem Kopf, damit auch Hüpfer (bis etwa 34 Pixel) den Kopf nicht in die Blase tauchen */
     const rects = [...document.querySelectorAll(".runner")].map(e => e.getBoundingClientRect()); let best = null;
-    if(seit){ const rechts = g.s.x < d.W / 2; best = [Math.max(4, Math.min(d.W - w - 4, rechts ? g.s.x + 40 : g.s.x - 40 - w)), Math.max(4, Math.min(d.H - h - 4, g.s.y - h / 2))]; }   /* an der Wand: Blase neben der Figur, die Wand hinauf klettern geht dann nicht durch die Blase */
+    if(seit || seitlich){ const rechts = g.s.x < d.W / 2; best = [Math.max(4, Math.min(d.W - w - 4, rechts ? g.s.x + 40 : g.s.x - 40 - w)), Math.max(4, Math.min(d.H - h - 4, g.s.y - h / 2))]; }   /* an der Wand: Blase neben der Figur, die Wand hinauf klettern geht dann nicht durch die Blase */
     else for(const c of (kop ? ["u", "o"] : ["o", "u"])){
       const bl0 = Math.max(4, Math.min(d.W - w - 4, g.s.x - w / 2)), bt0 = c === "o" ? g.s.y - ab - h : g.s.y + ab;
       if(bt0 >= 4 && bt0 + h <= d.H - 4 && rects.every(r => bl0 + w < r.left - 2 || bl0 > r.right + 2 || bt0 + h < r.top - 2 || bt0 > r.bottom + 2)){ best = [bl0, bt0]; break; }
@@ -3059,7 +3059,7 @@ fromHash(); render();
     await szene(d, async gs => {
       const b = document.createElement("div"); b.className = "runballon"; b.setAttribute("aria-hidden", "true"); b.textContent = "🎈"; gs.M.el.appendChild(b);
       await sprich(gs, [z[0], z[1]], false);
-      const s = gs.M.s, e = Object.assign({}, s, {y: -110, x: s.x + dir * 50, r: dir * 8}); sag(gs.M, z[2][1], dauer(z[2][1]) + 200, true);
+      const s = gs.M.s, e = Object.assign({}, s, {y: -110, x: s.x + dir * 50, r: dir * 8}); sag(gs.M, z[2][1], dauer(z[2][1]) + 200, true, true);
       const fliegt = anim(gs.M, [{transform: T(s)}, {transform: T(Object.assign({}, s, {y: s.y - 160, x: s.x + dir * 12, r: -dir * 6}))}, {transform: T(e)}], 4200, e); fliegt.catch(() => {});
       await pause(900); sprung(gs.N, 14).catch(() => {}); await fliegt;
     }, undefined, false);
