@@ -10,7 +10,7 @@
 <meta name="apple-mobile-web-app-title" content="Dance Chance Quiz">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Tanzen lernen mit Nela und Manfred</title>
-<meta name="description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 7 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. SWG: 7 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
+<meta name="description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 8 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. KSH: 8 Danzstunde met däm Manfred un de Nela, Quiz un Urkunde. SWG: 8 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#2a0e45">
 <link rel="icon" type="image/png" sizes="64x64" href="favicon.png">
@@ -21,18 +21,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dance Chance Quiz">
 <meta property="og:title" content="Tanzen lernen mit Nela und Manfred: das Dance-Chance-Quiz">
-<meta property="og:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 7 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. SWG: 7 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
+<meta property="og:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 8 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. KSH: 8 Danzstunde met däm Manfred un de Nela, Quiz un Urkunde. SWG: 8 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
 <meta property="og:url" content="https://nosz.github.io/dancechance/">
 <meta property="og:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=1">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Tanzen lernen mit Nela und Manfred: zwei kleine Pixel-Tanzlehrer vor einem Herz. Learn to dance with Nela and Manfred. Tanze lerne mit dr Nela ond am Manfred.">
+<meta property="og:image:alt" content="Tanzen lernen mit Nela und Manfred: zwei kleine Pixel-Tanzlehrer vor einem Herz. Learn to dance with Nela and Manfred. Danze lihre mit de Nela un dem Manfred. Tanze lerne mit dr Nela ond am Manfred.">
 <meta property="og:locale" content="de_DE">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tanzen lernen mit Nela und Manfred: das Dance-Chance-Quiz">
-<meta name="twitter:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 7 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. SWG: 7 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
+<meta name="twitter:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 8 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. KSH: 8 Danzstunde met däm Manfred un de Nela, Quiz un Urkunde. SWG: 8 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
 <meta name="twitter:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=1"><style>
 :root{
   --pri:#e5167a;--pri-d:#c4106a;--pri-l:#fde6f1;--herobg:linear-gradient(135deg,#ffe0ee,#ffe9cc);
@@ -2825,9 +2825,15 @@ fromHash(); render();
     const vn = (typeof fname === "function" ? fname() : ""), nn = vn.slice(0, 12) + (vn.length > 12 ? "…" : "");
     txt = txt.replace(/%N/g, nn || ERSATZ[LANGS[li][0]]);
     const b = document.createElement("div"); b.className = "runbub " + (g.w === "M" ? "bm" : "bn"); b.textContent = txt; b.setAttribute("aria-hidden", "true"); document.body.appendChild(b);
-    const d = dim(), cx = g.s.x, cy = g.s.y + (g.s.r === 180 ? 46 : -46) * (g.s.z || 1), w = b.offsetWidth, h = b.offsetHeight;
-    const bl = Math.max(4, Math.min(d.W - w - 4, cx - w / 2)), bt = Math.max(4, Math.min(d.H - h - 4, cy - h / 2));
-    b.style.left = bl + "px"; b.style.top = bt + "px"; zipfel(b, g, bl, bt, w, h);
+    /* Platz für die Sprechblase: so, dass der Kopf der Figur (und jeder anderen Figur) frei bleibt: erst über dem Kopf, sonst unter den Füßen; bei Kopfstand zuerst unten */
+    const d = dim(), w = b.offsetWidth, h = b.offsetHeight, zz = g.s.z || 1, kop = g.s.r === 180, seit = g.s.r === 90 || g.s.r === -90, ab = (seit ? 17 : 24) * zz + 12;
+    const rects = [...document.querySelectorAll(".runner")].map(e => e.getBoundingClientRect()); let best = null;
+    for(const c of (kop ? ["u", "o"] : ["o", "u"])){
+      const bl0 = Math.max(4, Math.min(d.W - w - 4, g.s.x - w / 2)), bt0 = c === "o" ? g.s.y - ab - h : g.s.y + ab;
+      if(bt0 >= 4 && bt0 + h <= d.H - 4 && rects.every(r => bl0 + w < r.left - 2 || bl0 > r.right + 2 || bt0 + h < r.top - 2 || bt0 > r.bottom + 2)){ best = [bl0, bt0]; break; }
+      if(!best) best = [bl0, Math.max(4, Math.min(d.H - h - 4, bt0))];
+    }
+    const bl = best[0], bt = best[1];    b.style.left = bl + "px"; b.style.top = bt + "px"; zipfel(b, g, bl, bt, w, h);
     setTimeout(() => b.remove(), ms || 1600);
   }
   const dauer = tx => Math.min(5600, 1700 + tx.length * 50);
