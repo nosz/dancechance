@@ -337,6 +337,7 @@ h2.secrow .cnt{font-size:.9rem;color:var(--mute);font-weight:700}
 @keyframes herzup{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0px),-170px) scale(1.2)}}
 .runnote{position:fixed;z-index:39;pointer-events:none;font-size:22px;line-height:1;font-weight:800;color:#e5167a;text-shadow:0 1px 0 #fff;animation:noteup 1.7s ease-out forwards}
 @keyframes noteup{from{transform:translateY(0) rotate(-8deg);opacity:1}to{transform:translateY(-70px) rotate(10deg);opacity:0}}
+.runballon{position:absolute;left:-4px;top:-34px;font-size:24px;line-height:1;pointer-events:none}
 @keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(229,22,122,0)}50%{box-shadow:0 0 0 9px rgba(229,22,122,.4)}}
 .nameq.nudge,.namebtn.nudge{animation:nudge .9s ease-in-out 4}
 @media print{.runner,.runbub,.runnote,.runherz,.install-cta{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -1671,7 +1672,7 @@ if("serviceWorker" in navigator && /^https?:$/.test(location.protocol)){
   });
 }
 fromHash(); render();
-/* Ab und zu schauen Manfred und Nela vorbei (rein dekorativ, nicht klickbar): Zufallssystem mit Einzel-Auftritten (Manfred allein, Nela allein, einer läuft quer oder schaut vom Rand) und Paar-Auftritten; sie erscheinen nicht immer zusammen. Manfred hat Brille und rote Schuhe, Nela lange blonde Haare und ein elegantes Kleid. Beide sprechen immer die oben im Menü eingestellte Sprache. Test: Adresse mit ?lauf=quer|gucken|manfred|nela|tipp|dialog|werbung|discofox|walzer|latino|stolpern|hallo|name|gruss|lob */
+/* Ab und zu schauen Manfred und Nela vorbei (rein dekorativ, nicht klickbar): Zufallssystem mit Einzel-Auftritten (Manfred allein, Nela allein, einer läuft quer oder schaut vom Rand) und Paar-Auftritten; sie erscheinen nicht immer zusammen. Manfred hat Brille und rote Schuhe, Nela lange blonde Haare und ein elegantes Kleid. Beide sprechen immer die oben im Menü eingestellte Sprache. Test: Adresse mit ?lauf=quer|gucken|manfred|nela|tipp|dialog|werbung|discofox|walzer|latino|stolpern|hallo|jagd|frech|kletter|decke|versteck|puff|ballon|name|gruss|lob|kuss */
 (function(){
   if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const MAPS = {
@@ -1683,7 +1684,7 @@ fromHash(); render();
   const R = Math.random, pick = a => a[Math.floor(R() * a.length)], rnd = (a, b) => a + R() * (b - a);
   const wait = ms => new Promise(r => setTimeout(r, ms));
   /* Alle Texte der Figuren in den drei Sprachen: Manfred (M) und Nela (N) sprechen immer so wie die oben im Menü eingestellte Sprache. sprache() wählt bei jedem Auftritt und bei jeder Sprechblase die passenden Texte. */
-  let MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS;
+  let MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON;
   const FIG_TXT = {
  de: () => {
   const MS = [
@@ -2482,7 +2483,253 @@ fromHash(); render();
   return {MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS};
  },
   };
-  const sprache = () => ({MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS} = FIG_TXT[LANGS[li][0]]());
+  const FIG_NEU = {
+ de: {
+  JAGD: [
+   [["M","Dein Hut steht mir. Ich behalte ihn. Sagen wir: für immer."],["N","Manfred. Gib das zurück."],["M","Nie im Leben, Schatz! Dat Ding is jetzt mein!"],["N","Ich renne nicht. Ich gehe sehr zügig."]],
+   [["M","Ich wor et nit! Der Schal hat sich von selbst um meinen Hals gewickelt."],["N","Manfred. Ich zähle bis drei."],["M","Zähl langsam, ich bin schon in Kölle!"],["N","Eins. Zwei. Drei lasse ich aus."]],
+   [["M","Wat für 'ne Haarspange? Hab ich nit gesehen. Ehrlich nit."],["N","Sie ist in deiner Hand, Schatz."],["M","Dann war's die Hand! Ich bin weg, bevor sie auspackt!"],["N","Dann bekommt die Hand gleich Besuch. Von mir. Im Eiltempo."]],
+   [["M","Kille, kille! Und schwupps, deine Haarspange ist weg."],["N","Manfred. Du kitzelst mich nicht noch einmal."],["M","Doch, aus der Ferne! Fernkitzeln! Kille, kille!"],["N","Das gibt es nicht. Aber gleich gibt es mich. Direkt hinter dir."]],
+   [["M","Ich singe dir was ins Ohr. Absichtlich falsch. Das ist Kunst."],["N","Manfred. Aufhören. Sofort."],["M","Zu spät, die Zugabe läuft schon! Laaa-la-liii!"],["N","Ich höre dich auch von hier. Das ist leider kein Kompliment."]],
+   [["M","Na, Handbremse? Heute schon angezogen?"],["N","Manfred. Die Handbremse ist gelöst."],["M","Ach du Jeck! Die Handbremse rennt!"],["N","Das war der erste Gang, Schatz. Jetzt kommt der sechste."]],
+   [["M","Dein Schal steht mir. Ich seh ihn nicht, aber ich spür ihn."],["N","Weil deine Brille auf der Stirn sitzt. Der Schal. Jetzt."],["M","Wo ist meine Brille? Egal, ich renne blind!"],["N","Auf der Stirn. Und gleich auf deinen Fersen."]],
+   [["M","Ich wor et nit. Der Hut ist von allein auf meinen Kopf gewandert."],["N","Manfred. Hut. Zurück."],["M","Meine roten Schuhe sind schneller als du! Hihi, Alaaf!"],["N","Rote Schuhe sind schnell. Aber i kenn die Abkürzung. Ich wohn hier."]],
+   [["M","Ich leihe mir deinen Hut nur kurz. Für Berlin. Schlagerparty!"],["N","Berlin ist im April. Der Hut kommt heute zurück."],["M","Dann bis April, Schatz! Ich übe schon mal Wegrennen!"],["N","Das merke ich. Du bist gut. Aber ich habe Ausdauer."]],
+   [["M","Ich han deine Haarspange. Du hast sie nicht. Dat is Mathematik."],["N","Manfred, des wird jetzt eng für dich."],["M","Eng? Ich bin ein kölscher Wirbelwind!"],["N","Und ich bin deine Frau. Die ist schneller. Ich krieg dich immer, seit 2016."]],
+   [["M","Ich war's nit. Die Haarspange ist von allein in meine Tasche gesprungen."],["N","Manfred. Gib sie zurück. Ruhig und freundlich."],["M","Sie springt nicht zurück! Sie hat Höhenangst!"],["N","Ich renne nicht. Ich folge nur meiner Haarspange. Sehr entschlossen."]],
+   [["M","Dein Schal und ich sind jetzt verheiratet. Du darfst zuschauen."],["N","Manfred. Ich bin die Ehefrau. Der Schal ist nur Zubehör."],["M","Zubehör läuft nicht weg, Schatz, aber ich! Tschö!"],["N","Du sagst Tschö, ich sage: bis gleich. Ich bin schon unterwegs."]]
+  ],
+  KLETTER: [
+   [["M","Ich klettere die Wand hoch! Hier oben ist die Aussicht viel besser!"],["N","Das ist nur der Bildschirmrand, Manfred."],["M","Ich habe Höhenangst. Aber nur nach unten."]],
+   [["M","Guck, wie ich klettere! Wie ein kölscher Gecko in roten Schuhen!"],["N","Der Gecko hat Halt. Du hast Hoffnung."],["M","Hoffnung klebt auch! Ich spür's an den Fingern!"]],
+   [["M","Gleich bin ich oben! Dann winke ich von dort allen zu!"],["N","Und wie kommst du wieder runter?"],["M","Äh ... gute Frage. Darüber denke ich oben nach."]],
+   [["M","Nela, wenn ich oben bin, werde ich berühmt!"],["N","Wenn du oben bist, bleibst du hängen, gell."],["M","Berühmt UND hängen geblieben! Zwei Fliegen, eine Wand!"]],
+   [["M","Ich übe schon für Berlin: höher, weiter, Schlager!"],["N","In Berlin gibt es Aufzüge, Manfred."],["M","Aufzüge sind nur Wände mit Knöpfen! Hilfe, ich rutsche!"]],
+   [["M","Kein Seil, kein Netz, nur rote Schuhe!"],["N","Und kein Plan. Aber Charme. Das ist fast dasselbe."],["M","Dat nehme ich als Kompliment! Dat is jot, Schatz!"]]
+  ],
+  DECKE: [
+   [["N","Manfred, wir gehen an der Decke. Spürst du das Blut im Kopf?"],["M","Dat is kein Blut, dat is Vorfreude!"],["N","Es ist Blut. Und Vorfreude auf den Boden."]],
+   [["N","Manfred, deine Brille fällt nicht runter."],["M","Sie hält zu mir. Wie ich zu dir!"],["N","Ich halte mehr. Ich hänge ja mit dir an der Decke."]],
+   [["N","Neue Regel: Oben ist das neue unten."],["M","Dann ist der Fußboden unser Himmel! Alaaf!"],["N","Dann tritt bitte nicht in die Lampe. Sie steht jetzt im Weg."]],
+   [["N","Mir wird gleich schwindelig. Dir auch?"],["M","Mir nit! Ich bin Tänzer, ich drehe mich sogar im Schlaf!"],["N","Nachts klaust du mir die Decke. Heute hängen wir an ihr."]],
+   [["N","Meine Haare hängen jetzt nach unten. Oder oben? Ich weiß es nicht mehr."],["M","Egal wo, sie sehen aus wie ein goldener Wasserfall!"],["N","Du hast Blut im Kopf. Aber das Kompliment nehme ich."]],
+   [["N","Wie kommen wir eigentlich wieder runter?"],["M","Ganz einfach: Wir warten, bis die Schwerkraft Feierabend macht!"],["N","Die Schwerkraft ist Schwäbin, Manfred. Die schafft immer."]]
+  ],
+  VERSTECK: [
+   [["M","Kuckuck! Ich guck vom linken Rand. Siehst du mich?"],["N","Ich sehe dich, Schatz. Deine Schuhe gucken auch raus."],["M","Rote Schuhe sind schlechte Tarnung. Aber gute Mode!"]],
+   [["M","Ich bin unsichtbar! Ich stehe nur hinter dem Rand."],["N","Ich sehe dich, Manfred. Von der anderen Seite."],["M","Wat? Du auch am Rand? Dann stehen wir beide im Abseits!"]],
+   [["M","Kuckuck! Rate mal, wer da guckt!"],["N","Ein Mann mit Brille auf der Stirn."],["M","Falsch! Ein Mann mit Brille auf der Stirn und viel Stil!"]],
+   [["M","Such mich, Nela! Ich bin ganz weit weg."],["N","Ich sehe dich, Schatz. Du winkst."],["M","Ich winke nur, damit du mich finden kannst!"]],
+   [["M","Ich verstecke mich so gut, dass ich mich selbst nicht finde."],["N","Du stehst vor mir. In roten Schuhen."],["M","Dann ist es ein schlechtes Versteck. Aber ein gutes Herz!"]],
+   [["M","Wir spielen Kuckuck! Du guckst von rechts, ich von links!"],["N","Und der Nutzer in der Mitte?"],["M","Der sieht uns beide. Der hat schon gewonnen!"]]
+  ],
+  PUFF: [
+   ["M","Buh! ... Hast du dich erschrocken? Ich auch."],
+   ["N","Guten Tag. Ich war die ganze Zeit hier. Du hast nur nicht geguckt."],
+   ["M","Tada! %N, Mr. Mac liefert, ohne Anklopfen!"],
+   ["N","Hoppla. Falscher Bildschirm. Ich bleibe trotzdem."],
+   ["M","Überraschung! Ich komme aus dem Nichts. Und aus Kölle."],
+   ["N","Ich bin plötzlich da. Elegant wie immer. Manfred nennt es gruselig."],
+   ["M","Puff! Zauberei! ... Äh, ich wollte eigentlich Konfetti."],
+   ["N","%N, nicht erschrecken. Das macht Manfred schon genug."],
+   ["M","%N! Überraschung! Ich wohne jetzt in deinem Bildschirm."],
+   ["N","Entschuldigung, ich bin gerade durch die Wand gegangen. Ohne Absicht."],
+   ["M","Tada! Da bin ich! Und meine Brille? Moment. Auf der Stirn."],
+   ["N","Puff. Da bin ich. Ich habe eine Wolke erwischt, keine Sorge."]
+  ],
+  BALLON: [
+   [["M","Ich habe einen Luftballon! Ich halte mich ... Hilfe, ich fliege!"],["N","Manfred. Lass den Ballon los."],["M","Dann falle ich! Ich schwebe lieber! Tschö, bis Berlin!"]],
+   [["M","Der Ballon war ein Geschenk. Der Mann sagte: Der zieht nicht."],["N","Er zieht, Manfred. Gerade Richtung Wolken."],["M","Grüß die Tanzfläche von mir! Ich komme von oben zur Party!"]],
+   [["M","Ich bin leicht wie eine Feder! Nela, ich hebe ab!"],["N","Ich sehe es. Du wirst kleiner, Schatz."],["M","Sag dem Nutzer, er soll weitertanzen! Ich komme wieder! Irgendwann!"]],
+   [["M","Der Ballon ist rot! Wie meine Schuhe! Dat is ein Zeichen!"],["N","Das Zeichen heißt: Loslassen."],["M","Nur wenn ich unten bin! Bis gleich, Schatz, ich schwebe nur kurz!"]],
+   [["M","Nela, halt mich fest! Der Ballon hat Pläne!"],["N","Ich halte dich. Seit 2016. Aber nicht den Ballon."],["M","Dann bis gleich! Wenn die Luft raus ist, bin ich wieder da!"]]
+  ]
+ },
+ en: {
+  JAGD: [
+   [["M","Your hat suits me. I'm keeping it. Let's say forever."],["N","Manfred. Give that back."],["M","Not a chance, darling! Come and get me!"],["N","I'm not running. I'm walking very briskly."]],
+   [["M","It wasn't me. The scarf wrapped itself round my neck."],["N","Manfred. I'm counting to three."],["M","Count slowly, I'm already halfway to Cologne!"],["N","One. Two. I'm skipping three."]],
+   [["M","What hairclip? Never seen it. Honest to goodness."],["N","It's in your hand, darling."],["M","Then the hand did it! I'm off before it confesses!"],["N","Then the hand is about to have a visitor. Me, at speed."]],
+   [["M","Tickle, tickle! And whoosh, your hairclip has vanished."],["N","Manfred. You are not tickling me again."],["M","Oh yes, from a distance! Long-range tickling!"],["N","There's no such thing. But there will shortly be me, right behind you."]],
+   [["M","I'm singing into your ear. Deliberately off-key. It's art."],["N","Manfred. Stop. Now."],["M","Too late, the encore's started! La-la-laaa!"],["N","I can hear you from here. Sadly, that's not a compliment."]],
+   [["M","Well, Handbrake? Pulled up already today?"],["N","Manfred. The handbrake is off."],["M","Oh no! The handbrake is running!"],["N","That was first gear, darling. Now comes sixth."]],
+   [["M","Your scarf suits me. I can't see it, but I can feel it."],["N","That's because your glasses are on your forehead. The scarf. Now."],["M","Where are my glasses? Never mind, I'll run blind!"],["N","On your forehead. And soon, on your heels."]],
+   [["M","It wasn't me. The hat wandered onto my head all by itself."],["N","Manfred. Hat. Back."],["M","My red shoes are faster than you! Hee hee, Alaaf!"],["N","Red shoes are quick. But I know the shortcut. I live here."]],
+   [["M","I'm only borrowing your hat. For Berlin. Schlager party!"],["N","Berlin is in April. The hat comes back today."],["M","Then see you in April, darling! I'm practising running away!"],["N","I can tell. You're good. But I have stamina."]],
+   [["M","I've got your hairclip. You haven't. That's maths."],["N","Manfred, this is going to get tight for you."],["M","Tight? I'm a Cologne whirlwind!"],["N","And I'm your wife. That's faster. I've caught you since 2016."]],
+   [["M","It wasn't me. The hairclip jumped into my pocket by itself."],["N","Manfred. Give it back. Calmly and kindly."],["M","It won't jump back! It's afraid of heights!"],["N","I'm not running. I'm simply following my hairclip. Very determinedly."]],
+   [["M","Your scarf and I are married now. You may watch."],["N","Manfred. I'm the wife. The scarf is merely an accessory."],["M","Accessories don't run off, darling, but I do! Cheerio!"],["N","You say cheerio, I say see you in a second. I'm already on my way."]]
+  ],
+  KLETTER: [
+   [["M","I'm climbing the wall! The view up here is much better!"],["N","That's just the edge of the screen, Manfred."],["M","I'm scared of heights. But only downwards."]],
+   [["M","Look at me climb! Like a Cologne gecko in red shoes!"],["N","The gecko has grip. You have hope."],["M","Hope sticks too! I can feel it in my fingers!"]],
+   [["M","Nearly at the top! Then I'll wave at everyone from there."],["N","And how do you plan to get down?"],["M","Er ... good question. I'll think about it up here."]],
+   [["M","Nela, once I'm at the top, I'll be famous!"],["N","Once you're at the top, you'll be stuck."],["M","Famous AND stuck. Two birds, one wall!"]],
+   [["M","Practising for Berlin: higher, further, Schlager!"],["N","Berlin has lifts, Manfred."],["M","Lifts are just walls with buttons. Help, I'm slipping!"]],
+   [["M","No rope, no net, just red shoes!"],["N","And no plan. But plenty of charm. Which is almost the same."],["M","I'll take that as a compliment! Lovely, darling!"]]
+  ],
+  DECKE: [
+   [["N","Manfred, we're walking on the ceiling. Can you feel the blood in your head?"],["M","That's not blood, that's excitement!"],["N","It's blood. And excitement about the floor."]],
+   [["N","Manfred, your glasses aren't falling off."],["M","They're loyal to me. Like I am to you!"],["N","I'm more loyal. I'm hanging up here with you."]],
+   [["N","New rule: up is the new down."],["M","Then the floor is our sky! Alaaf!"],["N","Then please don't kick the lamp. It's in the way now."]],
+   [["N","I'm getting dizzy. You too?"],["M","Not me! I'm a dancer, I spin even in my sleep!"],["N","At night you steal the duvet. Today we're hanging from the ceiling."]],
+   [["N","My hair hangs down now. Or up? I've lost track."],["M","Wherever it hangs, it looks like a golden waterfall!"],["N","You've got blood in your head. But I'll take the compliment."]],
+   [["N","How do we get back down, actually?"],["M","Simple: we wait till gravity clocks off!"],["N","Gravity is Swabian, Manfred. It never stops working."]]
+  ],
+  VERSTECK: [
+   [["M","Cuckoo! I'm peeking from the left edge. Can you see me?"],["N","I see you, darling. Your shoes are peeking out too."],["M","Red shoes are poor camouflage. But great fashion!"]],
+   [["M","I'm invisible! I'm just standing behind the edge."],["N","I can see you, Manfred. From the other side."],["M","What? You're on the edge too? Then we're both offside!"]],
+   [["M","Cuckoo! Guess who's looking!"],["N","A man with his glasses on his forehead."],["M","Wrong! A man with glasses on his forehead and loads of style!"]],
+   [["M","Come and find me, Nela! I'm miles away."],["N","I see you, darling. You're waving."],["M","I'm only waving so you can find me!"]],
+   [["M","I'm hiding so well I can't find myself."],["N","You're standing right in front of me. In red shoes."],["M","Then it's a bad hiding place. But a good heart!"]],
+   [["M","Let's play cuckoo! You look from the right, I look from the left!"],["N","And the user in the middle?"],["M","They can see us both. They've already won!"]]
+  ],
+  PUFF: [
+   ["M","Boo! ... Did I scare you? Me too."],
+   ["N","Good day. I've been here the whole time. You just weren't looking."],
+   ["M","Ta-da! %N, Mr. Mac delivers, no knocking!"],
+   ["N","Oops. Wrong screen. I'll stay anyway."],
+   ["M","Surprise! I came out of nowhere. And out of Cologne."],
+   ["N","I'm suddenly here. Elegant, as always. Manfred calls it spooky."],
+   ["M","Poof! Magic! ... Er, I was actually aiming for confetti."],
+   ["N","%N, don't be alarmed. Manfred does enough of that already."],
+   ["M","%N! Surprise! I live in your screen now."],
+   ["N","Sorry, I just walked through the wall. Quite by accident."],
+   ["M","Ta-da! Here I am! And my glasses? One moment. On my forehead."],
+   ["N","Poof. Here I am. I caught a cloud, don't worry."]
+  ],
+  BALLON: [
+   [["M","I've got a balloon! I'm holding on ... help, I'm flying!"],["N","Manfred. Let go of the balloon."],["M","Then I'd fall! I'd rather float! Cheerio, see you in Berlin!"]],
+   [["M","The balloon was a present. The man said it wouldn't pull."],["N","It's pulling, Manfred. Straight towards the clouds."],["M","Say hello to the dance floor for me! I'll party from above!"]],
+   [["M","I'm light as a feather! Nela, I'm taking off!"],["N","I can see. You're getting smaller, darling."],["M","Tell the user to keep dancing! I'll be back! Eventually!"]],
+   [["M","The balloon is red! Like my shoes! It's a sign!"],["N","The sign says: let go."],["M","Only once I'm down! Back in a bit, darling, I'm just floating!"]],
+   [["M","Nela, hold me tight! The balloon has plans!"],["N","I'm holding you. Have been since 2016. But not the balloon."],["M","Then see you soon! When the air's out, I'll be back!"]]
+  ]
+ },
+ ksh: {
+  JAGD: [
+   [["M","Dinge Hoot steiht mer. Ich behalt en. Sage mer: för immer."],["N","Manfred. Jif dat zeröck."],["M","Nä, Schatz, nit för all Kölsch! Fang mich doch!"],["N","Ich laufe nit. Ich jonn bloß flöck."]],
+   [["M","Ich wor et nit. Dä Schal hät sich vun allein öm minge Hals jewickelt."],["N","Manfred. Ich zälle bes drei."],["M","Zäll langsam, ich ben ald en Kölle!"],["N","Eins. Zwei. Drei looß ich us."]],
+   [["M","Wat för 'ne Haarspang? Han ich nit jesinn. Ehrlich nit."],["N","Se es en diner Hand, Schatz."],["M","Dann wor et die Hand! Ich ben fott, bevür se uspack!"],["N","Dann kritt die Hand jlich Besök. Vun mir. Em Eiltempo."]],
+   [["M","Kille, kille! Un schwupp, ding Haarspang es fott."],["N","Manfred. Do kills mich nit noch ens."],["M","Doch, vun wick! Fernkille! Kille, kille!"],["N","Dat jitt et nit. Ävver jlich jitt et mich, janz noh hinger dir."]],
+   [["M","Ich sing dir jet en et Ohr. Met Absich falsch. Dat es Kunst."],["N","Manfred. Hür op. Sofort."],["M","Zo spät, de Zugab läuf ald! Laaa-la-liii!"],["N","Ich hür dich och vun hee. Dat es leider keine Kompliment."]],
+   [["M","Na, Handbrems? Hück ald aanjezoge?"],["N","Manfred. De Handbrems es loss."],["M","Ach Jott! De Handbrems löpp!"],["N","Dat wor dä eezte Jang, Schatz. Jetz kütt dä sechste."]],
+   [["M","Dinge Schal steiht mer. Ich sinn en nit, ävver ich föhl en."],["N","Weil ding Brell op dinger Stirn sitz. Dä Schal. Jetz."],["M","Wo es ming Brell? Ejal, ich laufe blind!"],["N","Op dinger Stirn. Un bahl op dinge Hacke."]],
+   [["M","Ich wor et nit. Dä Hoot es vun allein op minge Kopp jewandert."],["N","Manfred. Hoot. Zeröck."],["M","Ming rude Schohn sin flöcker wie do! Hihi, Alaaf!"],["N","Rude Schohn sin flöck. Ävver ich kenn dä kürzere Wääch. Ich wohn hee."]],
+   [["M","Ich leih mer dinge Hoot nor kürz. För Berlin. Schlagerparty!"],["N","Berlin es em April. Dä Hoot kütt hück zeröck."],["M","Dann bes April, Schatz! Ich üvv ald et Fottlaufe!"],["N","Dat merk ich. Do bes jot. Ävver ich han Usdauer."]],
+   [["M","Ich han ding Haarspang. Do häs se nit. Dat es Mathematik."],["N","Manfred, dat weed jetz eng för dich."],["M","Eng? Ich ben e kölsche Wirbelwind!"],["N","Un ich ben ding Frau. Dat es flöcker. Ich krijje dich immer, sick 2016."]],
+   [["M","Ich wor et nit. De Haarspang es vun allein en ming Täsch jesprunge."],["N","Manfred. Jif se zeröck. Ruhig un freundlich."],["M","Se springk nit zeröck! Se hät Höhenangs!"],["N","Ich laufe nit. Ich folg bloß ming Haarspang. Janz entschlosse."]],
+   [["M","Ding Schal un ich sin jetz verhierodt. Do darfs zosinn."],["N","Manfred. Ich ben de Frau. Dä Schal es nor Zubehör."],["M","Zubehör laufe nit fott, Schatz, ävver ich! Tschö!"],["N","Do sähs Tschö, ich sage bes jlich. Ich ben ald ungerwähs."]]
+  ],
+  KLETTER: [
+   [["M","Ich klättere de Wand erop! Hee bovve es de Usseech vill besser!"],["N","Dat es nor dä Rand vum Schirm, Manfred."],["M","Ich han Höhenangs. Ävver nor noh unge."]],
+   [["M","Luur ens, wie ich klättere! Wie ene kölsche Gecko en rude Schohn!"],["N","Dä Gecko hät Halt. Do häs Hoffnung."],["M","Hoffnung klävv och! Ich merk et an de Fingere!"]],
+   [["M","Jlich ben ich bovve! Dann winke ich vun doh all zo!"],["N","Un wie küss do widder erav?"],["M","Äh ... jode Frog. Doröver denk ich bovve noh."]],
+   [["M","Nela, wenn ich bovve ben, weed ich berühmp!"],["N","Wenn do bovve bes, bliss do hänge."],["M","Berühmp UN hänge jeblevve! Zwei Fleeje, ein Wand!"]],
+   [["M","Ich üvv ald för Berlin: höher, wigger, Schlager!"],["N","En Berlin jitt et Aufzög, Manfred."],["M","Aufzög sin nor Wänd met Knöpp! Hilfe, ich rötsch!"]],
+   [["M","Keine Seil, keine Netz, nor rude Schohn!"],["N","Un keine Plan. Ävver Charme. Dat es fass datselvje."],["M","Dat nemme ich als Kompliment! Dat es jot, Schatz!"]]
+  ],
+  DECKE: [
+   [["N","Manfred, mer jonn an de Decke. Föhls do dat Blot em Kopp?"],["M","Dat es kei Blot, dat es Vörfreud!"],["N","Et es Blot. Un Vörfreud op dä Bodde."]],
+   [["N","Manfred, ding Brell fällt nit erav."],["M","Se hält zo mer. Wie ich zo dir!"],["N","Ich halt mih. Ich hange jo met dir an de Decke."]],
+   [["N","Neue Rejel: Bovve es dat neue Unge."],["M","Dann es dä Bodde uns Himmel! Alaaf!"],["N","Dann trett bitte nit en de Lamp. Se steiht jetz em Wääch."]],
+   [["N","Mer weed bahl schwindelisch. Dir och?"],["M","Mir nit! Ich ben Tänzer, ich dreh mich och em Schlof!"],["N","Nachs klauss do mer de Decke. Hück hange mer dran."]],
+   [["N","Ming Hoore hange jetz noh unge. Odder bovve? Ich weiß et nit mih."],["M","Ejal wo, se sinn wie ene jüldene Wasserfall!"],["N","Do häs Blot em Kopp. Ävver dat Kompliment nemme ich."]],
+   [["N","Wie kumme mer eijentlich widder erav?"],["M","Ganz einfach: Mer waade, bes de Schwerkraff Fierovend määt!"],["N","De Schwerkraff es en Schwäbin, Manfred. Die schafft immer."]]
+  ],
+  VERSTECK: [
+   [["M","Kuckuck! Ich luur vum linke Rand. Sühs do mich?"],["N","Ich sinn dich, Schatz. Ding Schohn luure och erus."],["M","Rude Schohn sin schläächte Tarnung. Ävver jot Mod!"]],
+   [["M","Ich ben unsichbar! Ich stonn nor hinger däm Rand."],["N","Ich sinn dich, Manfred. Vun de angere Sigg."],["M","Wat? Do och am Rand? Dann stonn mer beids em Abseits!"]],
+   [["M","Kuckuck! Roode, wä do luur!"],["N","E Mann met Brell op de Stirn."],["M","Falsch! E Mann met Brell op de Stirn un vill Stil!"]],
+   [["M","Söök mich, Nela! Ich ben janz wick fott."],["N","Ich sinn dich, Schatz. Do winks."],["M","Ich wink nor, dammit do mich fings!"]],
+   [["M","Ich versteck mich su jot, dat ich mich selvs nit finge."],["N","Do steihs vür mir. En rude Schohn."],["M","Dann es et e schläächt Versteck. Ävver e jot Hätz!"]],
+   [["M","Mer spille Kuckuck! Do luurs vun rächs, ich vun links!"],["N","Un dä Nutzer en de Mitt?"],["M","Dä süht uns beids. Dä hät ald jewunne!"]]
+  ],
+  PUFF: [
+   ["M","Buh! ... Häs do dich verschrocke? Ich och."],
+   ["N","Joden Daach. Ich wor die janze Zick hee. Do häs nor nit jeluurt."],
+   ["M","Tada! %N, Mr. Mac liefert, ohne Ahklopfe!"],
+   ["N","Hoppla. Falsche Schirm. Ich blieve trotzdem."],
+   ["M","Üvverrasch! Ich ben us em Nix kumme. Un us Kölle."],
+   ["N","Ich ben op eimol do. Elejant wie immer. Manfred säät, et es jruselisch."],
+   ["M","Puff! Zauberei! ... Äh, ich wollt eijentlich Konfetti."],
+   ["N","%N, nit verschrecke. Dat määt Manfred ald jenooch."],
+   ["M","%N! Üvverrasch! Ich wohn jetz en dingem Schirm."],
+   ["N","Äntschuldijung, ich ben jrad durch de Wand jejange. Ohne Absich."],
+   ["M","Tada! Do ben ich! Un ming Brell? Moment. Op de Stirn."],
+   ["N","Puff. Do ben ich. Ich han en Wolk erwescht, keine Suurch."]
+  ],
+  BALLON: [
+   [["M","Ich han ene Luftballon! Ich halt mich ... Hilfe, ich fliesch!"],["N","Manfred. Looß dä Ballon loss."],["M","Dann falle ich! Ich schwevv leever! Tschö, bes en Berlin!"]],
+   [["M","Dä Ballon wor e Jeschenk. Dä Mann sät: Dä trick nit."],["N","Hä trick, Manfred. Direk noh de Wolke."],["M","Jrüß de Danzfläch vun mir! Ich fiere vun bovve met!"]],
+   [["M","Ich ben liich wie en Fedder! Nela, ich hevv av!"],["N","Ich sinn et. Do weeds kleiner, Schatz."],["M","Sag däm Nutzer, hä soll widder danze! Ich kumm zeröck! Irjendwann!"]],
+   [["M","Dä Ballon es rud! Wie ming Schohn! Dat es e Zeiche!"],["N","Dat Zeiche heiß: Loslosse."],["M","Nor wenn ich unge ben! Bes jlich, Schatz, ich schwevv ens!"]],
+   [["M","Nela, halt mich fass! Dä Ballon hät Pläng!"],["N","Ich halt dich. Sick 2016. Ävver nit dä Ballon."],["M","Dann bes jlich! Wenn de Luff erus es, ben ich widder do!"]]
+  ]
+ },
+ swg: {
+  JAGD: [
+   [["M","Dei Hut stoht mr guet. I behalt en. Saget mr: für emmer."],["N","Manfred. Gib des zruck."],["M","Nia net, Schatz! Fang me doch!"],["N","I renn net. I gang bloß sehr zügig."]],
+   [["M","I wars net. Dr Schal hat sich vo alloi om mein Hals gwicklet."],["N","Manfred. I zähl bis drei."],["M","Zähl langsam, i be scho en Köln!"],["N","Oins. Zwoi. Drei lass i aus."]],
+   [["M","Was fir a Haarspange? Han i net gseha. Ehrlich net."],["N","Sie isch in deiner Hand, Schatz."],["M","No wars d' Hand! I be weg, bevor se auspackt!"],["N","No kriegt d' Hand glei Bsuch. Vo mir. Em Eiltempo."]],
+   [["M","Kitzle, kitzle! Ond schwupp, dei Haarspange isch weg."],["N","Manfred. Du kitzlesch me net nomol."],["M","Doch, aus dr Ferne! Fernkitzle! Kitzle, kitzle!"],["N","Des gibt's net. Aber glei gibt's mi. Direkt hinter dir."]],
+   [["M","I sing dir ebbes ins Ohr. Mit Absicht falsch. Des isch Kunscht."],["N","Manfred. Hör uff. Sofort."],["M","Z'spät, d' Zugab laufd scho! Laaa-la-liii!"],["N","I hör di au vo do. Des isch leider koi Kompliment."]],
+   [["M","No, Handbremse? Heut scho agzoge?"],["N","Manfred. D' Handbremse isch glöst."],["M","Au weh! D' Handbremse rennt!"],["N","Des war dr erscht Gang, Schatz. Jetzt kommt dr sechscht."]],
+   [["M","Dei Schal stoht mr guet. I seh en net, aber i spür en."],["N","Weil dei Brille uff dr Stirn sitzt. Dr Schal. Jetzt."],["M","Wo isch mei Brille? Egal, i renn blind!"],["N","Uff dr Stirn. Ond glei uff deine Fersa."]],
+   [["M","I wars net. Dr Hut isch vo alloi uff mein Kopf gwandert."],["N","Manfred. Hut. Zruck."],["M","Mei rote Schuh send schneller als du! Hihi, Alaaf!"],["N","Rote Schuh send schnell. Aber i kenn dr Abkürzung. I wohn doch do."]],
+   [["M","I leih mr dein Hut bloß kurz. Fir Berlin. Schlagerparty!"],["N","Berlin isch em April. Dr Hut kommt heut zruck."],["M","No bis April, Schatz! I üb scho mol Wegrenne!"],["N","Des merk i. Du bisch guet. Aber i han Ausdauer."]],
+   [["M","I han dei Haarspange. Du hosch se net. Des isch Mathematik."],["N","Manfred, jetzt wird's eng fir di."],["M","Eng? I be a kölscher Wirbelwind!"],["N","Ond i be dei Frau. Des isch schneller. I krieg di emmer, hald seit 2016."]],
+   [["M","I wars net. D' Haarspange isch vo alloi en mei Tasch gsprunge."],["N","Manfred. Gib se zruck. Ruhig ond freundlich."],["M","Sie springt net zruck! Sie hat Höhaangscht!"],["N","I renn net. I folg bloß meiner Haarspange. Ganz entschlosse."]],
+   [["M","Dei Schal ond i send jetzt verheiratet. Du derfsch zugucke."],["N","Manfred. I be d' Frau. Dr Schal isch bloß Zubehör."],["M","Zubehör rennt net weg, Schatz, aber i! Adele!"],["N","Du sagsch Adele, i sag bis glei. I be scho unterwegs."]]
+  ],
+  KLETTER: [
+   [["M","I kletter d' Wand nuff! Do obe isch d' Aussicht viel bessr!"],["N","Des isch bloß dr Bildschirmrand, Manfred."],["M","I han Höhaangscht. Aber bloß noch unte."]],
+   [["M","Guck, wia i kletter! Wia a Kölner Gecko en rote Schuh!"],["N","Dr Gecko hat Halt. Du hosch Hoffnung."],["M","Hoffnung klebt au! I spür's an de Finger!"]],
+   [["M","Glei bin i obe! No wink i vo dört allene zu!"],["N","Ond wia kommsch wieder nonter?"],["M","Äh ... guete Frag. Do denk i obe drüber noch."]],
+   [["M","Nela, wenn i obe be, werd i berühmt!"],["N","Wenn du obe bisch, bleibsch hanga."],["M","Berühmt ond hanga bliebe! Zwoi Fliega, a Wand!"]],
+   [["M","I üb scho fir Berlin: höher, weiter, Schlager!"],["N","En Berlin gibt's Aufzüg, Manfred."],["M","Aufzüg send bloß Wänd mit Knöpf! Hilfe, i rutsch!"]],
+   [["M","Koi Seil, koi Netz, bloß rote Schuh!"],["N","Ond koin Plan. Aber Charme. Des isch fascht des Gleiche."],["M","Des nehm i als Kompliment! Gell, Schatz!"]]
+  ],
+  DECKE: [
+   [["N","Manfred, mir laufet an dr Decke. Spürsch des Blut em Kopf?"],["M","Des isch koi Blut, des isch Vorfreud!"],["N","Des isch Blut. Ond Vorfreud uff da Bode."]],
+   [["N","Manfred, dei Brille fällt net nonter."],["M","Sie hält zu mir. Wia i zu dir!"],["N","I halt meh. I hang jo mit dir an dr Decke."]],
+   [["N","Neue Regel: Obe isch des neue Unte."],["M","No isch dr Bode unser Himmel! Alaaf!"],["N","No tret bitte net en d' Lamp. Sie stoht jetzt em Weg."]],
+   [["N","Mir wird glei schwindlig. Dir au?"],["M","Mir net! I be Tänzer, i dreh mi sogar em Schlaf!"],["N","Nachts klausch du mr d' Decke. Heut hanget mir dra."]],
+   [["N","Mei Haar hanget jetzt nonter. Oder nuff? I woiß es nemme."],["M","Egal wo, sie sehet aus wie a goldener Wasserfall!"],["N","Du hosch Blut em Kopf. Aber des Kompliment nehm i."]],
+   [["N","Wia kommet mir eigentlich wieder nonter?"],["M","Ganz oifach: Mir warte, bis d' Schwerkraft Feierabend macht!"],["N","D' Schwerkraft isch a Schwäbin, Manfred. Die schafft emmer."]]
+  ],
+  VERSTECK: [
+   [["M","Kuckuck! I guck vom linke Rand. Sehsch mi?"],["N","I seh di, Schatz. Dei Schuh gucket au raus."],["M","Rote Schuh send schlechte Tarnung. Aber guete Mode!"]],
+   [["M","I be unsichtbar! I steh bloß hinter em Rand."],["N","I seh di, Manfred. Vo dr andere Seite."],["M","Was? Du au am Rand? No stehet mir beide em Abseits!"]],
+   [["M","Kuckuck! Rat mol, wer do guckt!"],["N","A Mann mit Brille uff dr Stirn."],["M","Falsch! A Mann mit Brille uff dr Stirn ond viel Stil!"]],
+   [["M","Such mi, Nela! I be ganz weit weg."],["N","I seh di, Schatz. Du winksch."],["M","I wink bloß, dass du mi finde kasch!"]],
+   [["M","I versteck mi so guet, dass i mi selber net find."],["N","Du stohsch vor mir. In rote Schuh."],["M","No isch es a schlechts Versteck. Aber a guets Herz!"]],
+   [["M","Mir spielet Kuckuck! Du guckst vo rechts, i vo links!"],["N","Ond dr Nutzer en dr Mitte?"],["M","Der sieht uns beide. Der hat scho gwonne!"]]
+  ],
+  PUFF: [
+   ["M","Buh! ... Hosch di verschreckt? I au."],
+   ["N","Guten Tag. I be scho die ganze Zeit do. Du hosch bloß net gguckt."],
+   ["M","Tada! %N, Mr. Mac liefert, ohne Aklopfe!"],
+   ["N","Hoppla. Falscher Bildschirm. I bleib trotzdem."],
+   ["M","Überraschung! I be aus em Nix komme. Ond aus Köln."],
+   ["N","I be uff oimol do. Elegant wia emmer. Manfred sagt, des isch gruselig."],
+   ["M","Puff! Zauberei! ... Äh, i wollt eigentlich Konfetti."],
+   ["N","%N, net erschrecke. Des macht dr Manfred scho gnug."],
+   ["M","%N! Überraschung! I wohn jetzt en deim Bildschirm."],
+   ["N","Entschuldigung, i be grad durch d' Wand gloffe. Ohne Absicht."],
+   ["M","Tada! Do be i! Ond mei Brille? Moment. Uff dr Stirn."],
+   ["N","Puff. Do be i. I han a Wolke erwischt, koi Sorg."]
+  ],
+  BALLON: [
+   [["M","I han an Luftballon! I halt mi ... Hilfe, i fliag!"],["N","Manfred. Lass dr Ballon los."],["M","No fall i! I schwebe liaber! Adele, bis en Berlin!"]],
+   [["M","Dr Ballon war a Gschenk. Dr Mann hat gsagt: Dr zieht net."],["N","Er zieht, Manfred. Grad Richtung Wolke."],["M","Grüß d' Tanzfläch vo mir! I feir vo obe mit!"]],
+   [["M","I be leicht wia a Feder! Nela, i heb ab!"],["N","I seh's. Du wirsch kleiner, Schatz."],["M","Sag em Nutzer, er soll weitertanze! I komm wieder! Irgendwann!"]],
+   [["M","Dr Ballon isch rot! Wia mei Schuh! Des isch a Zeiche!"],["N","S Zeiche heißt: Loslasse."],["M","Bloß wenn i unte be! Bis glei, Schatz, i schwebe bloß a bissle!"]],
+   [["M","Nela, halt mi fescht! Dr Ballon hat Pläne!"],["N","I halt di. Seit 2016. Aber net dr Ballon."],["M","No bis glei! Wenn d' Luft raus isch, be i wieder do!"]]
+  ]
+ },
+  };
+  const sprache = () => ({MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON} = Object.assign({}, FIG_TXT[LANGS[li][0]](), FIG_NEU[LANGS[li][0]]));
 
   const aktiv = []; let redet = true;
   /* Zufallsmix: Mischbeutel statt reinem Zufall. Jeder Auftritt kommt pro Runde gemäß Gewicht vor und nie zweimal direkt hintereinander; die Startrichtung wechselt meistens. */
@@ -2529,7 +2776,7 @@ fromHash(); render();
     g.el.style.transform = T(g.s); a.cancel();
   }
   async function gehe(g, x, v, y){
-    const s0 = g.s, e = {x, y: y === undefined ? s0.y : y, r: 0, z: s0.z, f: x > s0.x + 1 ? 1 : x < s0.x - 1 ? -1 : s0.f};
+    const s0 = g.s, kop = s0.r === 180, e = {x, y: y === undefined ? s0.y : y, r: s0.r || 0, z: s0.z, f: (x > s0.x + 1 ? 1 : x < s0.x - 1 ? -1 : (kop ? -s0.f : s0.f)) * (kop ? -1 : 1)};
     setze(g, {f: e.f});
     const ms = Math.max(250, Math.hypot(e.x - s0.x, e.y - s0.y) / (v || rnd(.13, .3)));
     await anim(g, [{transform: T(g.s)}, {transform: T(e)}], ms, e);
@@ -2578,7 +2825,7 @@ fromHash(); render();
     const vn = (typeof fname === "function" ? fname() : ""), nn = vn.slice(0, 12) + (vn.length > 12 ? "…" : "");
     txt = txt.replace(/%N/g, nn || ERSATZ[LANGS[li][0]]);
     const b = document.createElement("div"); b.className = "runbub " + (g.w === "M" ? "bm" : "bn"); b.textContent = txt; b.setAttribute("aria-hidden", "true"); document.body.appendChild(b);
-    const d = dim(), cx = g.s.x, cy = g.s.y - 46 * (g.s.z || 1), w = b.offsetWidth, h = b.offsetHeight;
+    const d = dim(), cx = g.s.x, cy = g.s.y + (g.s.r === 180 ? 46 : -46) * (g.s.z || 1), w = b.offsetWidth, h = b.offsetHeight;
     const bl = Math.max(4, Math.min(d.W - w - 4, cx - w / 2)), bt = Math.max(4, Math.min(d.H - h - 4, cy - h / 2));
     b.style.left = bl + "px"; b.style.top = bt + "px"; zipfel(b, g, bl, bt, w, h);
     setTimeout(() => b.remove(), ms || 1600);
@@ -2616,7 +2863,7 @@ fromHash(); render();
     }
   }
   async function kussEin(d){
-    const y = bodenY(d), cx = rnd(.4, .6) * d.W;
+    const y = Math.round(d.hb + (d.H - d.hb) * .5), cx = rnd(.42, .58) * d.W;   /* Mitte des Bildschirms */
     const gs = {M: neu("M", {x: d.W + 40, y, f: -1}), N: neu("N", {x: -40, y, f: 1})};
     await Promise.all([gehe(gs.M, cx + 17, .2), gehe(gs.N, cx - 17, .2)]);
     setze(gs.M, {f: -1}); setze(gs.N, {f: 1}); await pause(300);
@@ -2738,8 +2985,79 @@ fromHash(); render();
   }
   const manfred = d => solo(d, "M"), nela = d => solo(d, "N");
   /* Wer ist dran? Abwechselnd mit Zufall, damit nie dreimal dieselbe Figur kommt */
-  const wer = () => R() < (letzteSolo === "M" ? .65 : letzteSolo === "N" ? .35 : .5) ? "N" : "M";  const MUSTER = {quer: [quer, 3], gucken: [gucken, 3], manfred: [manfred, 5], nela: [nela, 5], tipp: [tipp, 3], dialog: [dialog, 3], werbung: [werbung, 2], discofox: [d => tanz(d, 0), 2], walzer: [d => tanz(d, 1), 2], latino: [d => tanz(d, 2), 2], stolpern: [stolpern, 1], hallo: [hallo, 1]};
-  const SPEZIAL = {name: namensfrage, gruss: begruessung, lob: lob};
+  const wer = () => R() < (letzteSolo === "M" ? .65 : letzteSolo === "N" ? .35 : .5) ? "N" : "M";  /* Überraschungen: die Figuren erscheinen nicht nur unten, sondern auch mitten im Bild, kopfüber an der Decke, an der Wand, mit Luftballon oder plötzlich aus dem Nichts (Puff) */
+  function ebene(d, name){
+    if(name === "decke") return {y: d.hb + 30, r: 180};
+    if(name === "mitte") return {y: rnd(d.hb + 90, Math.max(d.hb + 110, d.H - 130)), r: 0};
+    return {y: bodenY(d), r: 0};
+  }
+  const blickDir = (dir, r) => r === 180 ? -dir : dir;
+  function funken(x, y){
+    for(let i = 0; i < 6; i++){ const e = document.createElement("div"); e.className = "runnote"; e.setAttribute("aria-hidden", "true"); e.textContent = "✨"; e.style.left = (x + rnd(-24, 24)) + "px"; e.style.top = (y + rnd(-34, 8)) + "px"; e.style.animationDelay = (i * 60) + "ms"; document.body.appendChild(e); setTimeout(() => e.remove(), 2000); }
+  }
+  /* Jagd: Manfred ist liebevoll frech und haut ab, Nela rennt hinterher (auf dem Boden, mitten im Bild oder an der Decke). Bei "frech" steht Nela schon da und Manfred schleicht von der anderen Seite heran. */
+  async function jagd(d, frech){
+    const dir = rd(), eb = ebene(d, pick(["boden", "mitte", "mitte", "decke"])), z = pick(JAGD), cx = rnd(.3, .6) * d.W, bf = x => blickDir(x, eb.r);
+    const gn = neu("N", {x: rein(dir, d) - (frech ? 0 : dir * 52), y: eb.y, r: eb.r, f: bf(dir)}), gm = neu("M", {x: frech ? rein(-dir, d) : rein(dir, d), y: eb.y, r: eb.r, f: bf(frech ? -dir : dir)}), gs = {M: gm, N: gn};
+    if(frech){ await Promise.all([gehe(gn, cx - dir * 30, .22), pause(300).then(() => gehe(gm, cx + dir * 30, .12))]); }
+    else { await Promise.all([gehe(gm, cx + dir * 30, .22), gehe(gn, cx - dir * 30, .22)]); }
+    setze(gm, {f: bf(-dir)}); setze(gn, {f: bf(dir)}); await pause(250);
+    await sprich(gs, [z[0], z[1]]);
+    const wegDir = dir, ziel = wegDir > 0 ? d.W + 60 : -60, mitte = (cx + ziel) / 2;
+    setze(gm, {f: bf(wegDir)}); setze(gn, {f: bf(wegDir)});
+    sag(gm, z[2][1], dauer(z[2][1]) + 200, true);
+    const flucht = (async () => { await gehe(gm, mitte, .5); await sprung(gm, 26); await gehe(gm, ziel, .55); })(); flucht.catch(() => {});
+    await pause(1300); sag(gn, z[3][1], dauer(z[3][1]) + 200, true);
+    const jagen = gehe(gn, ziel, .6); jagen.catch(() => {});
+    await Promise.all([flucht, jagen]);
+  }
+  /* Kletter: Manfred klettert die Bildschirmwand hoch, Nela steht unten und kommentiert */
+  async function kletter(d){
+    const links = R() < .5, r = links ? 90 : -90, wx = links ? 20 : d.W - 20, z = pick(KLETTER);
+    const gn = neu("N", {x: links ? -40 : d.W + 40, y: bodenY(d), f: links ? 1 : -1}), gm = neu("M", {x: wx, y: d.H + 50, r, f: 1}), gs = {M: gm, N: gn};
+    const hoch = (y, ms) => { const s = gm.s, e = Object.assign({}, s, {y}); return anim(gm, [{transform: T(s)}, {transform: T(e)}], ms, e); };
+    await gehe(gn, links ? 96 : d.W - 96, .25); setze(gn, {f: links ? -1 : 1});
+    await hoch(d.H * .5, 2600); await pause(200);
+    await sprich(gs, [z[0], z[1]], false);
+    const oben = hoch(-70, 2800); oben.catch(() => {}); sag(gm, z[2][1], dauer(z[2][1]) + 200, true); await pause(1400); sprung(gn, 14).catch(() => {}); await oben;
+    await pause(300); setze(gn, {f: links ? 1 : -1}); await gehe(gn, links ? -50 : d.W + 50, .22);
+  }
+  /* Decke: beide gehen kopfüber an der Decke */
+  async function decke(d){
+    const dir = rd(), eb = ebene(d, "decke"), z = pick(DECKE), cx = rnd(.3, .65) * d.W, bf = x => blickDir(x, 180);
+    const gm = neu("M", {x: rein(dir, d), y: eb.y, r: 180, f: bf(dir)}), gn = neu("N", {x: rein(dir, d) - dir * 52, y: eb.y, r: 180, f: bf(dir)}), gs = {M: gm, N: gn};
+    await Promise.all([gehe(gm, cx + dir * 30, .2), gehe(gn, cx - dir * 30, .2)]); setze(gm, {f: bf(-dir)}); setze(gn, {f: bf(dir)}); await pause(250);
+    await sprich(gs, z); setze(gm, {f: bf(dir)}); setze(gn, {f: bf(dir)});
+    await Promise.all([gehe(gm, raus(dir, d), .24), gehe(gn, raus(dir, d), .24)]);
+  }
+  /* Verstecken: Manfred und Nela gucken von gegenüberliegenden Rändern mitten im Bild und suchen sich */
+  async function versteck(d){
+    const z = pick(VERSTECK), y = rnd(d.hb + 90, d.H - 120), links = R() < .5;
+    const gm = neu("M", {x: links ? -30 : d.W + 30, y, f: links ? 1 : -1}), gn = neu("N", {x: links ? d.W + 30 : -30, y: Math.max(d.hb + 70, y + rnd(-50, 50)), f: links ? -1 : 1});
+    await Promise.all([gehe(gm, links ? 8 : d.W - 8, .12), gehe(gn, links ? d.W - 8 : 8, .12)]);
+    await sprich({M: gm, N: gn}, z);
+    await Promise.all([gehe(gm, links ? -40 : d.W + 40, .14), gehe(gn, links ? d.W + 40 : -40, .14)]);
+  }
+  /* Puff: plötzlich taucht eine Figur mitten im Bild auf (mit Funken), sagt etwas und verschwindet wieder */
+  async function puff(d){
+    const e = pick(PUFF), x = rnd(.14, .86) * d.W, y = rnd(d.hb + 90, d.H - 90), g = neu(e[0], {x, y, f: R() < .5 ? 1 : -1, z: .02});
+    funken(x, y); const s1 = Object.assign({}, g.s, {z: 1.25}), s2 = Object.assign({}, g.s, {z: 1});
+    await anim(g, [{transform: T(g.s)}, {transform: T(s1)}, {transform: T(s2)}], 450, s2);
+    sag(g, e[1], dauer(e[1]) + 200, true); await sprung(g, 18); await pause(dauer(e[1]));
+    funken(x, y); const s3 = Object.assign({}, g.s, {z: .02}); await anim(g, [{transform: T(g.s)}, {transform: T(s3)}], 380, s3);
+  }
+  /* Ballon: Manfred hält einen Luftballon fest und schwebt davon, Nela winkt */
+  async function ballon(d){
+    const z = pick(BALLON), dir = rd();
+    await szene(d, async gs => {
+      const b = document.createElement("div"); b.className = "runballon"; b.setAttribute("aria-hidden", "true"); b.textContent = "🎈"; gs.M.el.appendChild(b);
+      await sprich(gs, [z[0], z[1]], false);
+      const s = gs.M.s, e = Object.assign({}, s, {y: -110, x: s.x + dir * 50, r: dir * 8}); sag(gs.M, z[2][1], dauer(z[2][1]) + 200, true);
+      const fliegt = anim(gs.M, [{transform: T(s)}, {transform: T(Object.assign({}, s, {y: s.y - 160, x: s.x + dir * 12, r: -dir * 6}))}, {transform: T(e)}], 4200, e); fliegt.catch(() => {});
+      await pause(900); sprung(gs.N, 14).catch(() => {}); await fliegt;
+    }, undefined, false);
+  }  const MUSTER = {jagd: [jagd, 3], frech: [d => jagd(d, true), 3], kletter: [kletter, 2], decke: [decke, 2], versteck: [versteck, 2], puff: [puff, 4], ballon: [ballon, 2], quer: [quer, 3], gucken: [gucken, 3], manfred: [manfred, 5], nela: [nela, 5], tipp: [tipp, 3], dialog: [dialog, 3], werbung: [werbung, 2], discofox: [d => tanz(d, 0), 2], walzer: [d => tanz(d, 1), 2], latino: [d => tanz(d, 2), 2], stolpern: [stolpern, 1], hallo: [hallo, 1]};
+  const SPEZIAL = {name: namensfrage, gruss: begruessung, lob: lob, kuss: d => szene(d, async gs => { await sprich(gs, pick(TIPPS).map((z, i) => [i ? "N" : "M", z[1]])); }, undefined, true)};
   function waehle(name){
     if(name && SPEZIAL[name]) return SPEZIAL[name];
     if(name && MUSTER[name]) return MUSTER[name][0];
@@ -2771,7 +3089,7 @@ fromHash(); render();
       if(zurueck){ zurueck = false; await wait(800); n = "hallo"; }
       if(lobOffen){ lobOffen = false; n = "lob"; await wait(700); }
       else if(sprachNeu){ sprachNeu = false; n = "hallo"; await wait(500); }
-      else if(!n && brauchtName() && (erster || R() < .7)) n = "name"; else if(!n && erster && hatName() && grussFaellig()) n = "gruss"; else if(!n && erster && !hatName() && R() < .5) n = "hallo";
+      else if(!n && brauchtName() && (erster || R() < .7)) n = "name"; else if(!n && erster && hatName() && grussFaellig()) n = "gruss"; else if(!n && erster) n = hatName() && !grussFaellig() ? "kuss" : "hallo";   /* der Start ist immer der Kuss in der Mitte des Bildschirms */
       await auftritt(n); erster = false; await warte(test !== undefined ? 1500 : (brauchtName() ? rnd(15000, 30000) : (R() < .15 ? rnd(4000, 9000) : rnd(25000, 80000))));
     }
   })();
