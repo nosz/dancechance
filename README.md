@@ -2,7 +2,7 @@
 
 # Tanzen lernen mit Nela und Manfred (Dance-Chance-Quiz)
 
-**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.0.0, Stand 19.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
+**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.1.0, Stand 19.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
 
 > **Veröffentlichung:** GitHub-Repository `dancechance` (Benutzer `nosz`), Adresse `https://nosz.github.io/dancechance/`. Alle Dateien der Liste unten ins Hauptverzeichnis des Repositories legen (ohne Unterordner, nur `tests` bleibt lokal), GitHub Pages auf den Hauptzweig stellen. Bei anderer Adresse in `index.html` (canonical, og:url, og:image, twitter:image, `SHARE_URL`) und in dieser README anpassen.
 
@@ -54,4 +54,5 @@ Alle Fakten in Lektionen, Fragen und Sprüchen stammen von diesen Seiten. Die Wi
 Die Testsuite (`tests/index.html`, über einen lokalen Webserver öffnen) stammt aus dem HSV-Projekt (gemeinsame Quiz- und Teilen-Tests, `config.js` angepasst) plus eigene Tests für das Figuren-Duo (`figur.test.js`). Stand und Ergebnis siehe Changelog.
 
 ## Changelog
+- 1.1.0 (19.10.2026): **Vier Sprachen** (Schwäbisch neu im Menü oben), Heldin heißt überall **Nela**, **Start immer der Kuss** (Manfred von rechts, Nela von links, in der Mitte des Bildschirms, danach fliegen Herzen und Küsse nach oben), **Überraschungen:** die Figuren erscheinen auch einzeln, mitten im Bild, kopfüber an der Decke, an der Wand, mit Luftballon, plötzlich mit Funken oder beim Verstecken; **Verfolgungsjagden** (Manfred ist frech und haut ab, Nela rennt hinterher), tanzen zusammen mit Noten, neue lustige Dialoge. **Slider** (Party, Shop, Tanz normal anders) mit weichem Überblenden und Pause, **Empfehlungen** mit Links, **Social Media**, **Impressum/Datenschutz/AGB** dezent im Fuß, neue Tanzstunde **Häufige Fragen & Shop**, alle Links zu anderen Seiten öffnen in einem eigenen Tab, Hinweis „inoffiziell“ entfernt (Erlaubnis des Eigentümers).
 - 1.0.0 (19.10.2026): Neues Projekt auf Basis des HSV-Fanquiz (Version 1.3.0): acht Tanzstunden mit Quellen von dance-chance.de, zwei Pixel-Figuren Manfred und Nela (Kölsch und Schwäbisch als Charakterzug), Kölsch und Schwäbisch statt Plattdeutsch, Farben und Herz-Logo von Dance Chance, Schlagerparty-Karte, Teilen-Knopf überall, Urkunden mit Quiz-Infos in Menüsprache.
