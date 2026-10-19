@@ -333,11 +333,13 @@ h2.secrow .cnt{font-size:.9rem;color:var(--mute);font-weight:700}
 .runbub.zo::before{left:var(--zp);top:0;border-bottom:0;border-right:0;border-radius:4px 0 0 0}
 .runbub.zl::before{left:0;top:var(--zp);border-top:0;border-right:0;border-radius:0 0 0 4px}
 .runbub.zr::before{left:100%;top:var(--zp);border-bottom:0;border-left:0;border-radius:0 4px 0 0}
+.runherz{position:fixed;z-index:42;pointer-events:none;font-size:20px;line-height:1;opacity:0;animation:herzup 2s ease-out forwards}
+@keyframes herzup{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx,0px),-170px) scale(1.2)}}
 .runnote{position:fixed;z-index:39;pointer-events:none;font-size:22px;line-height:1;font-weight:800;color:#e5167a;text-shadow:0 1px 0 #fff;animation:noteup 1.7s ease-out forwards}
 @keyframes noteup{from{transform:translateY(0) rotate(-8deg);opacity:1}to{transform:translateY(-70px) rotate(10deg);opacity:0}}
 @keyframes nudge{0%,100%{box-shadow:0 0 0 0 rgba(229,22,122,0)}50%{box-shadow:0 0 0 9px rgba(229,22,122,.4)}}
 .nameq.nudge,.namebtn.nudge{animation:nudge .9s ease-in-out 4}
-@media print{.runner,.runbub,.runnote,.install-cta{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.runner,.runbub,.runnote,.runherz,.install-cta{display:none}}@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media print{.top,.sticky,.lang{display:none}}
 .brand .dot img{width:26px;height:26px;display:block}
 .lico{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;background:#f6f1ec;color:#f39200;flex:none;font-size:1.2rem;line-height:1}.lico svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -376,7 +378,7 @@ h2.secrow .cnt{font-size:.9rem;color:var(--mute);font-weight:700}
 <script>
 "use strict";
 const VERSION = "1.0.0", STAND = "19.10.2026";
-const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"]];
+const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"],["swg","SCHWÄB","Schwäbisch"]];
 const KEY = "dancechance_quiz_v1";
 const SHARE_URL = "https://nosz.github.io/dancechance/";
 let li = 0, prog = {}, nm = "", ach = {}, view = {v:"home"};
@@ -385,182 +387,182 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify({prog, name:nm, a
 
 /* ---------- Oberflächentexte [DE, EN, KSH] ---------- */
 const S = {
- title:["Tanzen lernen mit Nele und Manfred","Learn to dance with Nele and Manfred","Danze lihre mit de Nele un dem Manfred"],
- sub:["Das Dance-Chance-Quiz","The Dance Chance quiz","Dat Dance-Chance-Quiz"],
- hello:["Hallo! Wie gut kennst du Dance Chance?","Hello! How well do you know Dance Chance?","Hallo! Wie jot kenns do Dance Chance?"],
- intro:["In 20 Minuten vom Mauerblümchen zum Tanzflächen-Star. Mit Manfred und Nele an deiner Seite.","In 20 minutes from wallflower to dance-floor star. With Manfred and Nele at your side.","En 20 Minutte vum Mauerblömche zom Danzfläche-Star. Met dem Manfred un de Nele an dinger Sick."],
- newB:["Ich bin neu auf der Tanzfläche","I'm new on the dance floor","Ich ben neu op de Danzfläch"],
- newS:["Deine erste Urkunde in 60 Sekunden","Your first certificate in 60 seconds","Ding eezte Urkund en 60 Sekunde"],
- oldB:["Ich tanze schon ewig","I've been dancing forever","Ich danz ald ewig"],
- oldS:["Teste dich gleich in der Bossrunde","Take on the boss round right away","Prob dich glich en de Bossrund us"],
- achFirst:["Erfolg freigeschaltet: Erster Treffer! Das fühlt sich an wie ein perfekter Wiegeschritt.","Achievement unlocked: first hit! That feels like a perfect rock step.","Erfolg freijeschalt: Eezte Treffer! Dat föhlt sich aan wie ene perfekte Wiegeschredd."],
- certNow:["Deine Urkunde ist fertig. Name eintragen, speichern, den Freunden zeigen!","Your certificate is ready. Add your name, save it, show it to your friends!","Ding Urkund es fäädich. Name endrage, speichere, dä Fründe zeije!"],
- nSec:["Mehr von Dance Chance","More from Dance Chance","Mih vun Dance Chance"],
- nSite:["Die Online-Tanzschule","The online dance school","De Online-Danzschull"],
- nHist:["Mr. Macs Schlagerparty Berlin","Mr. Mac's Schlager Party Berlin","Mr. Macs Schlagerparty en Berlin"],
- nCorp:["Gratis-Videos zum Reinschnuppern","Free videos to try","Jratis-Videos zom Erinschnuppere"],
- nExt:["öffnet im gleichen Tab","opens in the same tab","määt em selve Tab op"],
- nameQ:["Wie dürfen Manfred und Nele dich nennen?","What may Manfred and Nele call you?","Wie sulle dä Manfred un de Nele dich nenne?"],
- nameSub:["Für Begrüßung, Quiz und Urkunde. Dein Name bleibt auf diesem Gerät.","For greetings, quiz and certificate. Your name stays on this device.","För et Begröße, dat Quiz un de Urkund. Ding Name bliev op dingem Jerät."],
- nameP2:["Dein Name oder Tanz-Name","Your name or dance name","Ding Name odder Danz-Name"],
- nameOk:["Das bin ich","That's me","Dat ben ich"],
- nameSkip:["Lieber anonym bleiben","Stay anonymous","Leever anonym blieve"],
- nameChange:["Name ändern","Change name","Name ändere"],
- nameAdd:["Name eintragen","Add your name","Name endrage"],
- shT:["App weitergeben","Share this app","App wiggerjevve"],
- shS:["Schick den Link an Freunde, Familie oder dein Tanzteam.","Send the link to friends, family or your dance team.","Schick dä Link aan Fründe, de Famillich odder ding Danzteam."],
- shX:["Schließen","Close","Zomaache"],
- shWa:["WhatsApp","WhatsApp","WhatsApp"],
- shMail:["E-Mail","Email","E-Mail"],
- shCopy:["Link kopieren","Copy link","Link kopiere"],
- shCopied:["Link kopiert","Link copied","Link kopiert"],
- shFail:["Kopieren nicht möglich. Link bitte markieren und kopieren.","Could not copy. Please select and copy the link.","Kopiere jeiht nit. Markeer dä Link bitte un kopeer en."],
- shMsg:["Probier mal das Dance-Chance-Quiz: ein kostenloses Quiz rund um die Online-Tanzschule mit Manfred und Nele. Läuft im Browser, ohne Anmeldung.","Try the Dance Chance Quiz: a free quiz about the online dance school with Manfred and Nele. Runs in your browser, no sign-up.","Prob mol dat Dance-Chance-Quiz: e Jratis-Quiz öm de Online-Danzschull met dem Manfred un de Nele. Dat läuf em Browser, ohne Aanmeldung."],
- shSubj:["Dance-Chance-Quiz: kostenloses Quiz","Dance Chance Quiz: free quiz","Dance-Chance-Quiz: Jratis-Quiz"],
- shCert:["Urkunde den Freunden zeigen (Angeben erlaubt)","Show your certificate to friends (bragging allowed)","Urkund dä Fründe zeije (Aanjevve erlaub)"],
- shShort:["Teilen","Share","Deile"],
- shCertSubj:["Meine Dance-Chance-Urkunde: Angeben erlaubt","My Dance Chance certificate: bragging allowed","Ming Dance-Chance-Urkund: Aanjevve erlaub"],
- shCertNoImg:["Tipp: Dein Gerät teilt hier nur den Text mit Link. Speichere die Urkunde als Bild und hänge sie an.","Tip: your device only shares the text with the link here. Save the certificate as an image and attach it.","Tipp: Ding Jerät deilt hee nur dä Text met Link. Speicher de Urkund als Bild un hang se aan."],
- helloN:["Hallo {n}! Wie gut kennst du Dance Chance?","Hello {n}! How well do you know Dance Chance?","Hallo {n}! Wie jot kenns do Dance Chance?"],
- greetN:["Schön, dich auf der Tanzfläche zu sehen, {n}. Den ersten Tanz gibt es nach dem Quiz.","Great to see you on the dance floor, {n}. The first dance comes after the quiz.","Schön, dich op de Danzfläch ze sinn, {n}. Dä eezte Danz jitt et noh dem Quiz."],
- qFirst:["Musik an, {n}!","Music on, {n}!","Musik aan, {n}!"],
- qLast:["Letzte Frage, {n}: Das ist der große Schlussakkord.","Last question, {n}: this is the big final chord.","Letzte Frog, {n}: Dat es dä jroße Schlussakkord."],
- passN:["Tanzstunde bestanden, {n}!","Dance lesson passed, {n}!","Danzstund bestande, {n}!"],
- tryN:["Fast, {n}! Noch eine Runde Wiegeschritt?","Almost, {n}! Another round of rock step?","Knapp, {n}! Noch en Rund Wiegeschredd?"],
- gateT:["Kurze Tanzpause vor dem Quiz!","Quick dance break before the quiz!","Kleine Danzpaus vör dem Quiz!"],
- gateS:["Wie heißt du eigentlich? Dann wird deine Urkunde gleich viel persönlicher. Der Name bleibt auf diesem Gerät.","What's your name? It makes your certificate much more personal. Your name stays on this device.","Wie heiß do eigentlich? Dann weed ding Urkund glich vell persönlicher. Dä Name bliev op dingem Jerät."],
- gateGo:["Los geht's","Let's go","Loss jonn"],
- gateSkip:["Weiter ohne Namen","Continue without a name","Wigger ohne Name"],
- partyEye:["So läuft der Abend in Berlin","How the evening goes in Berlin","So löpp dä Ovend en Berlin"],
- partyHa:["Von 20 Uhr bis ","From 8 pm until ","Vun 20 Uhr bes "],
- partyHb:["tief in die Nacht","deep into the night","deef en de Naach"],
- partyPlace:["Spindler & Klatt, Berlin-Kreuzberg · Freitag, 23. April 2027","Spindler & Klatt, Berlin-Kreuzberg · Friday, 23 April 2027","Spindler & Klatt, Berlin-Kreuzberg · Fridaach, 23. April 2027"],
- partyBtn:["Infos & Tickets für den 23.04.","Info & tickets for 23 April","Infos & Tickets för dä 23.04."],
- st1:["Ankommen & einstimmen","Arrive & get in the mood","Aankumme & enstemme"],
- sd1:["Ankommen, Getränk holen, die Location entdecken. DJ Manfred spielt die ersten Klassiker.","Arrive, grab a drink, explore the venue. DJ Manfred plays the first classics.","Aankumme, jet ze drinke holle, de Location entdecke. DJ Manfred spillt de eezte Klassiker."],
- st2:["Schlagerparty mit DJ Manfred","Schlager party with DJ Manfred","Schlagerparty met DJ Manfred"],
- sd2:["Vier Stunden Hits zum Tanzen und Mitsingen, mit Live-Moderation.","Four hours of hits to dance and sing along to, with live hosting.","Veer Stunde Hits zom Danze un Metsinge, met Live-Moderation."],
- st3:["Ausklang mit Energie","Winding down with energy","Ussklang met Energie"],
- sd3:["Die letzten Hymnen und ein Finale.","The last anthems and a finale.","De letzte Hymne un e Finale."],
- by:["Das Dance-Chance-Quiz","The Dance Chance quiz","Dat Dance-Chance-Quiz"],
- introH:["In 20 Minuten vom Mauerblümchen zum Tanzflächen-Star. Mit Manfred und Nele an deiner Seite.","In 20 minutes from wallflower to dance-floor star. With Manfred and Nele at your side.","En 20 Minutte vum Mauerblömche zom Danzfläche-Star. Met dem Manfred un de Nele an dinger Sick."],
- instT:["Als App installieren","Install as an app","Als App installiere"],
- instS:["Startet wie eine App und läuft auch ohne Internet.","Opens like an app and works without internet.","Fängk aan wie en App un läuf och ohne Internet."],
- instB:["Installieren","Install","Installiere"],
- instIos:["Auf dem iPhone: Teilen-Symbol antippen, dann „Zum Home-Bildschirm“.","On iPhone: tap the Share icon, then “Add to Home Screen”.","Op däm iPhone: Deile-Symbol aantippe, dann „Zum Home-Bildschirm“."],
- instHow:["So geht’s","How to","So jeiht et"],
- instCta:["Mir gefällt die App, ich möchte sie installieren","I like the app, I want to install it","Mir jefällt de App, ich well se installiere"],
- instCtaS:["Ein Tipp, und sie liegt auf deinem Startbildschirm. Gratis, auch ohne Internet.","One tap and it sits on your home screen. Free, and it works offline too.","Ene Tipp, un se litt op dingem Startbildschirm. Jratis, och ohne Internet."],
- instIosT:["App auf dem iPhone installieren","Install the app on iPhone","App op däm iPhone installiere"],
- instI1:["Tippe in Safari auf das Teilen-Symbol (Quadrat mit Pfeil nach oben, in der unteren oder oberen Leiste).","In Safari, tap the Share icon (square with an arrow pointing up, in the bottom or top bar).","Tipp en Safari op dat Deile-Symbol (Quadrat met Pfeil noh bovve, en de ungere odder bovvere Leis)."],
- instI2:["Scrolle im Menü und wähle „Zum Home-Bildschirm“.","Scroll the menu and choose “Add to Home Screen”.","Scroll em Menü un wähl „Zum Home-Bildschirm“."],
- instI3:["Tippe oben rechts auf „Hinzufügen“. Danach startet das Dance-Chance-Quiz wie eine App.","Tap “Add” at the top right. The Dance Chance Quiz then opens like an app.","Tipp bovve rähts op „Hinzufügen“. Dernoh fängk dat Dance-Chance-Quiz aan wie en App."],
- instINote:["Hinweis: Gemeint ist das Teilen-Symbol von Safari, nicht ein Symbol in der App.","Note: this is Safari’s Share icon, not an icon inside the app.","Hinweis: Jemeint es dat Deile-Symbol vun Safari, nit e Symbol en de App."],
- instMenuT:["App installieren","Install the app","App installiere"],
- instMenu:["Öffne das Browser-Menü (⋮) und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“. Am Computer findest du das Installieren-Symbol auch in der Adressleiste.","Open the browser menu (⋮) and choose “Install app” or “Add to Home screen”. On a computer you also find the install icon in the address bar.","Maach dat Browser-Menü (⋮) op un wähl „App installieren“ odder „Zum Startbildschirm hinzufügen“. Am Computer fings do dat Installiere-Symbol och en de Adressleis."],
- instCancel:["Installation abgebrochen? Kein Problem, du kannst jederzeit neu starten.","Installation cancelled? No problem, you can start again any time.","Installation affjebroche? Keen Problem, do kanns jederzick neu aanfange."],
- updT:["Neue Version verfügbar","New version available","Neue Version doh"],
- updB:["Aktualisieren","Update","Aktualisiere"],
- offT:["Bereit für den Offline-Betrieb ✓","Ready for offline use ✓","Parat för ohne Internet ✓"],
- spruchT:["Tanzflächen-Spruch & Fakt","Dance-floor saying & fact","Danzfläche-Spruch & Fakt"],
- spruchB:["Noch einer!","Another one!","Noch eine!"],
- spruchG:["😄 Tanzflächen-Spruch","😄 Dance-floor saying","😄 Danzfläche-Spruch"],
- spruchF:["🧠 Wusstest du?","🧠 Did you know?","🧠 Häs do dat jewoss?"],
- moreN:["Mehr von Dance Chance entdecken","Discover more from Dance Chance","Mih vun Dance Chance entdecke"],
- contB:["Weiter geht's","Keep going","Wigger jeiht et"],
- pitch:["Jeder fängt klein an: Manfred und Nele haben sich 2010 beim Tanzen kennengelernt.","Everyone starts small: Manfred and Nele met while dancing in 2010.","Jeder fängk klein aan: Dä Manfred un de Nele han sich 2010 beim Danze kennejelehrt."], lessons:["Deine Tanzstunden","Your dance lessons","Ding Danzstunde"],
- min:["Min.","min","Min."],
- done:["getanzt","danced","jedanz"],
- rank:["Dein Rang","Your rank","Dinge Rang"],
- coins:["Schritte","steps","Schredde"],
- starsOf:["Sterne","stars","Stääne"],
- start:["Los geht's","Let's dance","Loss jonn"],
- cont:["Nochmal spielen","Play again","Noch ens spille"],
- back:["Startseite","Home","Startsigg"],
- toHome:["Zur Startseite","Back to start","Zor Startsigg"],
- backL:["Zur Tanzstunde","Back to lesson","Zor Danzstund"],
- intro2:["Kurz & knackig","Short & sweet","Kurz un knackig"],
- pro:["Für Kenner: Tanzflächen-Wissen","For connoisseurs: dance-floor knowledge","För Kenner: Danzfläche-Wesse"],
- fun:["Pausen-Gag","Break joke","Pause-Wetz"],
- src:["Quellen (Stand 19.10.2026)","Sources (as of 19 Oct 2026)","Quelle (Stand 19.10.2026)"],
- quiz:["Quiz starten","Start quiz","Quiz starte"],
- qof:["Frage","Question","Frog"],
- of:["von","of","vun"],
- next:["Weiter","Next","Wigger"],
- finish:["Ergebnis ansehen","See result","Ergebnis aanluure"],
- correct:["Richtig!","Correct!","Jenau!"],
- wrong:["Knapp daneben!","Not quite!","Knapp dernävve!"],
- solution:["Richtig wäre:","The right answer is:","Richtig wör:"],
- res:["Ergebnis","Result","Ergebnis"],
- pass:["Tanzstunde bestanden!","Dance lesson passed!","Danzstund bestande!"],
- tryAgain:["Fast! Noch eine Runde?","Almost! Another round?","Knapp! Noch en Rund?"],
- retry:["Quiz wiederholen","Retry quiz","Quiz widderhole"],
- nextL:["Nächste Tanzstunde","Next dance lesson","Nächste Danzstund"],
- over:["Zur Übersicht","To overview","Zor Övversich"],
- reset:["Fortschritt zurücksetzen","Reset progress","Fortschredd zerökstelle"],
- resetQ:["Fortschritt wirklich löschen?","Really delete your progress?","Fortschredd wirklich lösche?"],
- allDone:["Alle Tanzstunden geschafft – du bist offiziell ein Dance-Chance-Profi (inoffiziell).","All dance lessons done – you are officially a Dance Chance pro (unofficially).","All Danzstunde jeschaff – do bes offiziell e Dance-Chance-Profi (inoffiziell)."],
- disc:["Alle Fakten stammen von dance-chance.de (Stand 19.10.2026) und können sich ändern. Preise, Termine und Angebote bitte immer dort prüfen.","All facts come from dance-chance.de (as of 19 October 2026) and may change. Please always check prices, dates and offers there.","All Fakte stamme vun dance-chance.de (Stand 19.10.2026) un künne sich ändere. Preise, Termine un Aanjebote bitte immer doh prüfe."],
- trans:["Manfred und Nele sind erfundene Pixel-Figuren. Ihre Mundart ist liebevoll gemeint: Kölner und Schwaben dürfen gern korrigieren.","Manfred and Nele are invented pixel characters. Their dialects are meant playfully: people from Cologne and Swabia are welcome to correct them.","Dä Manfred un de Nele sin erfunde Pixel-Figure. Ehr Mundaat is lievevoll jemeint: Kölner un Schwoobe dürfe jään korrigiere."],
- skip:["Zum Inhalt","Skip to content","Zom Inhalt"],
- ver:["Version","Version","Version"],
- themeL:["Farbschema wechseln","Switch colour scheme","Farvschema wähßele"],
- dinoHide:["Manfred und Nele ausblenden","Hide Manfred and Nele","Manfred un Nele usblende"],
- dinoShow:["Manfred und Nele einblenden","Show Manfred and Nele","Manfred un Nele ennblende"],
- dinoGone:["Manfred und Nele bleiben jetzt weg. Du kannst sie oben mit dem Tanz-Symbol wieder einblenden.","Manfred and Nele will stay away now. You can bring them back with the dance icon at the top.","Manfred un Nele blieve jetz fott. Do kanns se bovve met dem Danz-Symbol widder ennblende."],
- dinoBack:["Manfred und Nele sind wieder da!","Manfred and Nele are back!","Manfred un Nele sin widder doh!"],
- certBtn:["Urkunde holen","Get your certificate","Urkund hole"],
- certs:["Deine Urkunden","Your certificates","Ding Urkunde"],
- certBtnPre:["Meine ","My ","Ming "],
- certBtnMain:["Urkunden","certificates","Urkunde"],
- certsHint:["Jede bestandene Tanzstunde gibt eine Urkunde für die Tanzwand. Alle sieben geben die Meister-Urkunde.","Every dance lesson passed earns a certificate for the dance wall. All seven earn the Master certificate.","Jede bestandene Danzstund jitt en Urkund för de Danzwand. All sibbe jevve de Meister-Urkund."],
- master:["Meister-Urkunde","Master certificate","Meister-Urkund"],
- nameL:["Dein Name für die Urkunde","Your name for the certificate","Ding Name för de Urkund"],
- nameP:["Dein Name hier – sei stolz darauf!","Your name here – be proud of it!","Ding Name hee – sing stolz dodrop!"],
- dl:["Als Bild speichern (PNG)","Save as image (PNG)","Als Bild speichere (PNG)"],
- prt:["Drucken","Print","Drucke"],
- certOf:["Urkunde","Certificate","Urkund"],
- stRead:["Lesen","Read","Lese"],
- stQuiz:["Quiz","Quiz","Quiz"],
- stCert:["Urkunde","Certificate","Urkund"],
- stLock:["Erst das Quiz bestehen","Pass the quiz first","Eez et Quiz bestonn"],
- lessonN:["Tanzstunde {a} von {b}","Dance lesson {a} of {b}","Danzstund {a} vun {b}"],
- dTitle:["Geschafft! Deine Urkunde ist fertig.","Cleared! Your certificate is ready.","Jeschaff! Ding Urkund es fäädich."],
- dSub:["Du kannst sie ansehen, speichern oder drucken. Mit „Nochmal spielen“ holst du dir mehr Sterne.","View, save or print it. “Play again” lets you earn more stars.","Do kanns se aanluure, speichere odder drucke. Met „Noch ens spille“ holls do der mih Stääne."],
- certView:["Urkunde ansehen","View certificate","Urkund aanluure"],
- certAll:["Alle Urkunden","All certificates","All Urkunde"],
- certMasterBadge:["Alle 7 Tanzstunden geschafft!","All 7 dance lessons done!","All 7 Danzstunde jeschaff!"]
+ title:["Tanzen lernen mit Nele und Manfred","Learn to dance with Nele and Manfred","Danze lihre mit de Nele un dem Manfred","Tanze lerne mit dr Nele ond am Manfred"],
+ sub:["Das Dance-Chance-Quiz","The Dance Chance quiz","Dat Dance-Chance-Quiz","Des Dance-Chance-Quiz"],
+ hello:["Hallo! Wie gut kennst du Dance Chance?","Hello! How well do you know Dance Chance?","Hallo! Wie jot kenns do Dance Chance?","Hallo! Wie guet kennsch du Dance Chance?"],
+ intro:["In 20 Minuten vom Mauerblümchen zum Tanzflächen-Star. Mit Manfred und Nele an deiner Seite.","In 20 minutes from wallflower to dance-floor star. With Manfred and Nele at your side.","En 20 Minutte vum Mauerblömche zom Danzfläche-Star. Met dem Manfred un de Nele an dinger Sick.","In 20 Minute vom Mauerblümle zum Tanzflächa-Star. Mit em Manfred ond dr Nele an deiner Seit."],
+ newB:["Ich bin neu auf der Tanzfläche","I'm new on the dance floor","Ich ben neu op de Danzfläch","I bin ganz nei uff dr Tanzfläch"],
+ newS:["Deine erste Urkunde in 60 Sekunden","Your first certificate in 60 seconds","Ding eezte Urkund en 60 Sekunde","Dei erschte Urkunde en 60 Sekunde"],
+ oldB:["Ich tanze schon ewig","I've been dancing forever","Ich danz ald ewig","I tanz scho ewig"],
+ oldS:["Teste dich gleich in der Bossrunde","Take on the boss round right away","Prob dich glich en de Bossrund us","Probier di glei en dr Bossrunde aus"],
+ achFirst:["Erfolg freigeschaltet: Erster Treffer! Das fühlt sich an wie ein perfekter Wiegeschritt.","Achievement unlocked: first hit! That feels like a perfect rock step.","Erfolg freijeschalt: Eezte Treffer! Dat föhlt sich aan wie ene perfekte Wiegeschredd.","Erfolg freigschaltet: Erschter Treffer! Des fühlt sich a wie en perfekter Wiegeschritt."],
+ certNow:["Deine Urkunde ist fertig. Name eintragen, speichern, den Freunden zeigen!","Your certificate is ready. Add your name, save it, show it to your friends!","Ding Urkund es fäädich. Name endrage, speichere, dä Fründe zeije!","Dei Urkunde isch fertig. Name eitrage, speichere, de Freund zeige!"],
+ nSec:["Mehr von Dance Chance","More from Dance Chance","Mih vun Dance Chance","Meh vo Dance Chance"],
+ nSite:["Die Online-Tanzschule","The online dance school","De Online-Danzschull","Die Online-Tanzschul"],
+ nHist:["Mr. Macs Schlagerparty Berlin","Mr. Mac's Schlager Party Berlin","Mr. Macs Schlagerparty en Berlin","Mr. Macs Schlagerparty en Berlin"],
+ nCorp:["Gratis-Videos zum Reinschnuppern","Free videos to try","Jratis-Videos zom Erinschnuppere","Gratis-Videos zum Neischnuppere"],
+ nExt:["öffnet im gleichen Tab","opens in the same tab","määt em selve Tab op","macht em gleiche Tab uff"],
+ nameQ:["Wie dürfen Manfred und Nele dich nennen?","What may Manfred and Nele call you?","Wie sulle dä Manfred un de Nele dich nenne?","Wia derfet dr Manfred ond d Nele di nenne?"],
+ nameSub:["Für Begrüßung, Quiz und Urkunde. Dein Name bleibt auf diesem Gerät.","For greetings, quiz and certificate. Your name stays on this device.","För et Begröße, dat Quiz un de Urkund. Ding Name bliev op dingem Jerät.","Fürs Begrüße, s Quiz ond d Urkunde. Dei Name bleibt uff dem Gerät."],
+ nameP2:["Dein Name oder Tanz-Name","Your name or dance name","Ding Name odder Danz-Name","Dei Name odr Tanz-Name"],
+ nameOk:["Das bin ich","That's me","Dat ben ich","Des bin i"],
+ nameSkip:["Lieber anonym bleiben","Stay anonymous","Leever anonym blieve","Liaber anonym bleibe"],
+ nameChange:["Name ändern","Change name","Name ändere","Name ändere"],
+ nameAdd:["Name eintragen","Add your name","Name endrage","Name eitrage"],
+ shT:["App weitergeben","Share this app","App wiggerjevve","App weitergebe"],
+ shS:["Schick den Link an Freunde, Familie oder dein Tanzteam.","Send the link to friends, family or your dance team.","Schick dä Link aan Fründe, de Famillich odder ding Danzteam.","Schick de Link a Freund, d Familie odr dei Tanzteam."],
+ shX:["Schließen","Close","Zomaache","Zumache"],
+ shWa:["WhatsApp","WhatsApp","WhatsApp","WhatsApp"],
+ shMail:["E-Mail","Email","E-Mail","E-Mail"],
+ shCopy:["Link kopieren","Copy link","Link kopiere","Link kopiere"],
+ shCopied:["Link kopiert","Link copied","Link kopiert","Link kopiert"],
+ shFail:["Kopieren nicht möglich. Link bitte markieren und kopieren.","Could not copy. Please select and copy the link.","Kopiere jeiht nit. Markeer dä Link bitte un kopeer en.","Kopiere got ned. Markier de Link bitte ond kopier en."],
+ shMsg:["Probier mal das Dance-Chance-Quiz: ein kostenloses Quiz rund um die Online-Tanzschule mit Manfred und Nele. Läuft im Browser, ohne Anmeldung.","Try the Dance Chance Quiz: a free quiz about the online dance school with Manfred and Nele. Runs in your browser, no sign-up.","Prob mol dat Dance-Chance-Quiz: e Jratis-Quiz öm de Online-Danzschull met dem Manfred un de Nele. Dat läuf em Browser, ohne Aanmeldung.","Probier mol des Dance-Chance-Quiz: a Gratis-Quiz om d Online-Tanzschul mit em Manfred ond dr Nele. Des laufet em Browser, ohne Anmeldung."],
+ shSubj:["Dance-Chance-Quiz: kostenloses Quiz","Dance Chance Quiz: free quiz","Dance-Chance-Quiz: Jratis-Quiz","Dance-Chance-Quiz: Gratis-Quiz"],
+ shCert:["Urkunde den Freunden zeigen (Angeben erlaubt)","Show your certificate to friends (bragging allowed)","Urkund dä Fründe zeije (Aanjevve erlaub)","Urkunde de Freund zeige (Aagebe erlaubt)"],
+ shShort:["Teilen","Share","Deile","Teile"],
+ shCertSubj:["Meine Dance-Chance-Urkunde: Angeben erlaubt","My Dance Chance certificate: bragging allowed","Ming Dance-Chance-Urkund: Aanjevve erlaub","Mei Dance-Chance-Urkunde: Aagebe erlaubt"],
+ shCertNoImg:["Tipp: Dein Gerät teilt hier nur den Text mit Link. Speichere die Urkunde als Bild und hänge sie an.","Tip: your device only shares the text with the link here. Save the certificate as an image and attach it.","Tipp: Ding Jerät deilt hee nur dä Text met Link. Speicher de Urkund als Bild un hang se aan.","Tipp: Dei Gerät teilt do bloß de Text mit Link. Speicher d Urkunde als Bild ond häng se a."],
+ helloN:["Hallo {n}! Wie gut kennst du Dance Chance?","Hello {n}! How well do you know Dance Chance?","Hallo {n}! Wie jot kenns do Dance Chance?","Hallo {n}! Wie guet kennsch du Dance Chance?"],
+ greetN:["Schön, dich auf der Tanzfläche zu sehen, {n}. Den ersten Tanz gibt es nach dem Quiz.","Great to see you on the dance floor, {n}. The first dance comes after the quiz.","Schön, dich op de Danzfläch ze sinn, {n}. Dä eezte Danz jitt et noh dem Quiz.","Schee, di uff dr Tanzfläch z'sehe, {n}. Dr erschte Tanz gibt's nach'm Quiz."],
+ qFirst:["Musik an, {n}!","Music on, {n}!","Musik aan, {n}!","Musik a, {n}!"],
+ qLast:["Letzte Frage, {n}: Das ist der große Schlussakkord.","Last question, {n}: this is the big final chord.","Letzte Frog, {n}: Dat es dä jroße Schlussakkord.","Letschte Frag, {n}: Des isch dr groß Schlussakkord."],
+ passN:["Tanzstunde bestanden, {n}!","Dance lesson passed, {n}!","Danzstund bestande, {n}!","Tanzstund bschtande, {n}!"],
+ tryN:["Fast, {n}! Noch eine Runde Wiegeschritt?","Almost, {n}! Another round of rock step?","Knapp, {n}! Noch en Rund Wiegeschredd?","Fascht, {n}! No a Rond Wiegeschritt?"],
+ gateT:["Kurze Tanzpause vor dem Quiz!","Quick dance break before the quiz!","Kleine Danzpaus vör dem Quiz!","Kurze Tanzpause vor em Quiz!"],
+ gateS:["Wie heißt du eigentlich? Dann wird deine Urkunde gleich viel persönlicher. Der Name bleibt auf diesem Gerät.","What's your name? It makes your certificate much more personal. Your name stays on this device.","Wie heiß do eigentlich? Dann weed ding Urkund glich vell persönlicher. Dä Name bliev op dingem Jerät.","Wia heisch du eigentlich? No wird dei Urkunde glei viel persönlicher. Dr Name bleibt uff dem Gerät."],
+ gateGo:["Los geht's","Let's go","Loss jonn","No mol los"],
+ gateSkip:["Weiter ohne Namen","Continue without a name","Wigger ohne Name","Weiter ohne Name"],
+ partyEye:["So läuft der Abend in Berlin","How the evening goes in Berlin","So löpp dä Ovend en Berlin","So laufts am Obed en Berlin"],
+ partyHa:["Von 20 Uhr bis ","From 8 pm until ","Vun 20 Uhr bes ","Ab 20 Uhr bis "],
+ partyHb:["tief in die Nacht","deep into the night","deef en de Naach","tief en d'Nacht nei"],
+ partyPlace:["Spindler & Klatt, Berlin-Kreuzberg · Freitag, 23. April 2027","Spindler & Klatt, Berlin-Kreuzberg · Friday, 23 April 2027","Spindler & Klatt, Berlin-Kreuzberg · Fridaach, 23. April 2027","Spindler & Klatt, Berlin-Kreuzberg · Freitag, 23. April 2027"],
+ partyBtn:["Infos & Tickets für den 23.04.","Info & tickets for 23 April","Infos & Tickets för dä 23.04.","Infos & Tickets fir da 23.04."],
+ st1:["Ankommen & einstimmen","Arrive & get in the mood","Aankumme & enstemme","Akomma & eistimma"],
+ sd1:["Ankommen, Getränk holen, die Location entdecken. DJ Manfred spielt die ersten Klassiker.","Arrive, grab a drink, explore the venue. DJ Manfred plays the first classics.","Aankumme, jet ze drinke holle, de Location entdecke. DJ Manfred spillt de eezte Klassiker.","Akomma, ebbes zom Trenka hola, d'Location agucka. DJ Manfred spielt d'erschte Klassiker."],
+ st2:["Schlagerparty mit DJ Manfred","Schlager party with DJ Manfred","Schlagerparty met DJ Manfred","Schlagerparty mit DJ Manfred"],
+ sd2:["Vier Stunden Hits zum Tanzen und Mitsingen, mit Live-Moderation.","Four hours of hits to dance and sing along to, with live hosting.","Veer Stunde Hits zom Danze un Metsinge, met Live-Moderation.","Vier Stonda Hits zom Tanza ond Mitsenga, mit Live-Moderation."],
+ st3:["Ausklang mit Energie","Winding down with energy","Ussklang met Energie","Ausklang mit Schwong"],
+ sd3:["Die letzten Hymnen und ein Finale.","The last anthems and a finale.","De letzte Hymne un e Finale.","D'letschte Hymna ond a Finale."],
+ by:["Das Dance-Chance-Quiz","The Dance Chance quiz","Dat Dance-Chance-Quiz","Des Dance-Chance-Quiz"],
+ introH:["In 20 Minuten vom Mauerblümchen zum Tanzflächen-Star. Mit Manfred und Nele an deiner Seite.","In 20 minutes from wallflower to dance-floor star. With Manfred and Nele at your side.","En 20 Minutte vum Mauerblömche zom Danzfläche-Star. Met dem Manfred un de Nele an dinger Sick.","In 20 Minute vom Mauerblümle zum Tanzflächa-Star. Mit em Manfred ond dr Nele an deiner Seit."],
+ instT:["Als App installieren","Install as an app","Als App installiere","Als App installiere"],
+ instS:["Startet wie eine App und läuft auch ohne Internet.","Opens like an app and works without internet.","Fängk aan wie en App un läuf och ohne Internet.","Startet wie a App ond laufet au ohne Internet."],
+ instB:["Installieren","Install","Installiere","Installiere"],
+ instIos:["Auf dem iPhone: Teilen-Symbol antippen, dann „Zum Home-Bildschirm“.","On iPhone: tap the Share icon, then “Add to Home Screen”.","Op däm iPhone: Deile-Symbol aantippe, dann „Zum Home-Bildschirm“.","Uff em iPhone: s Teile-Symbol antippe, no „Zum Home-Bildschirm“."],
+ instHow:["So geht’s","How to","So jeiht et","So goht's"],
+ instCta:["Mir gefällt die App, ich möchte sie installieren","I like the app, I want to install it","Mir jefällt de App, ich well se installiere","Mir gfällt d App, i möcht se installiere"],
+ instCtaS:["Ein Tipp, und sie liegt auf deinem Startbildschirm. Gratis, auch ohne Internet.","One tap and it sits on your home screen. Free, and it works offline too.","Ene Tipp, un se litt op dingem Startbildschirm. Jratis, och ohne Internet.","Oi Tipp, ond se liegt uff deim Startbildschirm. Gratis, au ohne Internet."],
+ instIosT:["App auf dem iPhone installieren","Install the app on iPhone","App op däm iPhone installiere","App uff em iPhone installiere"],
+ instI1:["Tippe in Safari auf das Teilen-Symbol (Quadrat mit Pfeil nach oben, in der unteren oder oberen Leiste).","In Safari, tap the Share icon (square with an arrow pointing up, in the bottom or top bar).","Tipp en Safari op dat Deile-Symbol (Quadrat met Pfeil noh bovve, en de ungere odder bovvere Leis).","Tipp en Safari uff s Teile-Symbol (Quadrat mit Pfeil nuff, en dr undere odr obere Leischt)."],
+ instI2:["Scrolle im Menü und wähle „Zum Home-Bildschirm“.","Scroll the menu and choose “Add to Home Screen”.","Scroll em Menü un wähl „Zum Home-Bildschirm“.","Scroll em Menü ond wähl „Zum Home-Bildschirm“."],
+ instI3:["Tippe oben rechts auf „Hinzufügen“. Danach startet das Dance-Chance-Quiz wie eine App.","Tap “Add” at the top right. The Dance Chance Quiz then opens like an app.","Tipp bovve rähts op „Hinzufügen“. Dernoh fängk dat Dance-Chance-Quiz aan wie en App.","Tipp obe rechts uff „Hinzufügen“. Danach startet s Dance-Chance-Quiz wie a App."],
+ instINote:["Hinweis: Gemeint ist das Teilen-Symbol von Safari, nicht ein Symbol in der App.","Note: this is Safari’s Share icon, not an icon inside the app.","Hinweis: Jemeint es dat Deile-Symbol vun Safari, nit e Symbol en de App.","Hinweis: Gmeint isch s Teile-Symbol vo Safari, ned a Symbol en dr App."],
+ instMenuT:["App installieren","Install the app","App installiere","App installiere"],
+ instMenu:["Öffne das Browser-Menü (⋮) und wähle „App installieren“ oder „Zum Startbildschirm hinzufügen“. Am Computer findest du das Installieren-Symbol auch in der Adressleiste.","Open the browser menu (⋮) and choose “Install app” or “Add to Home screen”. On a computer you also find the install icon in the address bar.","Maach dat Browser-Menü (⋮) op un wähl „App installieren“ odder „Zum Startbildschirm hinzufügen“. Am Computer fings do dat Installiere-Symbol och en de Adressleis.","Mach s Browser-Menü (⋮) uff ond wähl „App installieren“ odr „Zum Startbildschirm hinzufügen“. Am Computer findsch des Installiere-Symbol au en dr Adressleischt."],
+ instCancel:["Installation abgebrochen? Kein Problem, du kannst jederzeit neu starten.","Installation cancelled? No problem, you can start again any time.","Installation affjebroche? Keen Problem, do kanns jederzick neu aanfange.","Installation abbroche? Koi Problem, du kasch jederzeit neu astarte."],
+ updT:["Neue Version verfügbar","New version available","Neue Version doh","A neue Version isch do"],
+ updB:["Aktualisieren","Update","Aktualisiere","Aktualisiere"],
+ offT:["Bereit für den Offline-Betrieb ✓","Ready for offline use ✓","Parat för ohne Internet ✓","Parat für ohne Internet ✓"],
+ spruchT:["Tanzflächen-Spruch & Fakt","Dance-floor saying & fact","Danzfläche-Spruch & Fakt","Tanzflächa-Spruch ond Fakt"],
+ spruchB:["Noch einer!","Another one!","Noch eine!","No oiner!"],
+ spruchG:["😄 Tanzflächen-Spruch","😄 Dance-floor saying","😄 Danzfläche-Spruch","😄 Tanzflächa-Spruch"],
+ spruchF:["🧠 Wusstest du?","🧠 Did you know?","🧠 Häs do dat jewoss?","🧠 Hasch des gwusst?"],
+ moreN:["Mehr von Dance Chance entdecken","Discover more from Dance Chance","Mih vun Dance Chance entdecke","Meh vo Dance Chance entdecke"],
+ contB:["Weiter geht's","Keep going","Wigger jeiht et","Weiter goht's"],
+ pitch:["Jeder fängt klein an: Manfred und Nele haben sich 2010 beim Tanzen kennengelernt.","Everyone starts small: Manfred and Nele met while dancing in 2010.","Jeder fängk klein aan: Dä Manfred un de Nele han sich 2010 beim Danze kennejelehrt.","Jeder fängt klei a: dr Manfred ond d Nele hend sich 2010 beim Tanze kennaglernt."], lessons:["Deine Tanzstunden","Your dance lessons","Ding Danzstunde","Dei Tanzstunde"],
+ min:["Min.","min","Min.","Min."],
+ done:["getanzt","danced","jedanz","tanzt"],
+ rank:["Dein Rang","Your rank","Dinge Rang","Dei Rang"],
+ coins:["Schritte","steps","Schredde","Schritt"],
+ starsOf:["Sterne","stars","Stääne","Stern"],
+ start:["Los geht's","Let's dance","Loss jonn","Auf geht's"],
+ cont:["Nochmal spielen","Play again","Noch ens spille","No amol spiele"],
+ back:["Startseite","Home","Startsigg","Startseit"],
+ toHome:["Zur Startseite","Back to start","Zor Startsigg","Zur Startseit"],
+ backL:["Zur Tanzstunde","Back to lesson","Zor Danzstund","Zur Tanzstund"],
+ intro2:["Kurz & knackig","Short & sweet","Kurz un knackig","Kurz ond knackig"],
+ pro:["Für Kenner: Tanzflächen-Wissen","For connoisseurs: dance-floor knowledge","För Kenner: Danzfläche-Wesse","Für Kenner: Tanzflächa-Wisse"],
+ fun:["Pausen-Gag","Break joke","Pause-Wetz","Pause-Spässle"],
+ src:["Quellen (Stand 19.10.2026)","Sources (as of 19 Oct 2026)","Quelle (Stand 19.10.2026)","Quelle (Stand 19.10.2026)"],
+ quiz:["Quiz starten","Start quiz","Quiz starte","Quiz starte"],
+ qof:["Frage","Question","Frog","Frag"],
+ of:["von","of","vun","vo"],
+ next:["Weiter","Next","Wigger","Weiter"],
+ finish:["Ergebnis ansehen","See result","Ergebnis aanluure","Ergebnis agucke"],
+ correct:["Richtig!","Correct!","Jenau!","Stimmt!"],
+ wrong:["Knapp daneben!","Not quite!","Knapp dernävve!","Knapp dernäbe!"],
+ solution:["Richtig wäre:","The right answer is:","Richtig wör:","Richtig wär:"],
+ res:["Ergebnis","Result","Ergebnis","Ergebnis"],
+ pass:["Tanzstunde bestanden!","Dance lesson passed!","Danzstund bestande!","Tanzstund bschtande!"],
+ tryAgain:["Fast! Noch eine Runde?","Almost! Another round?","Knapp! Noch en Rund?","Fascht! No a Rond?"],
+ retry:["Quiz wiederholen","Retry quiz","Quiz widderhole","Quiz wiederhole"],
+ nextL:["Nächste Tanzstunde","Next dance lesson","Nächste Danzstund","Nächschte Tanzstund"],
+ over:["Zur Übersicht","To overview","Zor Övversich","Zom Überblick"],
+ reset:["Fortschritt zurücksetzen","Reset progress","Fortschredd zerökstelle","Fortschritt zrücksetze"],
+ resetQ:["Fortschritt wirklich löschen?","Really delete your progress?","Fortschredd wirklich lösche?","Fortschritt wirklich lösche?"],
+ allDone:["Alle Tanzstunden geschafft – du bist offiziell ein Dance-Chance-Profi (inoffiziell).","All dance lessons done – you are officially a Dance Chance pro (unofficially).","All Danzstunde jeschaff – do bes offiziell e Dance-Chance-Profi (inoffiziell).","Alle Tanzstunde gschafft – du bisch offiziell a Dance-Chance-Profi (inoffiziell)."],
+ disc:["Alle Fakten stammen von dance-chance.de (Stand 19.10.2026) und können sich ändern. Preise, Termine und Angebote bitte immer dort prüfen.","All facts come from dance-chance.de (as of 19 October 2026) and may change. Please always check prices, dates and offers there.","All Fakte stamme vun dance-chance.de (Stand 19.10.2026) un künne sich ändere. Preise, Termine un Aanjebote bitte immer doh prüfe.","Alle Fakte kommet vo dance-chance.de (Stand 19.10.2026) ond könnet sich ändere. Preise, Termine ond Aagebote bitte emmer dort prüfe."],
+ trans:["Manfred und Nele sind erfundene Pixel-Figuren. Ihre Mundart ist liebevoll gemeint: Kölner und Schwaben dürfen gern korrigieren.","Manfred and Nele are invented pixel characters. Their dialects are meant playfully: people from Cologne and Swabia are welcome to correct them.","Dä Manfred un de Nele sin erfunde Pixel-Figure. Ehr Mundaat is lievevoll jemeint: Kölner un Schwoobe dürfe jään korrigiere.","Manfred ond Nele sen erfundene Pixel-Figure. Ihr Mundart isch liebevoll gmeint: Kölner ond Schwoba derfet se gern korrigiere."],
+ skip:["Zum Inhalt","Skip to content","Zom Inhalt","Zom Inhalt"],
+ ver:["Version","Version","Version","Version"],
+ themeL:["Farbschema wechseln","Switch colour scheme","Farvschema wähßele","Farbschema wechsle"],
+ dinoHide:["Manfred und Nele ausblenden","Hide Manfred and Nele","Manfred un Nele usblende","Manfred ond Nele ausblende"],
+ dinoShow:["Manfred und Nele einblenden","Show Manfred and Nele","Manfred un Nele ennblende","Manfred ond Nele eiblende"],
+ dinoGone:["Manfred und Nele bleiben jetzt weg. Du kannst sie oben mit dem Tanz-Symbol wieder einblenden.","Manfred and Nele will stay away now. You can bring them back with the dance icon at the top.","Manfred un Nele blieve jetz fott. Do kanns se bovve met dem Danz-Symbol widder ennblende.","Manfred ond Nele bleibet jetzt weg. Du kasch se obe mit em Tanz-Symbol wieder eiblende."],
+ dinoBack:["Manfred und Nele sind wieder da!","Manfred and Nele are back!","Manfred un Nele sin widder doh!","Manfred ond Nele sen wieder do!"],
+ certBtn:["Urkunde holen","Get your certificate","Urkund hole","Urkunde hole"],
+ certs:["Deine Urkunden","Your certificates","Ding Urkunde","Dei Urkunde"],
+ certBtnPre:["Meine ","My ","Ming ","Mei"],
+ certBtnMain:["Urkunden","certificates","Urkunde","Urkunde"],
+ certsHint:["Jede bestandene Tanzstunde gibt eine Urkunde für die Tanzwand. Alle sieben geben die Meister-Urkunde.","Every dance lesson passed earns a certificate for the dance wall. All seven earn the Master certificate.","Jede bestandene Danzstund jitt en Urkund för de Danzwand. All sibbe jevve de Meister-Urkund.","Jede bschtandene Tanzstund gibt a Urkunde für d Tanzwand. Alle siebe gebet d Meister-Urkunde."],
+ master:["Meister-Urkunde","Master certificate","Meister-Urkund","Meister-Urkunde"],
+ nameL:["Dein Name für die Urkunde","Your name for the certificate","Ding Name för de Urkund","Dei Name für d Urkunde"],
+ nameP:["Dein Name hier – sei stolz darauf!","Your name here – be proud of it!","Ding Name hee – sing stolz dodrop!","Dei Name do – sei stolz druff!"],
+ dl:["Als Bild speichern (PNG)","Save as image (PNG)","Als Bild speichere (PNG)","Als Bild speichere (PNG)"],
+ prt:["Drucken","Print","Drucke","Drucke"],
+ certOf:["Urkunde","Certificate","Urkund","Urkunde"],
+ stRead:["Lesen","Read","Lese","Lese"],
+ stQuiz:["Quiz","Quiz","Quiz","Quiz"],
+ stCert:["Urkunde","Certificate","Urkund","Urkunde"],
+ stLock:["Erst das Quiz bestehen","Pass the quiz first","Eez et Quiz bestonn","Erscht s Quiz bschtande"],
+ lessonN:["Tanzstunde {a} von {b}","Dance lesson {a} of {b}","Danzstund {a} vun {b}","Tanzstund {a} vo {b}"],
+ dTitle:["Geschafft! Deine Urkunde ist fertig.","Cleared! Your certificate is ready.","Jeschaff! Ding Urkund es fäädich.","Gschafft! Dei Urkunde isch fertig."],
+ dSub:["Du kannst sie ansehen, speichern oder drucken. Mit „Nochmal spielen“ holst du dir mehr Sterne.","View, save or print it. “Play again” lets you earn more stars.","Do kanns se aanluure, speichere odder drucke. Met „Noch ens spille“ holls do der mih Stääne.","Du kasch se agucke, speichere odr drucke. Mit „No amol spiele“ holsch dir meh Stern."],
+ certView:["Urkunde ansehen","View certificate","Urkund aanluure","Urkunde agucke"],
+ certAll:["Alle Urkunden","All certificates","All Urkunde","Alle Urkunde"],
+ certMasterBadge:["Alle 7 Tanzstunden geschafft!","All 7 dance lessons done!","All 7 Danzstunde jeschaff!","Alle 7 Tanzstunde gschafft!"]
 };
 const RANKS = [
- [0,["Mauerblümchen","Wallflower","Mauerblömche"]],
- [3,["Wiegeschritt-Profi","Rock-step pro","Wiegeschredd-Profi"]],
- [8,["Tanzflächen-Held","Dance-floor hero","Danzfläche-Held"]],
- [14,["Tanzlehrer-Azubi","Dance-teacher trainee","Danzlehrer-Azubi"]],
- [20,["Tanzflächen-Legende","Dance-floor legend","Danzfläche-Legende"]]
+ [0,["Mauerblümchen","Wallflower","Mauerblömche","Mauerblümle"]],
+ [3,["Wiegeschritt-Profi","Rock-step pro","Wiegeschredd-Profi","Wiegeschritt-Profi"]],
+ [8,["Tanzflächen-Held","Dance-floor hero","Danzfläche-Held","Tanzflächa-Held"]],
+ [14,["Tanzlehrer-Azubi","Dance-teacher trainee","Danzlehrer-Azubi","Tanzlehrer-Azubi"]],
+ [20,["Tanzflächen-Legende","Dance-floor legend","Danzfläche-Legende","Tanzflächa-Legende"]]
 ];
 const OKS = [
- ["Richtig! Manfred dreht vor Freude eine Pirouette.","Right! Manfred spins a pirouette for joy.","Richtig! Dä Manfred dräht vör Freud en Pirouette."],
- ["Genau! Das war ein Wiegeschritt in die richtige Richtung.","Exactly! That was a rock step in the right direction.","Jenau! Dat wor e Wiegeschredd en de richtije Richtung."],
- ["Perfekt! Nele lächelt, und das heißt was.","Perfect! Nele smiles, and that means something.","Perfekt! De Nele laach, un dat will jet heiße."],
- ["Sauber geführt! Das sitzt wie rote Schuhe.","Neatly led! That fits like red shoes.","Sauber jeföhrt! Dat sitz wie rude Schohn."]
+ ["Richtig! Manfred dreht vor Freude eine Pirouette.","Right! Manfred spins a pirouette for joy.","Richtig! Dä Manfred dräht vör Freud en Pirouette.","Stimmt! Dr Manfred dreht vor Freud a Pirouette."],
+ ["Genau! Das war ein Wiegeschritt in die richtige Richtung.","Exactly! That was a rock step in the right direction.","Jenau! Dat wor e Wiegeschredd en de richtije Richtung.","Genau! Des war a Wiegeschritt en d richtig Richtung."],
+ ["Perfekt! Nele lächelt, und das heißt was.","Perfect! Nele smiles, and that means something.","Perfekt! De Nele laach, un dat will jet heiße.","Perfekt! D Nele lächelt, ond des hoißt ebbes."],
+ ["Sauber geführt! Das sitzt wie rote Schuhe.","Neatly led! That fits like red shoes.","Sauber jeföhrt! Dat sitz wie rude Schohn.","Sauber gführt! Des sitzt wie rote Schuh."]
 ];
 const BADS = [
- ["Autsch! Das war ein Tritt auf die Zehen.","Ouch! That was a step on the toes.","Autsch! Dat wor ene Tredd op de Zeh."],
- ["Nicht schlimm: Auch Manfred stolpert über seine eigenen Schuhe.","No worries: even Manfred trips over his own shoes.","Nit schlemm: Och dä Manfred stolpert övver sing eije Schohn."],
- ["Knapp daneben. Nele sagt: tief durchatmen und weiter.","A near miss. Nele says: breathe deeply and carry on.","Knapp dernävve. De Nele säät: deef durchotme un wigger."],
- ["Das war die Tanzflächen-Falle. Nächstes Mal klappt's.","That was the dance-floor trap. You'll get it next time.","Dat wor de Danzfläche-Fall. Nächste Mol klapp et."]
+ ["Autsch! Das war ein Tritt auf die Zehen.","Ouch! That was a step on the toes.","Autsch! Dat wor ene Tredd op de Zeh.","Autsch! Des war a Tritt uff d Zeh."],
+ ["Nicht schlimm: Auch Manfred stolpert über seine eigenen Schuhe.","No worries: even Manfred trips over his own shoes.","Nit schlemm: Och dä Manfred stolpert övver sing eije Schohn.","Ned schlimm: Au dr Manfred stolpert über seine eigene Schuh."],
+ ["Knapp daneben. Nele sagt: tief durchatmen und weiter.","A near miss. Nele says: breathe deeply and carry on.","Knapp dernävve. De Nele säät: deef durchotme un wigger.","Knapp dernäbe. D Nele sagt: tief durchschnaufe ond weiter."],
+ ["Das war die Tanzflächen-Falle. Nächstes Mal klappt's.","That was the dance-floor trap. You'll get it next time.","Dat wor de Danzfläche-Fall. Nächste Mol klapp et.","Des war d Tanzflächa-Falle. Nächschts Mol klappt's."]
 ];
 const OKN = [
- ["Richtig, {n}! Manfred dreht vor Freude eine Pirouette.","Right, {n}! Manfred spins a pirouette for joy.","Richtig, {n}! Dä Manfred dräht vör Freud en Pirouette."],
- ["Genau, {n}! Das war ein Wiegeschritt in die richtige Richtung.","Exactly, {n}! That was a rock step in the right direction.","Jenau, {n}! Dat wor e Wiegeschredd en de richtije Richtung."],
- ["Perfekt, {n}! Nele lächelt, und das heißt was.","Perfect, {n}! Nele smiles, and that means something.","Perfekt, {n}! De Nele laach, un dat will jet heiße."],
- ["Sauber geführt, {n}! Das sitzt wie rote Schuhe.","Neatly led, {n}! That fits like red shoes.","Sauber jeföhrt, {n}! Dat sitz wie rude Schohn."]
+ ["Richtig, {n}! Manfred dreht vor Freude eine Pirouette.","Right, {n}! Manfred spins a pirouette for joy.","Richtig, {n}! Dä Manfred dräht vör Freud en Pirouette.","Stimmt, {n}! Dr Manfred dreht vor Freud a Pirouette."],
+ ["Genau, {n}! Das war ein Wiegeschritt in die richtige Richtung.","Exactly, {n}! That was a rock step in the right direction.","Jenau, {n}! Dat wor e Wiegeschredd en de richtije Richtung.","Genau, {n}! Des war a Wiegeschritt en d richtig Richtung."],
+ ["Perfekt, {n}! Nele lächelt, und das heißt was.","Perfect, {n}! Nele smiles, and that means something.","Perfekt, {n}! De Nele laach, un dat will jet heiße.","Perfekt, {n}! D Nele lächelt, ond des hoißt ebbes."],
+ ["Sauber geführt, {n}! Das sitzt wie rote Schuhe.","Neatly led, {n}! That fits like red shoes.","Sauber jeföhrt, {n}! Dat sitz wie rude Schohn.","Sauber gführt, {n}! Des sitzt wie rote Schuh."]
 ];
 const BADN = [
- ["Autsch, {n}! Das war ein Tritt auf die Zehen.","Ouch, {n}! That was a step on the toes.","Autsch, {n}! Dat wor ene Tredd op de Zeh."],
- ["Nicht schlimm, {n}: Auch Manfred stolpert über seine eigenen Schuhe.","No worries, {n}: even Manfred trips over his own shoes.","Nit schlemm, {n}: Och dä Manfred stolpert övver sing eije Schohn."],
- ["Knapp daneben, {n}. Nele sagt: tief durchatmen und weiter.","A near miss, {n}. Nele says: breathe deeply and carry on.","Knapp dernävve, {n}. De Nele säät: deef durchotme un wigger."],
- ["Das war die Tanzflächen-Falle, {n}. Nächstes Mal klappt's.","That was the dance-floor trap, {n}. You'll get it next time.","Dat wor de Danzfläche-Fall, {n}. Nächste Mol klapp et."]
+ ["Autsch, {n}! Das war ein Tritt auf die Zehen.","Ouch, {n}! That was a step on the toes.","Autsch, {n}! Dat wor ene Tredd op de Zeh.","Autsch, {n}! Des war a Tritt uff d Zeh."],
+ ["Nicht schlimm, {n}: Auch Manfred stolpert über seine eigenen Schuhe.","No worries, {n}: even Manfred trips over his own shoes.","Nit schlemm, {n}: Och dä Manfred stolpert övver sing eije Schohn.","Ned schlimm, {n}: Au dr Manfred stolpert über seine eigene Schuh."],
+ ["Knapp daneben, {n}. Nele sagt: tief durchatmen und weiter.","A near miss, {n}. Nele says: breathe deeply and carry on.","Knapp dernävve, {n}. De Nele säät: deef durchotme un wigger.","Knapp dernäbe, {n}. D Nele sagt: tief durchschnaufe ond weiter."],
+ ["Das war die Tanzflächen-Falle, {n}. Nächstes Mal klappt's.","That was the dance-floor trap, {n}. You'll get it next time.","Dat wor de Danzfläche-Fall, {n}. Nächste Mol klapp et.","Des war d Tanzflächa-Falle, {n}. Nächschts Mol klappt's."]
 ];
 /* Logo: Herz mit Verlauf Orange, Magenta, Violett als Pixelbild (Farben vom Dance-Chance-Herz, kein Originallogo) */
 const LOGO = ["................","..OOOO....PPPP..",".OOOOOO..PPPPPP.","OOOOOOOOPPPPPPPP","OOSSWOOOPPPWSSPP","OOSSSOOOPPPSSSPP",".OOSSOOOPPPSSPP.","..OOOOOOPPPPPP..","...OOOOOPPPPP...","....OOOOPPPP....",".....OVVVVP....."], LOGOC = {O:"#f39200", S:"#ee6c55", P:"#e5167a", V:"#a0127a", W:"#ffd9ea", Y:"#ffc83d", B:"#2a0e45", G:"#1b7a3d"};
@@ -572,7 +574,7 @@ const fname = () => { const f = (nm || "").trim().split(/\s+/)[0] || ""; let w =
 const fill = s => s.replace(/\{n\}/g, fname());
 const hasName = () => fname() !== "";
 let editName = false, focusName = false;
-const NURL = [["https://dance-chance.de/","dance-chance.de"],["https://dance-chance.de/","dance-chance.de"],["https://dance-chance.de/","dance-chance.de"]];
+const NURL = [["https://dance-chance.de/","dance-chance.de"],["https://dance-chance.de/","dance-chance.de"],["https://dance-chance.de/","dance-chance.de"],["https://dance-chance.de/","dance-chance.de"]];
 
 
 /* ---------- Tanzstunden (Lektionen) [DE, EN, KSH] ---------- */
@@ -586,342 +588,342 @@ const DCSCHLAGER = "https://dance-chance.de/schlager/";
 const DCTNA = "https://dance-chance.de/tanz-normal-anders/";
 const LESSONS = [
 { id:"start", ico:"💃", c:"var(--pri)", min:2,
- t:["Hallo, wir sind Manfred & Nele","Hello, we are Manfred & Nele","Hallo, mer sin dä Manfred un de Nele"],
- sub:["Willkommen bei Dance Chance","Welcome to Dance Chance","Wellkumme bei Dance Chance"],
+ t:["Hallo, wir sind Manfred & Nele","Hello, we are Manfred & Nele","Hallo, mer sin dä Manfred un de Nele","Hallo, mir sin dr Manfred und d'Nele"],
+ sub:["Willkommen bei Dance Chance","Welcome to Dance Chance","Wellkumme bei Dance Chance","Willkomma bei Dance Chance"],
  cards:[
-  [["Was ist Dance Chance?","What is Dance Chance?","Wat is Dance Chance?"],
+  [["Was ist Dance Chance?","What is Dance Chance?","Wat is Dance Chance?","Was isch Dance Chance?"],
    ["Dance Chance ist eine Online-Tanzschule mit Video-Tanzkursen. Es gibt über 140 Unterrichts- und Figurenvideos. Die Stile: Discofox, Breakdance, Discowalzer und Latino, weitere sollen demnächst folgen.",
     "Dance Chance is an online dance school with video courses. There are over 140 lesson and figure videos. The styles are Discofox, Breakdance, Disco Waltz and Latino, with more coming soon.",
-    "Dance Chance is en Online-Danzschull mit Video-Kurse. Do jitt et över 140 Unterrichts- un Figurevideos. Die Stile sin Discofox, Breakdance, Discowalzer un Latino, un mieh sollen demnächs noch kumme."]],
-  [["Manfred und Nele","Manfred and Nele","Manfred und Nele"],
+    "Dance Chance is en Online-Danzschull mit Video-Kurse. Do jitt et över 140 Unterrichts- un Figurevideos. Die Stile sin Discofox, Breakdance, Discowalzer un Latino, un mieh sollen demnächs noch kumme.","Dance Chance isch a Online-Tanzschul mit Video-Kurse. Do gibt's über 140 Unterrichts- und Figurevideos. D'Stil sin Discofox, Breakdance, Discowalzer und Latino, und weitere sollet bald no komma."]],
+  [["Manfred und Nele","Manfred and Nele","Manfred und Nele","Dr Manfred und d'Nele"],
    ["Die Discofox- und Discowalzer-Kurse coachen Manfred und Nele (auf der Seite steht Nela). Sie lernten sich 2010 beim Tanzen kennen und heirateten 2016. Einsteigern wollen sie das Tanzen auf verständliche, leichte Art zeigen.",
     "Manfred and Nele coach the Discofox and Disco Waltz courses (the site spells her name Nela). They met while dancing in 2010 and married in 2016. They want to show beginners how to dance in a clear, easy way.",
-    "De Discofox- un Discowalzer-Kurse maache dä Manfred un de Nele (op dä Sigg steit Nela). Se hann sich 2010 beim Danze kennejelihrt un 2016 jeheirot. Anfängern wollen se et Danze verständlich un leich zeije."]],
-  [["Tanzen wie eine Sprache","Dancing is like a language","Danze wie en Sproch"],
+    "De Discofox- un Discowalzer-Kurse maache dä Manfred un de Nele (op dä Sigg steit Nela). Se hann sich 2010 beim Danze kennejelihrt un 2016 jeheirot. Anfängern wollen se et Danze verständlich un leich zeije.","D'Discofox- und Discowalzer-Kurse macht dr Manfred mit dr Nele (uff dr Seite stoht Nela). Se hend sich 2010 beim Tanza kennaglernt und 2016 gheiratet. Aafänger sollet's Tanza verständlich und leicht zeigt kriega."]],
+  [["Tanzen wie eine Sprache","Dancing is like a language","Danze wie en Sproch","Tanza wie a Sproch"],
    ["Der Leitgedanke: Tanzen und Discofox-Figuren lernen ist wie eine Sprache zu lernen. Du übst in deinem Tempo, so oft du willst, und kannst monatlich kündigen. Zum Reinschnuppern gibt es kostenlose Videos.",
     "The guiding idea: learning to dance and learning Discofox figures is like learning a language. You practise at your own pace, as often as you like, and can cancel monthly. There are free videos to try things out.",
-    "Dä Leitjedanke: Danze un Discofox-Figure lihre is wie en Sproch lihre. Do övs en dingem Tempo, esu off wie de wells, un kanns monatlich künndije. Zum Erinschnuppere jitt et Jratis-Videos."]]
+    "Dä Leitjedanke: Danze un Discofox-Figure lihre is wie en Sproch lihre. Do övs en dingem Tempo, esu off wie de wells, un kanns monatlich künndije. Zum Erinschnuppere jitt et Jratis-Videos.","Dr Leitgedanke: Tanza und Discofox-Figura lerna isch wie a Sproch lerna. Du übsch in deim Tempo, so oft de witt, und kasch monatlich kündiga. Zum Neischnuppra gibt's Gratis-Videos."]]
  ],
  pro:["Mit der Mitgliedschaft hast du Zugriff auf alle Videos, solange du Mitglied bist. Du kannst zu Hause, unterwegs oder im Urlaub üben, als Single oder als Paar. Empfohlen sind 2 bis 3 kurze Einheiten pro Woche.",
   "With a membership you can access all videos for as long as you are a member. You can practise at home, on the road or on holiday, as a single or as a couple. Two to three short sessions a week are recommended.",
-  "Mit de Mitjliedschaff häs do Zojriff op all Videos, esu lang wie do Mitjlied bes. Do kanns doheim, ungerwähs oder em Urlaub üvve, als Single oder als Paar. Empfolle sin 2 bis 3 kurze Einheite en dä Woch."],
+  "Mit de Mitjliedschaff häs do Zojriff op all Videos, esu lang wie do Mitjlied bes. Do kanns doheim, ungerwähs oder em Urlaub üvve, als Single oder als Paar. Empfolle sin 2 bis 3 kurze Einheite en dä Woch.","Mit dr Mitgliedschaft kasch uff älle Videos zugreifa, solang de Mitglied bisch. Du kasch dahoim, underwegs oder em Urlaub üba, als Single oder als Paar. Empfohle send 2 bis 3 kurze Einheita en dr Woch."],
  fun:["Manfred: „Mit meinen roten Schuhen kann ich gar nicht falsch tanzen.“ Nele: „Doch, Mr. Mac. Nur sieht man es dann besser.“",
   "Manfred: “With my red shoes I simply cannot dance wrong.” Nele: “Oh yes you can, Mr. Mac. People just see it better.”",
-  "Manfred: „Mit minge rude Scho kann ich jar nit verkeht danze.“ Nele: „Doch, Mr. Mac. Mer süht et dann nur besser.“"],
+  "Manfred: „Mit minge rude Scho kann ich jar nit verkeht danze.“ Nele: „Doch, Mr. Mac. Mer süht et dann nur besser.“","Manfred: „Mit meine rote Schuah kann i gar ned falsch tanza.“ Nele: „Doch, Mr. Mac. Mr sieht's dann hald bsser.“"],
  src:[["dance-chance.de: Startseite", DC]],
  q:[
-  {q:["Welche vier Stile bietet Dance Chance an?","Which four styles does Dance Chance offer?","Wellche vier Stile bütt Dance Chance an?"],
-   a:[["Discofox, Breakdance, Discowalzer, Latino","Discofox, Breakdance, Disco Waltz, Latino","Discofox, Breakdance, Discowalzer, Latino"],
-      ["Tango, Foxtrott, Quickstep, Jive","Tango, Foxtrot, Quickstep, Jive","Tango, Foxtrott, Quickstep, Jive"],
-      ["Ballett, Stepptanz, Polka, Tango","Ballet, Tap dance, Polka, Tango","Ballett, Steppdanz, Polka, Tango"],
-      ["Polka, Zumba, Ballett, Line Dance","Polka, Zumba, Ballet, Line dance","Polka, Zumba, Ballett, Line Dance"]],
+  {q:["Welche vier Stile bietet Dance Chance an?","Which four styles does Dance Chance offer?","Wellche vier Stile bütt Dance Chance an?","Welle vier Stil hot Dance Chance em Agebot?"],
+   a:[["Discofox, Breakdance, Discowalzer, Latino","Discofox, Breakdance, Disco Waltz, Latino","Discofox, Breakdance, Discowalzer, Latino","Discofox, Breakdance, Discowalzer, Latino"],
+      ["Tango, Foxtrott, Quickstep, Jive","Tango, Foxtrot, Quickstep, Jive","Tango, Foxtrott, Quickstep, Jive","Tango, Foxtrott, Quickstep, Jive"],
+      ["Ballett, Stepptanz, Polka, Tango","Ballet, Tap dance, Polka, Tango","Ballett, Steppdanz, Polka, Tango","Ballett, Stepptanz, Polka, Tango"],
+      ["Polka, Zumba, Ballett, Line Dance","Polka, Zumba, Ballet, Line dance","Polka, Zumba, Ballett, Line Dance","Polka, Zumba, Ballett, Line Dance"]],
    e:["Laut Seite gibt es Discofox, Breakdance, Discowalzer und Latino. Weitere Stile sollen demnächst folgen.",
       "According to the site, the styles are Discofox, Breakdance, Disco Waltz and Latino. More styles are meant to follow soon.",
-      "Laut dä Sigg jitt et Discofox, Breakdance, Discowalzer un Latino. Mieh Stile sollen demnächs noch kumme."]},
-  {q:["Wann heirateten die Coaches Manfred und Nele?","When did the coaches Manfred and Nele marry?","Wann hann de Coaches Manfred un Nele jeheirot?"],
-   a:[["2016","2016","2016"],
-      ["2010","2010","2010"],
-      ["2020","2020","2020"],
-      ["1998","1998","1998"]],
+      "Laut dä Sigg jitt et Discofox, Breakdance, Discowalzer un Latino. Mieh Stile sollen demnächs noch kumme.","Laut dr Seite gibt's Discofox, Breakdance, Discowalzer und Latino. Weitere Stil sollet bald no komma."]},
+  {q:["Wann heirateten die Coaches Manfred und Nele?","When did the coaches Manfred and Nele marry?","Wann hann de Coaches Manfred un Nele jeheirot?","Wann hend d'Coaches Manfred und Nele gheiratet?"],
+   a:[["2016","2016","2016","2016"],
+      ["2010","2010","2010","2010"],
+      ["2020","2020","2020","2020"],
+      ["1998","1998","1998","1998"]],
    e:["Sie lernten sich 2010 beim Tanzen kennen und heirateten 2016.",
       "They met while dancing in 2010 and married in 2016.",
-      "Se hann sich 2010 beim Danze kennejelihrt un 2016 jeheirot."]},
-  {q:["Wie funktioniert die Mitgliedschaft bei Dance Chance?","How does the Dance Chance membership work?","Wie funktioniert de Mitjliedschaff bei Dance Chance?"],
-   a:[["Monatlich kündbar, Zugriff auf alle Videos","Cancel monthly, access to all videos","Monatlich künndbar, Zojriff op all Videos"],
-      ["Nur zum Jahresende kündbar","Only cancellable at year end","Nor zum Johresenge künndbar"],
-      ["Man kann nie wieder kündigen","You can never cancel","Mer kann nie widder künndije"],
-      ["Nur mit Hausbesuch von Manfred","Only with a house call from Manfred","Nor met Husbesök vum Manfred"]],
+      "Se hann sich 2010 beim Danze kennejelihrt un 2016 jeheirot.","Se hend sich 2010 beim Tanza kennaglernt und 2016 gheiratet."]},
+  {q:["Wie funktioniert die Mitgliedschaft bei Dance Chance?","How does the Dance Chance membership work?","Wie funktioniert de Mitjliedschaff bei Dance Chance?","Wie lauft d'Mitgliedschaft bei Dance Chance?"],
+   a:[["Monatlich kündbar, Zugriff auf alle Videos","Cancel monthly, access to all videos","Monatlich künndbar, Zojriff op all Videos","Monatlich kündbar, Zugriff uff älle Videos"],
+      ["Nur zum Jahresende kündbar","Only cancellable at year end","Nor zum Johresenge künndbar","Bloß zum Johresend kündbar"],
+      ["Man kann nie wieder kündigen","You can never cancel","Mer kann nie widder künndije","Mr kann nie meh kündiga"],
+      ["Nur mit Hausbesuch von Manfred","Only with a house call from Manfred","Nor met Husbesök vum Manfred","Bloß mit Hausbsuch vom Manfred"]],
    e:["Die Mitgliedschaft ist monatlich kündbar. Solange du Mitglied bist, hast du Zugriff auf alle Videos.",
       "The membership can be cancelled monthly. As long as you are a member, you can access all videos.",
-      "De Mitjliedschaff is monatlich künndbar. Esu lang wie do Mitjlied bes, häs do Zojriff op all Videos."]}
+      "De Mitjliedschaff is monatlich künndbar. Esu lang wie do Mitjlied bes, häs do Zojriff op all Videos.","D'Mitgliedschaft isch monatlich kündbar. Solang de Mitglied bisch, kasch uff älle Videos zugreifa."]}
  ]},
 { id:"regeln", ico:"🤝", c:"var(--purple)", min:2,
- t:["Die Grundregeln von Manfred & Nele","The basic rules of Manfred & Nele","De Jrundrejele vum Manfred un dä Nele"],
- sub:["So wird Tanzen leicht und schön","How dancing becomes easy and lovely","Esu weed Danze leich un schön"],
+ t:["Die Grundregeln von Manfred & Nele","The basic rules of Manfred & Nele","De Jrundrejele vum Manfred un dä Nele","D'Grundregla vom Manfred und dr Nele"],
+ sub:["So wird Tanzen leicht und schön","How dancing becomes easy and lovely","Esu weed Danze leich un schön","So wird's Tanza leicht und schee"],
  cards:[
-  [["Spaß und Lächeln","Fun and smiles","Spaß un Laache"],
+  [["Spaß und Lächeln","Fun and smiles","Spaß un Laache","Spaß und Lächla"],
    ["Manfred sagt: Tanzen muss Spaß machen. Nele ergänzt trocken: Und der Mann schafft es, der Frau ein Lächeln ins Gesicht zu zaubern. Wenn beide lachen, stimmt der Rest meistens auch.",
     "Manfred says dancing has to be fun. Nele adds dryly: and the man manages to put a smile on the woman's face. If both are laughing, the rest usually falls into place.",
-    "Dä Manfred meint: Danze muss Spaß maache. De Nele säht dröck dozo: Un dä Mann kritt et hin, dä Frau e Laache en et Jeseech ze zauberre. Wenn beids laache, passt dä Rest meis och."]],
-  [["Führen und Folgen","Leading and following","Föhre un Följe"],
+    "Dä Manfred meint: Danze muss Spaß maache. De Nele säht dröck dozo: Un dä Mann kritt et hin, dä Frau e Laache en et Jeseech ze zauberre. Wenn beids laache, passt dä Rest meis och.","Dr Manfred moint: Tanza muss Spaß macha. D'Nele moint trocka dazu: Und dr Ma schafft's, dr Frau a Lächla ins Gsicht zum zaubra. Wenn beide lacha, passt dr Rest moischtens au."]],
+  [["Führen und Folgen","Leading and following","Föhre un Följe","Fiahra und Folga"],
    ["Der Mann führt die Frau auf liebevolle Weise, und die Frau folgt ihm. Beides sind gleichwertige Aufgaben. Wichtig: Der Mann weiß immer, was er will, sonst wird die Frau unsicher.",
     "The man leads the woman in a loving way, and the woman follows him. Both are equally important jobs. What matters: the man always knows what he wants, otherwise the woman becomes unsure.",
-    "Dä Mann föhrt de Frau leevvoll, un de Frau fölg im. Beids sin jlichwäärtije Oofjabe. Wichtig: Dä Mann weiß immer, wat hä well, söns weed de Frau unsecher."]],
-  [["Der Arm über der Drehenden","The arm above the turner","Dä Arm övver dä, die sich dräht"],
+    "Dä Mann föhrt de Frau leevvoll, un de Frau fölg im. Beids sin jlichwäärtije Oofjabe. Wichtig: Dä Mann weiß immer, wat hä well, söns weed de Frau unsecher.","Dr Ma fiahrt d'Frau liebevoll, und d'Frau folgt ihm. Beides send gleichwertige Aufgaba. Wichtig: Dr Ma woiß emmer, was er will, sonscht wird d'Frau unsicher."]],
+  [["Der Arm über der Drehenden","The arm above the turner","Dä Arm övver dä, die sich dräht","Dr Arm ibr dr Drehende"],
    ["Beim Drehen geht der Arm des Führenden über den Kopf der Person, die sich dreht. So bleibt es für sie bequem und sicher. Manfred nennt das: erst der Arm, dann die Drehung.",
     "When turning, the leader's arm goes over the head of the person who is turning. That keeps it comfortable and safe for them. Manfred calls it: arm first, then the turn.",
-    "Beim Drihe jeiht dä Arm vum Föhrende övver dä Kopp vun dä Person, die sich dräht. Esu bliev et för se beque un secher. Dä Manfred säht: eeßt dä Arm, dann de Drihung."]]
+    "Beim Drihe jeiht dä Arm vum Föhrende övver dä Kopp vun dä Person, die sich dräht. Esu bliev et för se beque un secher. Dä Manfred säht: eeßt dä Arm, dann de Drihung.","Beim Dreha goht dr Arm vom Fiahrende ibr da Kopf vo dr Person, wo sich dreht. So bleibt's fir sie bequem und sicher. Dr Manfred sait: erscht dr Arm, no d'Drehung."]]
  ],
  pro:["Diese Grundsätze sind die der App-Figuren Manfred und Nele. In Tanzstunde 3 von Dance Chance gibt es laut Seite „Die drei goldenen Regeln“, damit man mit jedem Tanzpartner tanzen kann. Welche das sind, zeigt das Video.",
   "These principles belong to the app characters Manfred and Nele. According to the site, lesson 3 at Dance Chance covers “The three golden rules”, so you can dance with any partner. The video shows what they are.",
-  "Die Jrundsätz sin die vun de App-Figure Manfred un Nele. En Danzstund 3 vun Dance Chance jitt et laut dä Sigg „Die drei goldenen Regeln“, domet mer met jedem Danzpartner danze kann. Wat dat sin, zeig dat Video."],
+  "Die Jrundsätz sin die vun de App-Figure Manfred un Nele. En Danzstund 3 vun Dance Chance jitt et laut dä Sigg „Die drei goldenen Regeln“, domet mer met jedem Danzpartner danze kann. Wat dat sin, zeig dat Video.","Dia Grundsätz send die vo de App-Figura Manfred und Nele. In dr Tanzstund 3 vo Dance Chance gibt's laut Seite „Die drei goldenen Regeln“, dass mr mit jedem Tanzpartner tanza ka. Was des send, zeigt des Video."],
  fun:["Manfred: „Ich weiß immer, was ich will.“ Nele: „Ja, Mr. Mac. Nur bei der Speisekarte dauert es zwanzig Minuten.“",
   "Manfred: “I always know what I want.” Nele: “Yes, Mr. Mac. Except with the menu, which takes twenty minutes.”",
-  "Manfred: „Ich weiß immer, wat ich well.“ Nele: „Jo, Mr. Mac. Nur bei dä Speisekaat dauert et zwanzig Minutte.“"],
+  "Manfred: „Ich weiß immer, wat ich well.“ Nele: „Jo, Mr. Mac. Nur bei dä Speisekaat dauert et zwanzig Minutte.“","Manfred: „I woiß emmer, was i will.“ Nele: „Jo, Mr. Mac. Bloß bei dr Speisekarte brauchsch zwanzg Minute.“"],
  src:[["dance-chance.de: Discofox", DCDISCOFOX]],
  q:[
-  {q:["Wer führt laut Manfred und Nele auf liebevolle Weise?","Who leads in a loving way, says Manfred and Nele?","Wä föhrt noh Manfred un Nele leevvoll?"],
-   a:[["Der Mann führt die Frau","The man leads the woman","Dä Mann föhrt de Frau"],
-      ["Wer am lautesten zählt","Whoever counts the loudest","Wä am lutste zällt"],
-      ["Der Tanzlehrer von der Seitenlinie","The teacher from the sideline","Dä Danzlehrer vun dä Sidelinn"],
-      ["Wer am schnellsten tanzt","Whoever dances the fastest","Wä am flöcksten danzt"]],
+  {q:["Wer führt laut Manfred und Nele auf liebevolle Weise?","Who leads in a loving way, says Manfred and Nele?","Wä föhrt noh Manfred un Nele leevvoll?","Wer fiahrt nach Manfred und Nele liebevoll?"],
+   a:[["Der Mann führt die Frau","The man leads the woman","Dä Mann föhrt de Frau","Dr Ma fiahrt d'Frau"],
+      ["Wer am lautesten zählt","Whoever counts the loudest","Wä am lutste zällt","Wer am lautschte zählt"],
+      ["Der Tanzlehrer von der Seitenlinie","The teacher from the sideline","Dä Danzlehrer vun dä Sidelinn","Dr Tanzlehrer vo dr Seitelinie"],
+      ["Wer am schnellsten tanzt","Whoever dances the fastest","Wä am flöcksten danzt","Wer am schnellschte tanzt"]],
    e:["Der Mann führt die Frau auf liebevolle Weise, die Frau folgt. Beide Aufgaben sind gleich wichtig.",
       "The man leads the woman in a loving way and she follows. Both jobs are equally important.",
-      "Dä Mann föhrt de Frau leevvoll, de Frau fölg. Beids Oofjabe sin jlich wichtig."]},
-  {q:["Was soll der Mann laut den Grundsätzen schaffen?","What should the man manage, according to the principles?","Wat soll dä Mann noh de Jrundsätz hinkrijje?"],
-   a:[["Der Frau ein Lächeln ins Gesicht zaubern","Put a smile on the woman's face","Dä Frau e Laache en et Jeseech zauberre"],
-      ["Möglichst viele Figuren pro Minute","As many figures per minute as possible","Esu vill Figure wie müjjelich pro Minutt"],
-      ["Den Tanzboden polieren","Polish the dance floor","Dä Danzbodde poliere"],
-      ["Lauter singen als die Musik","Sing louder than the music","Luter singe als de Musik"]],
+      "Dä Mann föhrt de Frau leevvoll, de Frau fölg. Beids Oofjabe sin jlich wichtig.","Dr Ma fiahrt d'Frau liebevoll, d'Frau folgt. Beide Aufgaba send gleich wichtig."]},
+  {q:["Was soll der Mann laut den Grundsätzen schaffen?","What should the man manage, according to the principles?","Wat soll dä Mann noh de Jrundsätz hinkrijje?","Was soll dr Ma nach de Grundsätz schaffa?"],
+   a:[["Der Frau ein Lächeln ins Gesicht zaubern","Put a smile on the woman's face","Dä Frau e Laache en et Jeseech zauberre","Dr Frau a Lächla ins Gsicht zaubra"],
+      ["Möglichst viele Figuren pro Minute","As many figures per minute as possible","Esu vill Figure wie müjjelich pro Minutt","Möglichscht viel Figura pro Minut"],
+      ["Den Tanzboden polieren","Polish the dance floor","Dä Danzbodde poliere","Da Tanzboda poliera"],
+      ["Lauter singen als die Musik","Sing louder than the music","Luter singe als de Musik","Lauter senga als d'Musik"]],
    e:["Zweiter Grundsatz: Der Mann soll es schaffen, der Frau ein Lächeln ins Gesicht zu zaubern.",
       "Second principle: the man should manage to put a smile on the woman's face.",
-      "Zweite Jrundsatz: Dä Mann soll et hinkrijje, dä Frau e Laache en et Jeseech ze zauberre."]},
-  {q:["Wohin geht beim Drehen der Arm des Führenden?","Where does the leader's arm go when turning?","Wohin jeiht beim Drihe dä Arm vum Föhrende?"],
-   a:[["Über den Kopf der sich drehenden Person","Over the head of the person turning","Övver dä Kopp vun dä Person, die sich dräht"],
-      ["In die Hosentasche","Into the trouser pocket","En de Botzetäsch"],
-      ["Hinter den eigenen Kopf","Behind your own head","Hinger dä eije Kopp"],
-      ["Fest an ihrem Handgelenk ziehend","Tugging hard at her wrist","Fass an ehrem Handjelenk trecke"]],
+      "Zweite Jrundsatz: Dä Mann soll et hinkrijje, dä Frau e Laache en et Jeseech ze zauberre.","Zweiter Grundsatz: Dr Ma soll's schaffa, dr Frau a Lächla ins Gsicht zum zaubra."]},
+  {q:["Wohin geht beim Drehen der Arm des Führenden?","Where does the leader's arm go when turning?","Wohin jeiht beim Drihe dä Arm vum Föhrende?","Wohi goht beim Dreha dr Arm vom Fiahrende?"],
+   a:[["Über den Kopf der sich drehenden Person","Over the head of the person turning","Övver dä Kopp vun dä Person, die sich dräht","Ibr da Kopf vo dr Person, wo sich dreht"],
+      ["In die Hosentasche","Into the trouser pocket","En de Botzetäsch","En d'Hosatasch"],
+      ["Hinter den eigenen Kopf","Behind your own head","Hinger dä eije Kopp","Hinter da eigene Kopf"],
+      ["Fest an ihrem Handgelenk ziehend","Tugging hard at her wrist","Fass an ehrem Handjelenk trecke","Fescht an ihrm Handglenk zieha"]],
    e:["Der Arm ist über der zu drehenden Person: Er geht über deren Kopf. Das ist der sechste Grundsatz.",
       "The arm is above the person being turned: it goes over their head. That is the sixth principle.",
-      "Dä Arm is övver dä Person, die sich dräht: Hä jeiht övver ehre Kopp. Dat is dä sechste Jrundsatz."]}
+      "Dä Arm is övver dä Person, die sich dräht: Hä jeiht övver ehre Kopp. Dat is dä sechste Jrundsatz.","Dr Arm isch ibr dr Person, wo dreht wird: Er goht ibr ihren Kopf. Des isch dr sechschte Grundsatz."]}
  ]},
 { id:"discofox", ico:"🕺", c:"var(--orange)", min:2,
- t:["Discofox: der Paartanz für alle","Discofox: the couples dance for everyone","Discofox: dä Paardanz för all"],
- sub:["Beliebt, schnell gelernt, überall tanzbar","Popular, quick to learn, danceable anywhere","Beliebt, flöck jelihrt, övverall danzbar"],
+ t:["Discofox: der Paartanz für alle","Discofox: the couples dance for everyone","Discofox: dä Paardanz för all","Discofox: dr Paartanz fir älle"],
+ sub:["Beliebt, schnell gelernt, überall tanzbar","Popular, quick to learn, danceable anywhere","Beliebt, flöck jelihrt, övverall danzbar","Beliebt, schnell glernt, ibrall tanzbar"],
  cards:[
-  [["Der Partytanz","The party dance","Dä Partydanz"],
+  [["Der Partytanz","The party dance","Dä Partydanz","Dr Partytanz"],
    ["Laut Seite ist Discofox der populärste Paartanz in Deutschland. Die Figuren lassen sich vergleichsweise schnell lernen. Getanzt wird er zu vielen verschiedenen Musikstilen.",
     "According to the site, Discofox is the most popular couples dance in Germany. The figures are comparatively quick to learn. You can dance it to many different kinds of music.",
-    "Laut dä Sigg is Discofox dä beliebteste Paardanz en Deutschland. De Figure lihrt mer vergleichsweis flöck. Jedanz weed hä zo vill verschiedene Musikstile."]],
-  [["Gratis-Videos","Free videos","Jratis-Videos"],
+    "Laut dä Sigg is Discofox dä beliebteste Paardanz en Deutschland. De Figure lihrt mer vergleichsweis flöck. Jedanz weed hä zo vill verschiedene Musikstile.","Laut dr Seite isch Discofox dr beliebtescht Paartanz en Deutschland. D'Figura lernt mr vergleichsweis schnell. Tanzt wird er zu viele verschiedene Musikstil."]],
+  [["Gratis-Videos","Free videos","Jratis-Videos","Gratis-Videos"],
    ["Kostenlos gibt es die Balkon-Tanzeinheiten 7 bis 10, zusammen etwa 1,5 Stunden mit allen wichtigen Basics. Dazu kommen die Tanzstunden 1 bis 3: Grundschritt, Startposition für Figuren und „Die drei goldenen Regeln“.",
     "The balcony sessions 7 to 10 are free, about 1.5 hours together with all the important basics. Then there are lessons 1 to 3: basic step, starting position for figures and “The three golden rules”.",
-    "Ömesöns jitt et de Balkon-Danzeinheite 7 bis 10, zosamme öm de 1,5 Stund met all wichtije Basics. Dozo kumme de Danzstunde 1 bis 3: Jrundschredd, Startposition för Figure un „Die drei goldenen Regeln“."]],
-  [["Live tanzen","Dancing live","Live danze"],
+    "Ömesöns jitt et de Balkon-Danzeinheite 7 bis 10, zosamme öm de 1,5 Stund met all wichtije Basics. Dozo kumme de Danzstunde 1 bis 3: Jrundschredd, Startposition för Figure un „Die drei goldenen Regeln“.","Gratis gibt's d'Balkon-Tanzeinheita 7 bis 10, zamma etwa 1,5 Stund mit älle wichtiga Basics. Dazu komma d'Tanzstunda 1 bis 3: Grundschritt, Startposition fir Figura und „Die drei goldenen Regeln“."]],
+  [["Live tanzen","Dancing live","Live danze","Live tanza"],
    ["Montags gibt es Tanzkurse und mittwochs Manfreds TANZBAR, beides im Dancingpark PALAZZO in Freiberg am Neckar. Singles finden bei Veranstaltungen immer freundliche Tanzpartner oder Taxitänzer.",
     "There are dance courses on Mondays and Manfred's TANZBAR on Wednesdays, both at the Dancingpark PALAZZO in Freiberg am Neckar. At events, singles always find friendly dance partners or taxi dancers.",
-    "Mondags jitt et Danzkurse un mettwochs dä Manfred sing TANZBAR, beids em Dancingpark PALAZZO en Freiberg am Neckar. Singles fingen bei Veranstaltunge immer freundliche Danzpartner oder Taxidänzer."]]
+    "Mondags jitt et Danzkurse un mettwochs dä Manfred sing TANZBAR, beids em Dancingpark PALAZZO en Freiberg am Neckar. Singles fingen bei Veranstaltunge immer freundliche Danzpartner oder Taxidänzer.","Mondags gibt's Tanzkurse und mittwochs dr Manfred sei TANZBAR, beides em Dancingpark PALAZZO en Freiberg am Neckar. Singles fenget bei Veranstaltunga emmer freundliche Tanzpartner oder Taxitänzer."]]
  ],
  pro:["Tanzstunde 1 behandelt Grundschritt, geschlossene Tanzhaltung und platzsparendes Tanzen. Tanzstunde 2 zeigt die Startposition für Figuren und Variationen, Damensolos vor und zurück, ein Herrensolo und die erste Tanzfolge.",
   "Lesson 1 covers the basic step, the closed dance hold and space-saving dancing. Lesson 2 shows the starting position for figures and variations, ladies' solos forwards and backwards, a gentleman's solo and the first sequence.",
-  "Danzstund 1 behandelt Jrundschredd, jeschlossene Danzhaltung un platzsparend Danze. Danzstund 2 zeig de Startposition för Figure un Variatione, Damesolos vür un zeröck, e Herresolo un de eezte Danzfolg."],
+  "Danzstund 1 behandelt Jrundschredd, jeschlossene Danzhaltung un platzsparend Danze. Danzstund 2 zeig de Startposition för Figure un Variatione, Damesolos vür un zeröck, e Herresolo un de eezte Danzfolg.","D'Tanzstund 1 behandlet Grundschritt, gschlossene Tanzhaltung und platzspara Tanza. D'Tanzstund 2 zeigt d'Startposition fir Figura und Variatione, Damesolos vor und zruck, a Herrasolo und d'erscht Tanzfolg."],
  fun:["Nele: „Discofox geht zu fast jeder Musik.“ Manfred: „Auch zum Staubsauger.“ Nele: „Mr. Mac, bitte nur zum Staubsaugen, nicht zum Schnarchen.“",
   "Nele: “Discofox works with almost any music.” Manfred: “Even a vacuum cleaner.” Nele: “Mr. Mac, please, to the hoovering, not to the snoring.”",
-  "Nele: „Discofox jeiht zo fass jeder Musik.“ Manfred: „Och zom Stoffsauger.“ Nele: „Mr. Mac, bitte nur zom Sauge, nit zom Schnarche.“"],
+  "Nele: „Discofox jeiht zo fass jeder Musik.“ Manfred: „Och zom Stoffsauger.“ Nele: „Mr. Mac, bitte nur zom Sauge, nit zom Schnarche.“","Nele: „Discofox goht zu fascht jeder Musik.“ Manfred: „Au zum Staubsauger.“ Nele: „Mr. Mac, bitte bloß zum Saugen, ned zum Schnarcha.“"],
  src:[["dance-chance.de: Discofox", DCDISCOFOX]],
  q:[
-  {q:["Welcher Tanz ist laut Seite der populärste Paartanz Deutschlands?","Which dance is the most popular couples dance in Germany, per the site?","Wellche Danz is laut Sigg dä beliebteste Paardanz en Deutschland?"],
-   a:[["Discofox","Discofox","Discofox"],
-      ["Polka","Polka","Polka"],
-      ["Quickstep","Quickstep","Quickstep"],
-      ["Tango","Tango","Tango"]],
+  {q:["Welcher Tanz ist laut Seite der populärste Paartanz Deutschlands?","Which dance is the most popular couples dance in Germany, per the site?","Wellche Danz is laut Sigg dä beliebteste Paardanz en Deutschland?","Welcher Tanz isch laut Seite dr beliebtescht Paartanz en Deutschland?"],
+   a:[["Discofox","Discofox","Discofox","Discofox"],
+      ["Polka","Polka","Polka","Polka"],
+      ["Quickstep","Quickstep","Quickstep","Quickstep"],
+      ["Tango","Tango","Tango","Tango"]],
    e:["Die Seite nennt Discofox den populärsten Paartanz in Deutschland. Das ist Eigenwerbung, daher laut Seite.",
       "The site calls Discofox the most popular couples dance in Germany. That is the site's own claim.",
-      "De Sigg nennt Discofox dä beliebteste Paardanz en Deutschland. Dat is eijen Werbung, dröm laut Sigg."]},
-  {q:["Wie heißt Tanzstunde 3 bei den Gratis-Videos?","What is lesson 3 of the free videos called?","Wie heiß Danzstund 3 bei de Jratis-Videos?"],
-   a:[["Die drei goldenen Regeln","The three golden rules","Die drei goldenen Regeln"],
-      ["Das große Finale","The grand finale","Dat jroße Finale"],
-      ["Dehnen für Fortgeschrittene","Stretching for advanced dancers","Dehne för Fortjeschredde"],
-      ["Der Tanz um die Welt","Dance around the world","Dä Danz öm de Welt"]],
+      "De Sigg nennt Discofox dä beliebteste Paardanz en Deutschland. Dat is eijen Werbung, dröm laut Sigg.","D'Seite nennt Discofox da beliebtescha Paartanz en Deutschland. Des isch ihr eigene Aussag, drum laut Seite."]},
+  {q:["Wie heißt Tanzstunde 3 bei den Gratis-Videos?","What is lesson 3 of the free videos called?","Wie heiß Danzstund 3 bei de Jratis-Videos?","Wie hoißt Tanzstund 3 bei de Gratis-Videos?"],
+   a:[["Die drei goldenen Regeln","The three golden rules","Die drei goldenen Regeln","Die drei goldenen Regeln"],
+      ["Das große Finale","The grand finale","Dat jroße Finale","Des groaße Finale"],
+      ["Dehnen für Fortgeschrittene","Stretching for advanced dancers","Dehne för Fortjeschredde","Dehna fir Fortgschrittene"],
+      ["Der Tanz um die Welt","Dance around the world","Dä Danz öm de Welt","Dr Tanz om d'Welt"]],
    e:["Tanzstunde 3 heißt „Die drei goldenen Regeln“. Mit ihnen kann man mit jedem Tanzpartner tanzen.",
       "Lesson 3 is called “The three golden rules”. With them, you can dance with any partner.",
-      "Danzstund 3 heiß „Die drei goldenen Regeln“. Domet kann mer met jedem Danzpartner danze."]},
-  {q:["Wann und wo findet Manfreds TANZBAR statt?","When and where is Manfred's TANZBAR held?","Wann un wo is dä Manfred sing TANZBAR?"],
-   a:[["Mittwochs im Dancingpark PALAZZO, Freiberg am Neckar","Wednesdays at Dancingpark PALAZZO, Freiberg am Neckar","Mettwochs em Dancingpark PALAZZO, Freiberg am Neckar"],
-      ["Samstags in Düsseldorf","Saturdays in Düsseldorf","Samstags en Düsseldorf"],
-      ["Sonntags auf einem Balkon in Hamburg","Sundays on a balcony in Hamburg","Sonndags op enem Balkon en Hamburg"],
-      ["Dienstags am Strand von Mallorca","Tuesdays on the beach in Mallorca","Dinstags am Strand vun Mallorca"]],
+      "Danzstund 3 heiß „Die drei goldenen Regeln“. Domet kann mer met jedem Danzpartner danze.","D'Tanzstund 3 hoißt „Die drei goldenen Regeln“. Mit dene ka mr mit jedem Tanzpartner tanza."]},
+  {q:["Wann und wo findet Manfreds TANZBAR statt?","When and where is Manfred's TANZBAR held?","Wann un wo is dä Manfred sing TANZBAR?","Wann und wo isch dr Manfred sei TANZBAR?"],
+   a:[["Mittwochs im Dancingpark PALAZZO, Freiberg am Neckar","Wednesdays at Dancingpark PALAZZO, Freiberg am Neckar","Mettwochs em Dancingpark PALAZZO, Freiberg am Neckar","Mittwochs em Dancingpark PALAZZO, Freiberg am Neckar"],
+      ["Samstags in Düsseldorf","Saturdays in Düsseldorf","Samstags en Düsseldorf","Samstags en Düsseldorf"],
+      ["Sonntags auf einem Balkon in Hamburg","Sundays on a balcony in Hamburg","Sonndags op enem Balkon en Hamburg","Sonntags uff am Balkon en Hamburg"],
+      ["Dienstags am Strand von Mallorca","Tuesdays on the beach in Mallorca","Dinstags am Strand vun Mallorca","Dienstags am Strand vo Mallorca"]],
    e:["Laut Seite gibt es mittwochs Manfreds TANZBAR im Dancingpark PALAZZO in Freiberg am Neckar.",
       "According to the site, Manfred's TANZBAR takes place on Wednesdays at the Dancingpark PALAZZO in Freiberg am Neckar.",
-      "Laut dä Sigg jitt et mettwochs dä Manfred sing TANZBAR em Dancingpark PALAZZO en Freiberg am Neckar."]}
+      "Laut dä Sigg jitt et mettwochs dä Manfred sing TANZBAR em Dancingpark PALAZZO en Freiberg am Neckar.","Laut dr Seite gibt's mittwochs dr Manfred sei TANZBAR em Dancingpark PALAZZO en Freiberg am Neckar."]}
  ]},
 { id:"walzer", ico:"🌀", c:"var(--blue)", min:2,
- t:["Discowalzer: Walzer trifft Discofox","Disco Waltz: waltz meets Discofox","Discowalzer: Walzer un Discofox zosamme"],
- sub:["Ein bekannter Tanz, neu gemischt","A familiar dance, freshly mixed","E bekannte Danz, neu jemisch"],
+ t:["Discowalzer: Walzer trifft Discofox","Disco Waltz: waltz meets Discofox","Discowalzer: Walzer un Discofox zosamme","Discowalzer: Walzer ond Discofox zamma"],
+ sub:["Ein bekannter Tanz, neu gemischt","A familiar dance, freshly mixed","E bekannte Danz, neu jemisch","A bekannter Tanz, neu gmischt"],
  cards:[
-  [["Kein neuer Tanz","Not a new dance","Kei neue Danz"],
+  [["Kein neuer Tanz","Not a new dance","Kei neue Danz","Koi neuer Tanz"],
    ["Der Discowalzer ist kein neuer Tanz. Er verbindet den Wiener Walzer mit den Figuren des Discofox. Du brauchst dafür keine Vorkenntnisse im Walzer.",
     "The Disco Waltz is not a new dance. It combines the Viennese waltz with the figures of Discofox. You do not need any waltz experience for it.",
-    "Dä Discowalzer is kei neue Danz. Hä verbingk dä Wiener Walzer met de Figure vum Discofox. Do bruchs dofür kein Vorkenntnisse em Walzer."]],
-  [["Schnell zum Walzer","Quick to a waltz","Flöck zom Walzer"],
+    "Dä Discowalzer is kei neue Danz. Hä verbingk dä Wiener Walzer met de Figure vum Discofox. Do bruchs dofür kein Vorkenntnisse em Walzer.","Dr Discowalzer isch koi neuer Tanz. Er verbindet da Wiener Walzer mit de Figura vom Discofox. Dafir brauchsch koine Vorkenntnis em Walzer."]],
+  [["Schnell zum Walzer","Quick to a waltz","Flöck zom Walzer","Schnell zum Walzer"],
    ["Laut Seite klappt ein ansehnlicher Walzer mit Partner in etwa 5 Minuten. Das ist eine Werbeaussage, probier es einfach aus. Dafür gibt es das Gratis-Video Discowalzer-Einsteiger-Kurs 1.",
     "According to the site, a decent waltz with a partner works in about 5 minutes. That is a promotional claim, so just try it. The free video Disco Waltz Beginner Course 1 is there for that.",
-    "Laut dä Sigg klappt ene ansehnliche Walzer met Partner en öm de 5 Minutte. Dat is en Werbeussaach, probier et einfach us. Dofür jitt et dat Jratis-Video Discowalzer-Einsteiger-Kurs 1."]],
-  [["Abwechslung im Takt","Variety in the beat","Ofwähslung em Takt"],
+    "Laut dä Sigg klappt ene ansehnliche Walzer met Partner en öm de 5 Minutte. Dat is en Werbeussaach, probier et einfach us. Dofür jitt et dat Jratis-Video Discowalzer-Einsteiger-Kurs 1.","Laut dr Seite klappt a ansehnlicher Walzer mit Partner en etwa 5 Minuta. Des isch a Werbeaussag, probier's oifach aus. Dafir gibt's des Gratis-Video Discowalzer-Einsteiger-Kurs 1."]],
+  [["Abwechslung im Takt","Variety in the beat","Ofwähslung em Takt","Abwechslung em Takt"],
    ["Du machst den Walzer abwechslungsreicher, indem du Elemente aus dem Discofox einbaust. Ein Turnier-Walzer ist etwas anderes: Er braucht gutes Körpergefühl, Zeit und Übung.",
     "You make the waltz more varied by adding elements from Discofox. A competition waltz is a different thing: it takes good body awareness, time and practice.",
-    "Do mähs dä Walzer ofwähslungsreicher, wenn do Elemente vum Discofox ineboust. E Turnier-Walzer is jet anderes: Dä bruch e jot Köperjeföhl, Zigg un Övung."]]
+    "Do mähs dä Walzer ofwähslungsreicher, wenn do Elemente vum Discofox ineboust. E Turnier-Walzer is jet anderes: Dä bruch e jot Köperjeföhl, Zigg un Övung.","Du machsch da Walzer abwechslungsreicher, wenn de Elemente vom Discofox eibaust. A Turnier-Walzer isch ebbes anders: Der braucht a guts Körpergfühl, Zeit und Übung."]]
  ],
  pro:["Der Wiener Walzer gibt dem Discowalzer sein Grundgefühl, die Figuren des Discofox liefern die Abwechslung. Wer schon Discofox kann, hat also einen guten Start. Das Video zeigt Schritt für Schritt, wie beides zusammenpasst.",
   "The Viennese waltz gives the Disco Waltz its basic feel, while the Discofox figures bring the variety. If you already know Discofox, you have a good head start. The video shows step by step how the two fit together.",
-  "Dä Wiener Walzer jitt dem Discowalzer sing Jrundjeföhl, de Figure vum Discofox bränge de Ofwähslung. Wä ald Discofox kann, hät also ene jode Start. Dat Video zeig Schredd för Schredd, wie beids zosamme passt."],
+  "Dä Wiener Walzer jitt dem Discowalzer sing Jrundjeföhl, de Figure vum Discofox bränge de Ofwähslung. Wä ald Discofox kann, hät also ene jode Start. Dat Video zeig Schredd för Schredd, wie beids zosamme passt.","Dr Wiener Walzer gibt am Discowalzer sei Grundgfühl, d'Figura vom Discofox liefret d'Abwechslung. Wer scho Discofox ka, hot also an guata Start. Des Video zeigt Schritt fir Schritt, wie beides zamma passt."],
  fun:["Manfred: „In fünf Minuten tanze ich Walzer wie ein Profi.“ Nele: „Laut Seite ein ansehnlicher Walzer, Mr. Mac. Profi steht da nirgends.“",
   "Manfred: “In five minutes I will waltz like a pro.” Nele: “According to the site, a decent waltz, Mr. Mac. It does not say pro anywhere.”",
-  "Manfred: „En fünf Minutte danz ich Walzer wie ene Profi.“ Nele: „Laut Sigg ene ansehnliche Walzer, Mr. Mac. Vun Profi steit do nix.“"],
+  "Manfred: „En fünf Minutte danz ich Walzer wie ene Profi.“ Nele: „Laut Sigg ene ansehnliche Walzer, Mr. Mac. Vun Profi steit do nix.“","Manfred: „In fünf Minuta tanz i Walzer wie a Profi.“ Nele: „Laut Seite a ansehnlicher Walzer, Mr. Mac. Von Profi stoht do nix.“"],
  src:[["dance-chance.de: Discowalzer", DCWALZER]],
  q:[
-  {q:["Was verbindet der Discowalzer miteinander?","What does the Disco Waltz combine?","Wat verbingk dä Discowalzer metenein?"],
-   a:[["Wiener Walzer und Discofox-Figuren","Viennese waltz and Discofox figures","Wiener Walzer un Discofox-Figure"],
-      ["Wiener Walzer und Breakdance-Moves","Viennese waltz and breakdance moves","Wiener Walzer un Breakdance-Moves"],
-      ["Tango und Salsa","Tango and salsa","Tango un Salsa"],
-      ["Polka und Rumba","Polka and rumba","Polka un Rumba"]],
+  {q:["Was verbindet der Discowalzer miteinander?","What does the Disco Waltz combine?","Wat verbingk dä Discowalzer metenein?","Was verbindet dr Discowalzer mitanander?"],
+   a:[["Wiener Walzer und Discofox-Figuren","Viennese waltz and Discofox figures","Wiener Walzer un Discofox-Figure","Wiener Walzer und Discofox-Figura"],
+      ["Wiener Walzer und Breakdance-Moves","Viennese waltz and breakdance moves","Wiener Walzer un Breakdance-Moves","Wiener Walzer und Breakdance-Moves"],
+      ["Tango und Salsa","Tango and salsa","Tango un Salsa","Tango und Salsa"],
+      ["Polka und Rumba","Polka and rumba","Polka un Rumba","Polka und Rumba"]],
    e:["Der Discowalzer ist kein neuer Tanz, sondern verbindet den Wiener Walzer mit den Figuren des Discofox.",
       "The Disco Waltz is not a new dance but combines the Viennese waltz with the figures of Discofox.",
-      "Dä Discowalzer is kei neue Danz, sondern verbingk dä Wiener Walzer met de Figure vum Discofox."]},
-  {q:["Wie lange dauert es laut Seite bis zu einem ansehnlichen Walzer?","How long to a decent waltz, according to the site?","Wie lang dauert et laut Sigg bis zom ansehnliche Walzer?"],
-   a:[["Etwa 5 Minuten","About 5 minutes","Öm de 5 Minutte"],
-      ["Etwa 5 Stunden","About 5 hours","Öm de 5 Stunde"],
-      ["Etwa 5 Wochen","About 5 weeks","Öm de 5 Woche"],
-      ["Etwa 5 Jahre","About 5 years","Öm de 5 Johr"]],
+      "Dä Discowalzer is kei neue Danz, sondern verbingk dä Wiener Walzer met de Figure vum Discofox.","Dr Discowalzer isch koi neuer Tanz, sondern verbindet da Wiener Walzer mit de Figura vom Discofox."]},
+  {q:["Wie lange dauert es laut Seite bis zu einem ansehnlichen Walzer?","How long to a decent waltz, according to the site?","Wie lang dauert et laut Sigg bis zom ansehnliche Walzer?","Wie lang dauert's laut Seite bis zu am ansehnliche Walzer?"],
+   a:[["Etwa 5 Minuten","About 5 minutes","Öm de 5 Minutte","Etwa 5 Minuta"],
+      ["Etwa 5 Stunden","About 5 hours","Öm de 5 Stunde","Etwa 5 Stunda"],
+      ["Etwa 5 Wochen","About 5 weeks","Öm de 5 Woche","Etwa 5 Woche"],
+      ["Etwa 5 Jahre","About 5 years","Öm de 5 Johr","Etwa 5 Johr"]],
    e:["Das ist eine Werbeaussage der Seite: Ein ansehnlicher Walzer mit Partner in etwa 5 Minuten.",
       "That is a promotional claim by the site: a decent waltz with a partner in about 5 minutes.",
-      "Dat is en Werbeussaach vun dä Sigg: ene ansehnliche Walzer met Partner en öm de 5 Minutte."]},
-  {q:["Wie wird der Walzer abwechslungsreicher?","How do you make the waltz more varied?","Wie weed dä Walzer ofwähslungsreicher?"],
-   a:[["Mit eingebauten Discofox-Elementen","By adding Discofox elements","Met ingebaute Discofox-Elemente"],
-      ["Immer dieselbe Figur wiederholen","Repeat the same figure forever","Immer die selve Figur widderhole"],
-      ["Nur noch schneller tanzen","Just dance faster","Nur noch flöcker danze"],
-      ["Die Musik leiser drehen","Turn the music down","De Musik leiser drihe"]],
+      "Dat is en Werbeussaach vun dä Sigg: ene ansehnliche Walzer met Partner en öm de 5 Minutte.","Des isch a Werbeaussag vo dr Seite: a ansehnlicher Walzer mit Partner en etwa 5 Minuta."]},
+  {q:["Wie wird der Walzer abwechslungsreicher?","How do you make the waltz more varied?","Wie weed dä Walzer ofwähslungsreicher?","Wie wird dr Walzer abwechslungsreicher?"],
+   a:[["Mit eingebauten Discofox-Elementen","By adding Discofox elements","Met ingebaute Discofox-Elemente","Mit eibaute Discofox-Elemente"],
+      ["Immer dieselbe Figur wiederholen","Repeat the same figure forever","Immer die selve Figur widderhole","Emmer dia gleich Figur wiederhole"],
+      ["Nur noch schneller tanzen","Just dance faster","Nur noch flöcker danze","Bloß no schneller tanza"],
+      ["Die Musik leiser drehen","Turn the music down","De Musik leiser drihe","D'Musik leiser macha"]],
    e:["Man macht den Walzer abwechslungsreicher, indem man Discofox-Elemente einbaut.",
       "You make the waltz more varied by working in Discofox elements.",
-      "Mer mäht dä Walzer ofwähslungsreicher, wenn mer Discofox-Elemente ineboot."]}
+      "Mer mäht dä Walzer ofwähslungsreicher, wenn mer Discofox-Elemente ineboot.","Mr macht da Walzer abwechslungsreicher, wenn mr Discofox-Elemente eibaut."]}
  ]},
 { id:"latino", ico:"🌴", c:"var(--green)", min:2,
- t:["Latino: Step Touch, Rumba, Salsa, Cha Cha","Latino: Step Touch, Rumba, Salsa, Cha Cha","Latino: Step Touch, Rumba, Salsa, Cha Cha"],
- sub:["Vier Tänze, ein Kurs, Sonne im Kopf","Four dances, one course, sunshine in your head","Veer Dänz, ei Kurs, Sonn em Kopp"],
+ t:["Latino: Step Touch, Rumba, Salsa, Cha Cha","Latino: Step Touch, Rumba, Salsa, Cha Cha","Latino: Step Touch, Rumba, Salsa, Cha Cha","Latino: Step Touch, Rumba, Salsa, Cha Cha"],
+ sub:["Vier Tänze, ein Kurs, Sonne im Kopf","Four dances, one course, sunshine in your head","Veer Dänz, ei Kurs, Sonn em Kopp","Vier Dänz, oi Kurs, Sonne em Kopf"],
  cards:[
-  [["Vier Latino-Tänze","Four Latin dances","Veer Latino-Dänz"],
+  [["Vier Latino-Tänze","Four Latin dances","Veer Latino-Dänz","Vier Latino-Dänz"],
    ["Im Latino-Kurs von Dance Chance geht es um Step Touch, Rumba, Salsa und Cha Cha. Das sind vier Tänze mit ganz eigenem Gefühl. Das Schöne: Du lernst sie online, in deinem Tempo.",
     "The Latino course at Dance Chance covers Step Touch, Rumba, Salsa and Cha Cha. Four dances, each with its own feel. The nice part: you learn them online, at your own pace.",
-    "Em Latino-Kurs vun Dance Chance jeiht et öm Step Touch, Rumba, Salsa un Cha Cha. Dat sin veer Dänz mit janz ejenem Jeföhl. Dat Schöne: Do lähs se online, en dingem Tempo, ohne Stress."]],
-  [["Tanzstunde 1 gratis","Free lesson 1","Tanzstunde 1 gratis"],
+    "Em Latino-Kurs vun Dance Chance jeiht et öm Step Touch, Rumba, Salsa un Cha Cha. Dat sin veer Dänz mit janz ejenem Jeföhl. Dat Schöne: Do lähs se online, en dingem Tempo, ohne Stress.","Em Latino-Kurs vo Dance Chance goht's om Step Touch, Rumba, Salsa on Cha Cha. Des sen vier Dänz mit ganz eigenem Gfühl. S Schöne: Du lernsch se online, en deim Tempo, ohne Stress."]],
+  [["Tanzstunde 1 gratis","Free lesson 1","Tanzstunde 1 gratis","Tanzstond 1 gratis"],
    ["Die erste Latino-Tanzstunde ist gratis. Dort lernst du die Grundschritte Step Touch, Rumba und Salsa. Ein guter Einstieg, bevor du weitertanzt.",
     "The first Latino lesson is free. It covers the basic steps Step Touch, Rumba and Salsa. A good way in before you dance on.",
-    "De eezte Latino-Tanzstund es jratis. Doh lähs do de Jrundschrette Step Touch, Rumba un Salsa. E jode Enstieg, ehe do wigger danz."]],
-  [["Schoppi und Saskia","Schoppi and Saskia","Dä Schoppi un de Saskia"],
+    "De eezte Latino-Tanzstund es jratis. Doh lähs do de Jrundschrette Step Touch, Rumba un Salsa. E jode Enstieg, ehe do wigger danz.","D'erschte Latino-Tanzstond isch gratis. Do lernsch du d'Grondschritt Step Touch, Rumba on Salsa. A guader Einstieg, no kasch in Ruh weiterdanza."]],
+  [["Schoppi und Saskia","Schoppi and Saskia","Dä Schoppi un de Saskia","Dr Schoppi on d'Saskia"],
    ["Dein Coach ist Schoppi, Tanzlehrer für Standard- und Lateintänze. Ihm zur Seite steht seine Assistentin Saskia. Getanzt wird laut Seite, wo, wann und wie oft du willst.",
     "Your coach is Schoppi, a dance teacher for standard and Latin dances. His assistant Saskia is at his side. According to the site, you dance where, when and as often as you like.",
-    "Dinge Coach es dä Schoppi, Tanzlehrer för Standard- un Lateintänz. Singe Assistentin, de Saskia, es och dobei. Laut Sigg danz do, wo, wann un wie off do wells."]]
+    "Dinge Coach es dä Schoppi, Tanzlehrer för Standard- un Lateintänz. Singe Assistentin, de Saskia, es och dobei. Laut Sigg danz do, wo, wann un wie off do wells.","Dei Coach isch dr Schoppi, Tanzlehrer fir Standard- on Lateintänz. Sei Assistentin Saskia isch au dabei. Laut Seite danzsch du, wo, wann on wie oft du witt."]]
  ],
  pro:["Latino ist einer von vier Stilen auf der Seite, neben Discofox, Breakdance und Discowalzer; weitere sollen demnächst folgen. Schoppi kommt aus den Standard- und Lateintänzen, kennt also beide Tanzwelten. Wer Tanzstunde 1 gemacht hat, kennt schon drei der vier Latino-Namen.",
   "Latino is one of four styles on the site, alongside Discofox, Breakdance and Disco Waltz; more are due to follow soon. Schoppi comes from standard and Latin dancing, so he knows both worlds. Anyone who has done lesson 1 already knows three of the four Latino names.",
-  "Latino es einer vun veer Stile op dä Sigg, nevven Discofox, Breakdance un Discowalzer; mih sollen demnähx follije. Dä Schoppi kütt vun de Standard- un Lateintänz, kennt also beide Tanzwelte. Wä Tanzstund 1 jemaht hät, kennt ald drei vun de veer Latino-Name."],
+  "Latino es einer vun veer Stile op dä Sigg, nevven Discofox, Breakdance un Discowalzer; mih sollen demnähx follije. Dä Schoppi kütt vun de Standard- un Lateintänz, kennt also beide Tanzwelte. Wä Tanzstund 1 jemaht hät, kennt ald drei vun de veer Latino-Name.","Latino isch oiner vo vier Stil uff dr Seite, nebed Discofox, Breakdance on Discowalzer; weitere solled demnächscht komma. Dr Schoppi kommt vo de Standard- on Lateintänz, also kennt er beide Tanzwelta. Wer Tanzstond 1 ghett hot, kennt scho drei vo de vier Latino-Name."],
  fun:["Manfred: Mit meinen roten Schuhen wird jeder Cha Cha ein Erfolg. Nele: Mr. Mac, die Schuhe tanzen schon. Du darfst nachkommen.",
   "Manfred: With my red shoes, every Cha Cha is a hit. Nele: Mr. Mac, the shoes are already dancing. You may follow.",
-  "Manfred: Mit minge rude Schohn weed jede Cha Cha e Erfolg. Nele: Mr. Mac, de Schohn danze ald. Do darfs nohkumme."],
+  "Manfred: Mit minge rude Schohn weed jede Cha Cha e Erfolg. Nele: Mr. Mac, de Schohn danze ald. Do darfs nohkumme.","Manfred: Mit meine rote Schuh wird jeder Cha Cha a Erfolg. Nele: Mr. Mac, d'Schuh danzet scho. Du därfsch nachkomma."],
  src:[["dance-chance.de: Latino", DCLATINO]],
  q:[
-  {q:["Welche Grundschritte behandelt die gratis Latino-Tanzstunde 1?","Which basic steps does the free Latino lesson 1 cover?","Wat för Jrundschrette kumme en de jratis Latino-Tanzstund 1 draan?"],
-   a:[["Step Touch, Rumba und Salsa","Step Touch, Rumba and Salsa","Step Touch, Rumba un Salsa"],
-      ["Cha Cha, Walzer und Samba","Cha Cha, waltz and Samba","Cha Cha, Walzer un Samba"],
-      ["Discofox, Rumba und Salsa","Discofox, Rumba and Salsa","Discofox, Rumba un Salsa"],
-      ["Step Touch, Tango und Salsa","Step Touch, Tango and Salsa","Step Touch, Tango un Salsa"]],
-   e:["Tanzstunde 1 behandelt die Grundschritte Step Touch, Rumba und Salsa. Cha Cha gehört zum Latino-Kurs, ist aber nicht in dieser Aufzählung.","Lesson 1 covers the basic steps Step Touch, Rumba and Salsa. Cha Cha is part of the Latino course but not in this list.","Tanzstund 1 brängk de Jrundschrette Step Touch, Rumba un Salsa. Cha Cha jehööt zum Latino-Kurs, steiht ävver nit en dä Leß."]},
-  {q:["Wie heißen die Coaches im Latino-Kurs?","What are the coaches in the Latino course called?","Wie heiße de Coaches em Latino-Kurs?"],
-   a:[["Schoppi und Saskia","Schoppi and Saskia","Dä Schoppi un de Saskia"],
-      ["Toni und Saskia","Toni and Saskia","Dä Toni un de Saskia"],
-      ["Schoppi und Nele","Schoppi and Nele","Dä Schoppi un de Nele"],
-      ["Manfred und Saskia","Manfred and Saskia","Dä Manfred un de Saskia"]],
-   e:["Schoppi ist Tanzlehrer für Standard- und Lateintänze, Saskia seine Assistentin. Toni ist der Breakdance-Coach.","Schoppi is a teacher for standard and Latin dances, Saskia is his assistant. Toni is the breakdance coach.","Dä Schoppi es Tanzlehrer för Standard- un Lateintänz, de Saskia singe Assistentin. Dä Toni es dä Breakdance-Coach."]},
-  {q:["Was sagt die Seite über das Üben im Latino-Kurs?","What does the site say about practising in the Latino course?","Wat säät de Sigg övver et Üvve em Latino-Kurs?"],
-   a:[["Du tanzt, wo, wann und wie oft du willst","You dance where, when and as often as you like","Do danz, wo, wann un wie off do wells"],
-      ["Nur live montags in Freiberg am Neckar","Only live on Mondays in Freiberg am Neckar","Nor live mondaachs en Freiberg am Neckar"],
-      ["Nur zu festen Terminen im Studio","Only at fixed times in a studio","Nor zo faste Termine em Studio"],
-      ["Nur einmal pro Woche, immer samstags","Only once a week, always on Saturdays","Nor eimol en de Woch, immer samsdaachs"]],
-   e:["Laut Seite tanzt man wo, wann und wie oft man will. Die Live-Termine in Freiberg gehören zum Discofox.","According to the site, you dance where, when and as often as you like. The live sessions in Freiberg belong to Discofox.","Laut Sigg danz mer, wo, wann un wie off mer well. De Live-Termine en Freiberg jehööre zum Discofox."]}
+  {q:["Welche Grundschritte behandelt die gratis Latino-Tanzstunde 1?","Which basic steps does the free Latino lesson 1 cover?","Wat för Jrundschrette kumme en de jratis Latino-Tanzstund 1 draan?","Welle Grondschritt kommet in dr gratis Latino-Tanzstond 1 dran?"],
+   a:[["Step Touch, Rumba und Salsa","Step Touch, Rumba and Salsa","Step Touch, Rumba un Salsa","Step Touch, Rumba on Salsa"],
+      ["Cha Cha, Walzer und Samba","Cha Cha, waltz and Samba","Cha Cha, Walzer un Samba","Cha Cha, Walzer on Samba"],
+      ["Discofox, Rumba und Salsa","Discofox, Rumba and Salsa","Discofox, Rumba un Salsa","Discofox, Rumba on Salsa"],
+      ["Step Touch, Tango und Salsa","Step Touch, Tango and Salsa","Step Touch, Tango un Salsa","Step Touch, Tango on Salsa"]],
+   e:["Tanzstunde 1 behandelt die Grundschritte Step Touch, Rumba und Salsa. Cha Cha gehört zum Latino-Kurs, ist aber nicht in dieser Aufzählung.","Lesson 1 covers the basic steps Step Touch, Rumba and Salsa. Cha Cha is part of the Latino course but not in this list.","Tanzstund 1 brängk de Jrundschrette Step Touch, Rumba un Salsa. Cha Cha jehööt zum Latino-Kurs, steiht ävver nit en dä Leß.","Tanzstond 1 bringt d'Grondschritt Step Touch, Rumba on Salsa. Cha Cha ghört zum Latino-Kurs, stoht aber ned in dere Liste."]},
+  {q:["Wie heißen die Coaches im Latino-Kurs?","What are the coaches in the Latino course called?","Wie heiße de Coaches em Latino-Kurs?","Wie heißet d'Coaches em Latino-Kurs?"],
+   a:[["Schoppi und Saskia","Schoppi and Saskia","Dä Schoppi un de Saskia","Dr Schoppi on d'Saskia"],
+      ["Toni und Saskia","Toni and Saskia","Dä Toni un de Saskia","Dr Toni on d'Saskia"],
+      ["Schoppi und Nele","Schoppi and Nele","Dä Schoppi un de Nele","Dr Schoppi on d'Nele"],
+      ["Manfred und Saskia","Manfred and Saskia","Dä Manfred un de Saskia","Dr Manfred on d'Saskia"]],
+   e:["Schoppi ist Tanzlehrer für Standard- und Lateintänze, Saskia seine Assistentin. Toni ist der Breakdance-Coach.","Schoppi is a teacher for standard and Latin dances, Saskia is his assistant. Toni is the breakdance coach.","Dä Schoppi es Tanzlehrer för Standard- un Lateintänz, de Saskia singe Assistentin. Dä Toni es dä Breakdance-Coach.","Dr Schoppi isch Tanzlehrer fir Standard- on Lateintänz, d'Saskia sei Assistentin. Dr Toni isch dr Breakdance-Coach."]},
+  {q:["Was sagt die Seite über das Üben im Latino-Kurs?","What does the site say about practising in the Latino course?","Wat säät de Sigg övver et Üvve em Latino-Kurs?","Was sagt d'Seite iber s Ibe em Latino-Kurs?"],
+   a:[["Du tanzt, wo, wann und wie oft du willst","You dance where, when and as often as you like","Do danz, wo, wann un wie off do wells","Du danzsch, wo, wann on wie oft du witt"],
+      ["Nur live montags in Freiberg am Neckar","Only live on Mondays in Freiberg am Neckar","Nor live mondaachs en Freiberg am Neckar","Bloß live montags in Freiberg am Neckar"],
+      ["Nur zu festen Terminen im Studio","Only at fixed times in a studio","Nor zo faste Termine em Studio","Bloß zu feschte Termin em Studio"],
+      ["Nur einmal pro Woche, immer samstags","Only once a week, always on Saturdays","Nor eimol en de Woch, immer samsdaachs","Bloß oimol d'Woch, emmer samstags"]],
+   e:["Laut Seite tanzt man wo, wann und wie oft man will. Die Live-Termine in Freiberg gehören zum Discofox.","According to the site, you dance where, when and as often as you like. The live sessions in Freiberg belong to Discofox.","Laut Sigg danz mer, wo, wann un wie off mer well. De Live-Termine en Freiberg jehööre zum Discofox.","Laut Seite danzt mr, wo, wann on wie oft mr will. D'Live-Termin in Freiberg ghöret zum Discofox."]}
  ]},
 { id:"breakdance", ico:"🤸", c:"var(--pri-d)", min:2,
- t:["Breakdance: Combo, Moves, Battle","Breakdance: Combo, Moves, Battle","Breakdance: Combo, Moves, Battle"],
- sub:["Straßentanz mit Style und Aufwärmpflicht","Street dance with style and a warm-up rule","Stroßedanz mit Style un Opwärmpflich"],
+ t:["Breakdance: Combo, Moves, Battle","Breakdance: Combo, Moves, Battle","Breakdance: Combo, Moves, Battle","Breakdance: Combo, Moves, Battle"],
+ sub:["Straßentanz mit Style und Aufwärmpflicht","Street dance with style and a warm-up rule","Stroßedanz mit Style un Opwärmpflich","Straßadanz mit Style on Aufwärmpflicht"],
  cards:[
-  [["Tanz von der Straße","Dance from the street","Danz vun de Stroß"],
+  [["Tanz von der Straße","Dance from the street","Danz vun de Stroß","Danz vo dr Straß"],
    ["Breakdance ist ein Straßentanz und Teil der Hip-Hop-Bewegung der frühen 1970er-Jahre. Getanzt wird zu Pop, Funk oder Hip-Hop. Bei Dance Chance gibt es dazu drei kostenlose Tanzstunden.",
     "Breakdance is a street dance and part of the hip-hop movement of the early 1970s. People dance to pop, funk or hip-hop. Dance Chance offers three free lessons for it.",
-    "Breakdance es e Stroßedanz un jehööt zur Hip-Hop-Bewäjung vun de fröhe 1970er-Johre. Jedanz weed zo Pop, Funk odder Hip-Hop. Bei Dance Chance jitt et dozo drei kostenlose Tanzstunde."]],
-  [["Combo und Moves","Combo and moves","Combo un Moves"],
+    "Breakdance es e Stroßedanz un jehööt zur Hip-Hop-Bewäjung vun de fröhe 1970er-Johre. Jedanz weed zo Pop, Funk odder Hip-Hop. Bei Dance Chance jitt et dozo drei kostenlose Tanzstunde.","Breakdance isch a Straßadanz on ghört zur Hip-Hop-Bewegong vo de frühe 1970er-Johr. Danzt wird zu Pop, Funk odr Hip-Hop. Bei Dance Chance gibt's drei koschtelose Tanzstonda dazu."]],
+  [["Combo und Moves","Combo and moves","Combo un Moves","Combo on Moves"],
    ["Eine Combo ist die Tanzeinheit eines Tänzers, Moves sind die einzelnen Figuren. Dazu zählen Drop Down, Baby Freeze, Monkey Flip, Knee Drop, Brezel Swing und Shoulder Freeze.",
     "A combo is one dancer's routine, moves are the individual figures. They include Drop Down, Baby Freeze, Monkey Flip, Knee Drop, Brezel Swing and Shoulder Freeze.",
-    "En Combo es de Tanzeinheit vun enem Tänzer, Moves sin de einzelne Figure. Dozo zälle Drop Down, Baby Freeze, Monkey Flip, Knee Drop, Brezel Swing un Shoulder Freeze."]],
-  [["Battle und Footwork","Battle and footwork","Battle un Footwork"],
+    "En Combo es de Tanzeinheit vun enem Tänzer, Moves sin de einzelne Figure. Dozo zälle Drop Down, Baby Freeze, Monkey Flip, Knee Drop, Brezel Swing un Shoulder Freeze.","A Combo isch d'Tanzoiheit vo oim Tänzer, Moves sen d'oinzelne Figura. Dezu zählet Drop Down, Baby Freeze, Monkey Flip, Knee Drop, Brezel Swing on Shoulder Freeze."]],
+  [["Battle und Footwork","Battle and footwork","Battle un Footwork","Battle on Footwork"],
    ["Ein Battle ist ein tänzerischer Wettstreit mit einem Gegner. Niemand tanzt ein ganzes Lied durch, man wechselt sich ab. Eine Combo beginnt meist mit Footwork, also Schrittvarianten, mit denen du besser in die Musik findest.",
     "A battle is a dance contest against an opponent. Nobody dances a whole song alone, you take turns. A combo usually starts with footwork, step variations that help you find your way into the music.",
-    "E Battle es e tänzerisch Wettstriet mit enem Jäjner. Keiner danz e janz Leed durch, mer wesselt sich av. En Combo fängk meis mit Footwork aan, dat sin Schrittvariante, mit denne do besser en de Musik erenfings."]]
+    "E Battle es e tänzerisch Wettstriet mit enem Jäjner. Keiner danz e janz Leed durch, mer wesselt sich av. En Combo fängk meis mit Footwork aan, dat sin Schrittvariante, mit denne do besser en de Musik erenfings.","A Battle isch a tänzerischer Wettstreit mit oim Gegner. Koiner danzt a ganzes Lied durch, mr wechselt sich ab. A Combo fängt moischtens mit Footwork a, des sen Schrittvarianta, mit dene mr besser in d'Musik nei findet."]]
  ],
  pro:["Coach ist Toni, der seit Jahren in Tanzschulen und Companys unterrichtet, auch Kinder. Aufwärmen und Dehnen ist Pflicht, damit du dich nicht verletzt. Merksatz: erst warm, dann Combo.",
   "The coach is Toni, who has taught in dance schools and companies for years, children included. Warming up and stretching is a must so you do not get hurt. Rule of thumb: warm first, combo second.",
-  "Coach es dä Toni, dä ald sick Johre unterrichet, en Tanzschööl un Companys, och Pänz. Opwärme un Dehne es Pflich, domit do dich nit verletz. Merksatz: eets wärm, dann Combo."],
+  "Coach es dä Toni, dä ald sick Johre unterrichet, en Tanzschööl un Companys, och Pänz. Opwärme un Dehne es Pflich, domit do dich nit verletz. Merksatz: eets wärm, dann Combo.","Dr Coach isch dr Toni, dr scho seit Johre in Tanzschula on Companys unterrichtet, au Kinder. Aufwärma on Dehna isch Pflicht, damit du di ned verletzsch. Merksatz: erscht warm, no Combo."],
  fun:["Manfred: Ich mach heute mal einen Knee Drop. Nele: Erst dehnen, Mr. Mac. Die Knie wollen Bescheid wissen.",
   "Manfred: I will do a knee drop today. Nele: Stretch first, Mr. Mac. The knees want to be told.",
-  "Manfred: Ich maach hück ens e Knee Drop. Nele: Eets dehne, Mr. Mac. De Knee wulle Bescheid wesse."],
+  "Manfred: Ich maach hück ens e Knee Drop. Nele: Eets dehne, Mr. Mac. De Knee wulle Bescheid wesse.","Manfred: I mach heut mol a Knee Drop. Nele: Erscht dehna, Mr. Mac. D'Knie wellet Bscheid wissa."],
  src:[["dance-chance.de: Breakdance", DCBREAK]],
  q:[
-  {q:["Was ist beim Breakdance ein Battle?","What is a battle in breakdance?","Wat es beim Breakdance e Battle?"],
-   a:[["Ein tänzerischer Wettstreit mit einem Gegner","A dance contest against an opponent","E tänzerisch Wettstriet mit enem Jäjner"],
-      ["Die Aufwärmübung vor dem Training","The warm-up exercise before training","De Opwärmövung vör em Training"],
-      ["Ein anderes Wort für Footwork","Another word for footwork","E anderes Wood för Footwork"],
-      ["Eine einzelne Figur wie der Baby Freeze","A single figure like the Baby Freeze","En einzel Figur wie dä Baby Freeze"]],
-   e:["Ein Battle ist ein tänzerischer Wettstreit mit einem Gegner. Footwork sind Schrittvarianten, und Moves sind einzelne Figuren.","A battle is a dance contest against an opponent. Footwork means step variations, and moves are single figures.","E Battle es e tänzerisch Wettstriet mit enem Jäjner. Footwork sin Schrittvariante, un Moves sin einzel Figure."]},
-  {q:["Womit beginnt eine Combo meist?","What does a combo usually begin with?","Womit fängk en Combo meis aan?"],
-   a:[["Mit Footwork","With footwork","Mit Footwork"],
-      ["Mit einem Battle","With a battle","Mit enem Battle"],
-      ["Mit einem Baby Freeze","With a Baby Freeze","Mit enem Baby Freeze"],
-      ["Mit einem Discofox-Grundschritt","With a Discofox basic step","Mit enem Discofox-Jrundschrett"]],
-   e:["Eine Combo beginnt meist mit Footwork. Damit findest du besser in die Musik hinein, bevor die Moves folgen.","A combo usually starts with footwork. It helps you find your way into the music before the moves follow.","En Combo fängk meis mit Footwork aan. Domit fings do besser en de Musik eren, ehe de Moves kumme."]},
-  {q:["Was ist beim Breakdance-Kurs Pflicht gegen Verletzungen?","What is a must in the breakdance course to avoid injuries?","Wat es em Breakdance-Kurs Pflich jäjen Verletzunge?"],
-   a:[["Aufwärmen und Dehnen","Warming up and stretching","Opwärme un Dehne"],
-      ["Ein ganzes Lied durchtanzen","Dancing a whole song through","E janz Leed durchdanze"],
-      ["Mit Partner an der Hand tanzen","Dancing with a partner by the hand","Mit Partner an de Hand danze"],
-      ["Rote Schuhe wie Manfred tragen","Wearing red shoes like Manfred","Rude Schohn wie dä Manfred drare"]],
-   e:["Aufwärmen und Dehnen ist Pflicht. Ein ganzes Lied tanzt beim Breakdance ohnehin niemand durch, man wechselt sich ab.","Warming up and stretching is a must. Nobody dances a whole song through in breakdance anyway, you take turns.","Opwärme un Dehne es Pflich. E janz Leed danz beim Breakdance sowieso keiner durch, mer wesselt sich av."]}
+  {q:["Was ist beim Breakdance ein Battle?","What is a battle in breakdance?","Wat es beim Breakdance e Battle?","Was isch beim Breakdance a Battle?"],
+   a:[["Ein tänzerischer Wettstreit mit einem Gegner","A dance contest against an opponent","E tänzerisch Wettstriet mit enem Jäjner","A tänzerischer Wettstreit mit oim Gegner"],
+      ["Die Aufwärmübung vor dem Training","The warm-up exercise before training","De Opwärmövung vör em Training","D'Aufwärmübong vorm Training"],
+      ["Ein anderes Wort für Footwork","Another word for footwork","E anderes Wood för Footwork","A anders Wort fir Footwork"],
+      ["Eine einzelne Figur wie der Baby Freeze","A single figure like the Baby Freeze","En einzel Figur wie dä Baby Freeze","A oinzelne Figur wie dr Baby Freeze"]],
+   e:["Ein Battle ist ein tänzerischer Wettstreit mit einem Gegner. Footwork sind Schrittvarianten, und Moves sind einzelne Figuren.","A battle is a dance contest against an opponent. Footwork means step variations, and moves are single figures.","E Battle es e tänzerisch Wettstriet mit enem Jäjner. Footwork sin Schrittvariante, un Moves sin einzel Figure.","A Battle isch a tänzerischer Wettstreit mit oim Gegner. Footwork sen Schrittvarianta, on Moves sen oinzelne Figura."]},
+  {q:["Womit beginnt eine Combo meist?","What does a combo usually begin with?","Womit fängk en Combo meis aan?","Mit was fängt a Combo moischtens a?"],
+   a:[["Mit Footwork","With footwork","Mit Footwork","Mit Footwork"],
+      ["Mit einem Battle","With a battle","Mit enem Battle","Mit oim Battle"],
+      ["Mit einem Baby Freeze","With a Baby Freeze","Mit enem Baby Freeze","Mit oim Baby Freeze"],
+      ["Mit einem Discofox-Grundschritt","With a Discofox basic step","Mit enem Discofox-Jrundschrett","Mit oim Discofox-Grondschritt"]],
+   e:["Eine Combo beginnt meist mit Footwork. Damit findest du besser in die Musik hinein, bevor die Moves folgen.","A combo usually starts with footwork. It helps you find your way into the music before the moves follow.","En Combo fängk meis mit Footwork aan. Domit fings do besser en de Musik eren, ehe de Moves kumme.","A Combo fängt moischtens mit Footwork a. Domit findsch besser in d'Musik nei, ehe d'Moves komma."]},
+  {q:["Was ist beim Breakdance-Kurs Pflicht gegen Verletzungen?","What is a must in the breakdance course to avoid injuries?","Wat es em Breakdance-Kurs Pflich jäjen Verletzunge?","Was isch em Breakdance-Kurs Pflicht gega Verletzunga?"],
+   a:[["Aufwärmen und Dehnen","Warming up and stretching","Opwärme un Dehne","Aufwärma on Dehna"],
+      ["Ein ganzes Lied durchtanzen","Dancing a whole song through","E janz Leed durchdanze","A ganzes Lied durchdanza"],
+      ["Mit Partner an der Hand tanzen","Dancing with a partner by the hand","Mit Partner an de Hand danze","Mit Partner an dr Hand danza"],
+      ["Rote Schuhe wie Manfred tragen","Wearing red shoes like Manfred","Rude Schohn wie dä Manfred drare","Rote Schuh wie dr Manfred ahenga"]],
+   e:["Aufwärmen und Dehnen ist Pflicht. Ein ganzes Lied tanzt beim Breakdance ohnehin niemand durch, man wechselt sich ab.","Warming up and stretching is a must. Nobody dances a whole song through in breakdance anyway, you take turns.","Opwärme un Dehne es Pflich. E janz Leed danz beim Breakdance sowieso keiner durch, mer wesselt sich av.","Aufwärma on Dehna isch Pflicht. A ganzes Lied danzt beim Breakdance eh koiner durch, mr wechselt sich ab."]}
  ]},
 { id:"schlager", ico:"🎉", c:"var(--gold-ink)", min:3,
- t:["Bossrunde: Mr. Macs Schlagerparty Berlin","Boss round: Mr. Mac's Schlager Party Berlin","Bossrund: Mr. Macs Schlagerparty Berlin"],
- sub:["Tanzen, Mitsingen, Feiern mit DJ Manfred","Dance, sing along, party with DJ Manfred","Danze, Mitsinge, Fiere mit DJ Manfred"],
+ t:["Bossrunde: Mr. Macs Schlagerparty Berlin","Boss round: Mr. Mac's Schlager Party Berlin","Bossrund: Mr. Macs Schlagerparty Berlin","Bossrond: Mr. Macs Schlagerparty Berlin"],
+ sub:["Tanzen, Mitsingen, Feiern mit DJ Manfred","Dance, sing along, party with DJ Manfred","Danze, Mitsinge, Fiere mit DJ Manfred","Danza, Mitsinga, Feiera mit DJ Manfred"],
  cards:[
-  [["Mr. Macs Schlagerparty","Mr. Mac's Schlager Party","Mr. Macs Schlagerparty"],
+  [["Mr. Macs Schlagerparty","Mr. Mac's Schlager Party","Mr. Macs Schlagerparty","Mr. Macs Schlagerparty"],
    ["Mr. Macs Schlagerparty ist eine Eventreihe mit Tanz, Mitsingen und Feiern. Kult-Schlager-DJ Manfred legt auf und moderiert live. Es laufen Evergreens, aktuelle Schlager und Malle-Kracher.",
     "Mr. Mac's Schlager Party is an event series with dancing, singing along and partying. Cult schlager DJ Manfred spins the records and hosts live. Expect evergreens, current schlager hits and Mallorca party smashers.",
-    "Mr. Macs Schlagerparty es en Eventreih mit Danze, Mitsinge un Fiere. Kult-Schlager-DJ Manfred läät op un moderiert live. Et laufe Evergreens, aktuelle Schlager un Malle-Kracher."]],
-  [["Berlin: Wann und wo","Berlin: when and where","Berlin: Wann un wo"],
+    "Mr. Macs Schlagerparty es en Eventreih mit Danze, Mitsinge un Fiere. Kult-Schlager-DJ Manfred läät op un moderiert live. Et laufe Evergreens, aktuelle Schlager un Malle-Kracher.","Mr. Macs Schlagerparty isch a Eventreihe mit Danza, Mitsinga on Feiera. Dr Kult-Schlager-DJ Manfred legt uff on moderiert live. Do lauft Evergreens, aktuelle Schlager on Malle-Kracher."]],
+  [["Berlin: Wann und wo","Berlin: when and where","Berlin: Wann un wo","Berlin: Wann on wo"],
    ["Die Party steigt am Freitag, 23. April 2027, im Spindler & Klatt in Berlin-Kreuzberg, direkt an der Spree. Von 20:00 bis 21:00 Uhr ist Ankommen und Einstimmen, von 21:00 bis 01:00 Uhr Schlagerparty. Von 01:00 bis 02:00 Uhr klingt der Abend aus.",
     "The party takes place on Friday, 23 April 2027, at Spindler & Klatt in Berlin-Kreuzberg, right on the Spree. From 8 pm to 9 pm you arrive and get in the mood, from 9 pm to 1 am it is party time. From 1 am to 2 am the evening winds down.",
-    "De Party es am Freidaach, 23. April 2027, em Spindler & Klatt en Berlin-Kreuzberg, direk an de Spree. Vun 20:00 bes 21:00 Uhr es Aankumme un Enstimme, vun 21:00 bes 01:00 Uhr Schlagerparty. Vun 01:00 bes 02:00 Uhr klingk dä Ovend us."]],
-  [["Tickets und Mindestverzehr","Tickets and minimum spend","Tickets un Mindestverzehr"],
+    "De Party es am Freidaach, 23. April 2027, em Spindler & Klatt en Berlin-Kreuzberg, direk an de Spree. Vun 20:00 bes 21:00 Uhr es Aankumme un Enstimme, vun 21:00 bes 01:00 Uhr Schlagerparty. Vun 01:00 bes 02:00 Uhr klingk dä Ovend us.","D'Party isch am Freitag, 23. April 2027, em Spindler & Klatt en Berlin-Kreuzberg, direkt an dr Spree. Vo 20:00 bis 21:00 Uhr isch Ankomma on Einstimma, vo 21:00 bis 01:00 Uhr Schlagerparty. Vo 01:00 bis 02:00 Uhr lauft dr Abend aus."]],
+  [["Tickets und Mindestverzehr","Tickets and minimum spend","Tickets un Mindestverzehr","Tickets on Mindestverzehr"],
    ["Tickets gibt es ausschließlich über Eventim, in den Preisstufen Early Bird, Normalpreis und Last Minute. An der Abendkasse zahlst du 18 € Mindestverzehr pro Gast. Das Geld wird als Guthaben auf eine Verzehrkarte geladen, gilt nur an dem Abend, und Reste verfallen.",
     "Tickets are available exclusively through Eventim, in the price tiers Early Bird, Normal price and Last Minute. At the box office you pay a 18 euro minimum spend per guest. The money is loaded as credit onto a drinks card, is valid only that evening, and leftovers expire.",
-    "Tickets jitt et usschließlich övver Eventim, en de Priesstufe Early Bird, Normalpreis un Last Minute. An de Ovendkass zahls do 18 € Mindestverzehr pro Jass. Dat Jeld weed als Jothave op en Verzehrkaat jelaade, jilt nor an däm Ovend, un Rest verfalle."]]
+    "Tickets jitt et usschließlich övver Eventim, en de Priesstufe Early Bird, Normalpreis un Last Minute. An de Ovendkass zahls do 18 € Mindestverzehr pro Jass. Dat Jeld weed als Jothave op en Verzehrkaat jelaade, jilt nor an däm Ovend, un Rest verfalle.","Tickets gibt's bloß iber Eventim, en de Preisstufa Early Bird, Normalpreis on Last Minute. An dr Abendkass zahlsch du 18 € Mindestverzehr pro Gascht. S Geld kommt als Guthaba uff a Verzehrkarte, gilt bloß an dem Abend, on Reschte verfallet."]]
  ],
  pro:["Anreise: mit der U1 oder U3 bis Schlesisches Tor oder zur S+U Warschauer Straße. Das Gebäude ist ein Backsteinbau der ehemaligen Heeresbäckerei (1888 bis 1893). Rollstuhl-Tickets gibt es über die Eventim-Serviceline, allein kommen ist problemlos, und weitere Städte sollen folgen.",
   "Getting there: take the U1 or U3 to Schlesisches Tor, or go to S+U Warschauer Straße. The building is a brick structure of the former army bakery (1888 to 1893). Wheelchair tickets are available via the Eventim service line, coming alone is no problem, and more cities are to follow.",
-  "Aanreis: mit de U1 odder U3 bes Schlesisches Tor odder zur S+U Warschauer Straße. Dat Jebäud es e Backsteinbau vun de fröhere Heeresbäckerei (1888 bes 1893). Rollstohl-Tickets jitt et övver de Eventim-Serviceline, allein kumme es kei Problem, un mih Städt sollen folje."],
+  "Aanreis: mit de U1 odder U3 bes Schlesisches Tor odder zur S+U Warschauer Straße. Dat Jebäud es e Backsteinbau vun de fröhere Heeresbäckerei (1888 bes 1893). Rollstohl-Tickets jitt et övver de Eventim-Serviceline, allein kumme es kei Problem, un mih Städt sollen folje.","Anreis: mit dr U1 odr U3 bis Schlesisches Tor odr zur S+U Warschauer Straße. S Gebäude isch a Backsteibau vo dr ehemalige Heeresbäckerei (1888 bis 1893). Rollstuhl-Tickets gibt's iber d'Eventim-Serviceline, alloi komma isch kois Problem, on weitere Stadt solled folga."],
  fun:["Manfred: Auf der Party singen alle mit! Nele: Mr. Mac, das ist ein Wunsch, kein Programm. Aber ich summe mit.",
   "Manfred: Everyone sings along at the party! Nele: Mr. Mac, that is a wish, not a programme. But I will hum along.",
-  "Manfred: Op de Party singe all mit! Nele: Mr. Mac, dat es ene Wunsch, kei Programm. Ävver ich brumm mit."],
+  "Manfred: Op de Party singe all mit! Nele: Mr. Mac, dat es ene Wunsch, kei Programm. Ävver ich brumm mit.","Manfred: Uff dr Party singet älle mit! Nele: Mr. Mac, des isch a Wunsch, koi Programm. Aber i brumm mit."],
  src:[["dance-chance.de: Schlagerparty", DCSCHLAGER],["dance-chance.de: Berlin", DCBERLIN]],
  q:[
-  {q:["Wann findet die Schlagerparty Berlin statt?","When does the Schlager Party in Berlin take place?","Wann es de Schlagerparty en Berlin?"],
-   a:[["Freitag, 23. April 2027","Friday, 23 April 2027","Freidaach, 23. April 2027"],
-      ["Samstag, 24. April 2027","Saturday, 24 April 2027","Samsdaach, 24. April 2027"],
-      ["Freitag, 23. Oktober 2027","Friday, 23 October 2027","Freidaach, 23. Oktober 2027"],
-      ["Freitag, 23. April 2026","Friday, 23 April 2026","Freidaach, 23. April 2026"]],
-   e:["Die Party ist am Freitag, 23. April 2027, mit Ankommen ab 20:00 Uhr.","The party is on Friday, 23 April 2027, with arrival from 8 pm.","De Party es am Freidaach, 23. April 2027, mit Aankumme av 20:00 Uhr."]},
-  {q:["Wo steigt die Schlagerparty in Berlin?","Where does the Schlager Party in Berlin take place?","Wo es de Schlagerparty en Berlin?"],
-   a:[["Im Spindler & Klatt in Berlin-Kreuzberg","At Spindler & Klatt in Berlin-Kreuzberg","Em Spindler & Klatt en Berlin-Kreuzberg"],
-      ["Im Dancingpark PALAZZO in Freiberg am Neckar","At Dancingpark PALAZZO in Freiberg am Neckar","Em Dancingpark PALAZZO en Freiberg am Neckar"],
-      ["In der Stadthalle Bietigheim-Bissingen","At the Stadthalle in Bietigheim-Bissingen","En de Stadthalle Bietigheim-Bissingen"],
-      ["Auf einem Schiff auf der Spree","On a ship on the Spree","Op enem Scheff op de Spree"]],
-   e:["Das Spindler & Klatt liegt in Kreuzberg an der Spree. Der PALAZZO in Freiberg ist der Ort der Live-Tanzkurse.","Spindler & Klatt is in Kreuzberg on the Spree. The PALAZZO in Freiberg is where the live dance courses are held.","Et Spindler & Klatt litt en Kreuzberg an de Spree. Dä PALAZZO en Freiberg es dä Ort vun de Live-Tanzkurse."]},
-  {q:["Wie ist der Mindestverzehr bei der Schlagerparty geregelt?","How does the minimum spend at the Schlager Party work?","Wie es dä Mindestverzehr bei de Schlagerparty jeregelt?"],
-   a:[["18 € pro Gast, als Guthaben auf einer Verzehrkarte","18 euros per guest, as credit on a drinks card","18 € pro Jass, als Jothave op enere Verzehrkaat"],
-      ["18 € als zweites Eintrittsgeld zusätzlich","18 euros as a second entrance fee on top","18 € als zweit Enndrettsjeld obendrop"],
-      ["18 €, Reste werden am Ende erstattet","18 euros, leftovers are refunded at the end","18 €, Rest weede am Engk erstatt"],
-      ["Nur für Singles, Paare sind befreit","Only for singles, couples are exempt","Nor för Singles, Pärchen sin befreit"]],
-   e:["Die 18 € pro Gast werden als Guthaben auf eine Verzehrkarte geladen, gelten nur an dem Abend, und Reste verfallen.","The 18 euros per guest are loaded as credit onto a drinks card, valid only that evening, and leftovers expire.","De 18 € pro Jass weede als Jothave op en Verzehrkaat jelaade, jelle nor an däm Ovend, un Rest verfalle."]},
-  {q:["Wie lang läuft die Schlagerparty selbst, ohne Ankommen und Ausklang?","How long does the party itself run, without arrival and wind-down?","Wie lang löpp de Schlagerparty selvs, ohne Aankumme un Usklang?"],
-   a:[["Vier Stunden, von 21:00 bis 01:00 Uhr","Four hours, from 9 pm to 1 am","Veer Stunde, vun 21:00 bes 01:00 Uhr"],
-      ["Sechs Stunden, von 20:00 bis 02:00 Uhr","Six hours, from 8 pm to 2 am","Sechs Stunde, vun 20:00 bes 02:00 Uhr"],
-      ["Drei Stunden, von 21:00 bis 00:00 Uhr","Three hours, from 9 pm to midnight","Drei Stunde, vun 21:00 bes 00:00 Uhr"],
-      ["Fünf Stunden, von 21:00 bis 02:00 Uhr","Five hours, from 9 pm to 2 am","Fünnef Stunde, vun 21:00 bes 02:00 Uhr"]],
-   e:["Die Party läuft von 21:00 bis 01:00 Uhr. Davor ist Ankommen ab 20:00, danach Ausklang bis ca. 02:00 Uhr.","The party runs from 9 pm to 1 am. Before that comes arrival from 8 pm, afterwards the wind-down until about 2 am.","De Party löpp vun 21:00 bes 01:00 Uhr. Dovör es Aankumme av 20:00, dernoh Usklang bes ca. 02:00 Uhr."]}
+  {q:["Wann findet die Schlagerparty Berlin statt?","When does the Schlager Party in Berlin take place?","Wann es de Schlagerparty en Berlin?","Wann isch d'Schlagerparty en Berlin?"],
+   a:[["Freitag, 23. April 2027","Friday, 23 April 2027","Freidaach, 23. April 2027","Freitag, 23. April 2027"],
+      ["Samstag, 24. April 2027","Saturday, 24 April 2027","Samsdaach, 24. April 2027","Samschtag, 24. April 2027"],
+      ["Freitag, 23. Oktober 2027","Friday, 23 October 2027","Freidaach, 23. Oktober 2027","Freitag, 23. Oktober 2027"],
+      ["Freitag, 23. April 2026","Friday, 23 April 2026","Freidaach, 23. April 2026","Freitag, 23. April 2026"]],
+   e:["Die Party ist am Freitag, 23. April 2027, mit Ankommen ab 20:00 Uhr.","The party is on Friday, 23 April 2027, with arrival from 8 pm.","De Party es am Freidaach, 23. April 2027, mit Aankumme av 20:00 Uhr.","D'Party isch am Freitag, 23. April 2027, mit Ankomma ab 20:00 Uhr."]},
+  {q:["Wo steigt die Schlagerparty in Berlin?","Where does the Schlager Party in Berlin take place?","Wo es de Schlagerparty en Berlin?","Wo isch d'Schlagerparty en Berlin?"],
+   a:[["Im Spindler & Klatt in Berlin-Kreuzberg","At Spindler & Klatt in Berlin-Kreuzberg","Em Spindler & Klatt en Berlin-Kreuzberg","Em Spindler & Klatt en Berlin-Kreuzberg"],
+      ["Im Dancingpark PALAZZO in Freiberg am Neckar","At Dancingpark PALAZZO in Freiberg am Neckar","Em Dancingpark PALAZZO en Freiberg am Neckar","Em Dancingpark PALAZZO en Freiberg am Neckar"],
+      ["In der Stadthalle Bietigheim-Bissingen","At the Stadthalle in Bietigheim-Bissingen","En de Stadthalle Bietigheim-Bissingen","En dr Stadthalle Bietigheim-Bissenga"],
+      ["Auf einem Schiff auf der Spree","On a ship on the Spree","Op enem Scheff op de Spree","Uff oim Schiff uff dr Spree"]],
+   e:["Das Spindler & Klatt liegt in Kreuzberg an der Spree. Der PALAZZO in Freiberg ist der Ort der Live-Tanzkurse.","Spindler & Klatt is in Kreuzberg on the Spree. The PALAZZO in Freiberg is where the live dance courses are held.","Et Spindler & Klatt litt en Kreuzberg an de Spree. Dä PALAZZO en Freiberg es dä Ort vun de Live-Tanzkurse.","S Spindler & Klatt liegt en Kreuzberg an dr Spree. Dr PALAZZO en Freiberg isch dr Ort vo de Live-Tanzkurs."]},
+  {q:["Wie ist der Mindestverzehr bei der Schlagerparty geregelt?","How does the minimum spend at the Schlager Party work?","Wie es dä Mindestverzehr bei de Schlagerparty jeregelt?","Wie isch dr Mindestverzehr bei dr Schlagerparty gregelt?"],
+   a:[["18 € pro Gast, als Guthaben auf einer Verzehrkarte","18 euros per guest, as credit on a drinks card","18 € pro Jass, als Jothave op enere Verzehrkaat","18 € pro Gascht, als Guthaba uff a Verzehrkarte"],
+      ["18 € als zweites Eintrittsgeld zusätzlich","18 euros as a second entrance fee on top","18 € als zweit Enndrettsjeld obendrop","18 € als zweits Eintrittsgeld obedruff"],
+      ["18 €, Reste werden am Ende erstattet","18 euros, leftovers are refunded at the end","18 €, Rest weede am Engk erstatt","18 €, Reschte werdet am End zrückzahlt"],
+      ["Nur für Singles, Paare sind befreit","Only for singles, couples are exempt","Nor för Singles, Pärchen sin befreit","Bloß fir Singles, Paare sen befreit"]],
+   e:["Die 18 € pro Gast werden als Guthaben auf eine Verzehrkarte geladen, gelten nur an dem Abend, und Reste verfallen.","The 18 euros per guest are loaded as credit onto a drinks card, valid only that evening, and leftovers expire.","De 18 € pro Jass weede als Jothave op en Verzehrkaat jelaade, jelle nor an däm Ovend, un Rest verfalle.","D'18 € pro Gascht werdet als Guthaba uff a Verzehrkarte glada, gältet bloß an dem Abend, on Reschte verfallet."]},
+  {q:["Wie lang läuft die Schlagerparty selbst, ohne Ankommen und Ausklang?","How long does the party itself run, without arrival and wind-down?","Wie lang löpp de Schlagerparty selvs, ohne Aankumme un Usklang?","Wie lang lauft d'Schlagerparty selber, ohne Ankomma on Ausklang?"],
+   a:[["Vier Stunden, von 21:00 bis 01:00 Uhr","Four hours, from 9 pm to 1 am","Veer Stunde, vun 21:00 bes 01:00 Uhr","Vier Stond, vo 21:00 bis 01:00 Uhr"],
+      ["Sechs Stunden, von 20:00 bis 02:00 Uhr","Six hours, from 8 pm to 2 am","Sechs Stunde, vun 20:00 bes 02:00 Uhr","Sechs Stond, vo 20:00 bis 02:00 Uhr"],
+      ["Drei Stunden, von 21:00 bis 00:00 Uhr","Three hours, from 9 pm to midnight","Drei Stunde, vun 21:00 bes 00:00 Uhr","Drei Stond, vo 21:00 bis 00:00 Uhr"],
+      ["Fünf Stunden, von 21:00 bis 02:00 Uhr","Five hours, from 9 pm to 2 am","Fünnef Stunde, vun 21:00 bes 02:00 Uhr","Fenf Stond, vo 21:00 bis 02:00 Uhr"]],
+   e:["Die Party läuft von 21:00 bis 01:00 Uhr. Davor ist Ankommen ab 20:00, danach Ausklang bis ca. 02:00 Uhr.","The party runs from 9 pm to 1 am. Before that comes arrival from 8 pm, afterwards the wind-down until about 2 am.","De Party löpp vun 21:00 bes 01:00 Uhr. Dovör es Aankumme av 20:00, dernoh Usklang bes ca. 02:00 Uhr.","D'Party lauft vo 21:00 bis 01:00 Uhr. Dervor isch Ankomma ab 20:00, danoch Ausklang bis ca. 02:00 Uhr."]}
  ]}
 ];
 
@@ -1022,22 +1024,22 @@ function partyCard(){
     h("ol", {class:"psteps"}, st.map((x, i) => h("li", null, h("span", {class:"pt"}, h("span", {class:"pn", "aria-hidden":"true"}, String(i + 1)), x[0]), h("strong", {text:t(x[1])}), h("span", {class:"pd", text:t(x[2])})))));
 }
 const SPR = [
-["g",["Manfred sagt: Der Takt ist mein Freund. Nele sagt: Dann hör ihm bitte zu.","Manfred says: the beat is my friend. Nele says: then please listen to it.","Manfred säät: Dä Takt es ming Fründ. Nele säät: Dann hür im doch ens zo."]],
-["f",["Dance Chance hat laut Seite über 140 Unterrichts- und Figurenvideos.","According to the site, Dance Chance has over 140 lesson and figure videos.","Dance Chance hät laut Sigg övver 140 Unterrichts- un Figurevideos."]],
-["g",["Ein Lächeln ist der beste Grundschritt. Das sagt sogar Nele.","A smile is the best basic step. Even Nele says so.","E Laache es dä beste Jrundschrett. Dat säät sujar de Nele."]],
-["f",["Die Coaches lernten sich 2010 beim Tanzen kennen und heirateten 2016.","The coaches met while dancing in 2010 and married in 2016.","De Coaches han sich 2010 beim Danze kennejelihrt un 2016 jeheiroht."]],
-["g",["Manfreds rote Schuhe können mehr Figuren als er. Nele schmunzelt.","Manfred's red shoes know more figures than he does. Nele smiles.","Manfreds rude Schohn künne mih Figure als hä. Nele schmunzelt."]],
-["f",["Latino-Tanzstunde 1 ist gratis: Step Touch, Rumba und Salsa.","Latino lesson 1 is free: Step Touch, Rumba and Salsa.","Latino-Tanzstund 1 es jratis: Step Touch, Rumba un Salsa."]],
-["g",["Führen heißt wissen, was man will. Folgen heißt Spaß dabei haben.","Leading means knowing what you want. Following means enjoying it.","Föhre heiß wesse, wat mer well. Follije heiß Spaß dobei han."]],
-["f",["Eine Breakdance-Combo beginnt meist mit Footwork.","A breakdance combo usually starts with footwork.","En Breakdance-Combo fängk meis mit Footwork aan."]],
-["g",["Nele: Mr. Mac, der Arm gehört über die Drehende. Manfred: Ich dachte, drunter.","Nele: Mr. Mac, the arm goes over the person turning. Manfred: I thought under.","Nele: Mr. Mac, dä Arm jehööt övver de Drehende. Manfred: Ich hatt jedaach, drunger."]],
-["f",["Der Discowalzer verbindet den Wiener Walzer mit Discofox-Figuren.","The Disco Waltz combines the Viennese waltz with Discofox figures.","Dä Discowalzer verbingk dä Wiener Walzer mit Discofox-Figure."]],
-["g",["Kurz und oft üben schlägt einmal lang. Manfred schwört drauf, Nele sowieso.","Short and often beats long and rare. Manfred swears by it, Nele even more.","Kott un off üvve schlät eimol lang. Manfred schwöört dodrop, Nele sowieso."]],
-["f",["Die Berliner Schlagerparty ist am Freitag, 23. April 2027.","The Berlin Schlager Party is on Friday, 23 April 2027.","De Berliner Schlagerparty es am Freidaach, 23. April 2027."]],
-["g",["Auch Profis treten mal auf Füße. Manfred nennt das Bonusschritt.","Even pros step on toes now and then. Manfred calls it a bonus step.","Och Profis trete ens op Föß. Manfred nennt dat Bonusschrett."]],
-["f",["Breakdance gehört zur Hip-Hop-Bewegung der frühen 1970er-Jahre.","Breakdance is part of the hip-hop movement of the early 1970s.","Breakdance jehööt zur Hip-Hop-Bewäjung vun de fröhe 1970er-Johre."]],
-["g",["Manfred: Schlager geht immer! Nele: Auch mal leise, Mr. Mac.","Manfred: Schlager always works! Nele: Sometimes quietly, Mr. Mac.","Manfred: Schlager jeiht immer! Nele: Och ens leis, Mr. Mac."]],
-["f",["Laut Seite ist Discofox der populärste Paartanz in Deutschland.","According to the site, Discofox is the most popular couple dance in Germany.","Laut Sigg es Discofox dä beliebtste Paartanz en Düütschland."]]
+["g",["Manfred sagt: Der Takt ist mein Freund. Nele sagt: Dann hör ihm bitte zu.","Manfred says: the beat is my friend. Nele says: then please listen to it.","Manfred säät: Dä Takt es ming Fründ. Nele säät: Dann hür im doch ens zo.","Manfred moint: Dr Takt isch mei Freund. D'Nele moint: No hör ihm halt mol zua."]],
+["f",["Dance Chance hat laut Seite über 140 Unterrichts- und Figurenvideos.","According to the site, Dance Chance has over 140 lesson and figure videos.","Dance Chance hät laut Sigg övver 140 Unterrichts- un Figurevideos.","Dance Chance hot laut Seite iber 140 Unterrichts- ond Figurevideos."]],
+["g",["Ein Lächeln ist der beste Grundschritt. Das sagt sogar Nele.","A smile is the best basic step. Even Nele says so.","E Laache es dä beste Jrundschrett. Dat säät sujar de Nele.","A Lächle isch dr beschte Grondschritt. Des sait sogar d'Nele."]],
+["f",["Die Coaches lernten sich 2010 beim Tanzen kennen und heirateten 2016.","The coaches met while dancing in 2010 and married in 2016.","De Coaches han sich 2010 beim Danze kennejelihrt un 2016 jeheiroht.","D'Coaches hent sich 2010 beim Tanza kennaglernt ond 2016 gheirat."]],
+["g",["Manfreds rote Schuhe können mehr Figuren als er. Nele schmunzelt.","Manfred's red shoes know more figures than he does. Nele smiles.","Manfreds rude Schohn künne mih Figure als hä. Nele schmunzelt.","Manfreds rote Schuh kennet meh Figura als er. D'Nele schmunzelt."]],
+["f",["Latino-Tanzstunde 1 ist gratis: Step Touch, Rumba und Salsa.","Latino lesson 1 is free: Step Touch, Rumba and Salsa.","Latino-Tanzstund 1 es jratis: Step Touch, Rumba un Salsa.","Latino-Tanzstond 1 isch gratis: Step Touch, Rumba ond Salsa."]],
+["g",["Führen heißt wissen, was man will. Folgen heißt Spaß dabei haben.","Leading means knowing what you want. Following means enjoying it.","Föhre heiß wesse, wat mer well. Follije heiß Spaß dobei han.","Führa hoißt wissa, was ma will. Folga hoißt Spaß debei han."]],
+["f",["Eine Breakdance-Combo beginnt meist mit Footwork.","A breakdance combo usually starts with footwork.","En Breakdance-Combo fängk meis mit Footwork aan.","A Breakdance-Combo fangt moischtens mit Footwork a."]],
+["g",["Nele: Mr. Mac, der Arm gehört über die Drehende. Manfred: Ich dachte, drunter.","Nele: Mr. Mac, the arm goes over the person turning. Manfred: I thought under.","Nele: Mr. Mac, dä Arm jehööt övver de Drehende. Manfred: Ich hatt jedaach, drunger.","Nele: Mr. Mac, dr Arm ghört ibr d'Drehende. Manfred: I hett gmoint, drunter."]],
+["f",["Der Discowalzer verbindet den Wiener Walzer mit Discofox-Figuren.","The Disco Waltz combines the Viennese waltz with Discofox figures.","Dä Discowalzer verbingk dä Wiener Walzer mit Discofox-Figure.","Dr Discowalzer verbindet dr Wiener Walzer mit Discofox-Figura."]],
+["g",["Kurz und oft üben schlägt einmal lang. Manfred schwört drauf, Nele sowieso.","Short and often beats long and rare. Manfred swears by it, Nele even more.","Kott un off üvve schlät eimol lang. Manfred schwöört dodrop, Nele sowieso.","Kurz ond oft iebe schlägt oimol lang. Dr Manfred schwört druff, d'Nele sowieso."]],
+["f",["Die Berliner Schlagerparty ist am Freitag, 23. April 2027.","The Berlin Schlager Party is on Friday, 23 April 2027.","De Berliner Schlagerparty es am Freidaach, 23. April 2027.","D'Berliner Schlagerparty isch am Freitag, 23. April 2027."]],
+["g",["Auch Profis treten mal auf Füße. Manfred nennt das Bonusschritt.","Even pros step on toes now and then. Manfred calls it a bonus step.","Och Profis trete ens op Föß. Manfred nennt dat Bonusschrett.","Au Profis trettet mol uff Fiaß. Dr Manfred sait dem Bonusschritt."]],
+["f",["Breakdance gehört zur Hip-Hop-Bewegung der frühen 1970er-Jahre.","Breakdance is part of the hip-hop movement of the early 1970s.","Breakdance jehööt zur Hip-Hop-Bewäjung vun de fröhe 1970er-Johre.","Breakdance ghört zur Hip-Hop-Bewegong vo de frühe 1970er-Johr."]],
+["g",["Manfred: Schlager geht immer! Nele: Auch mal leise, Mr. Mac.","Manfred: Schlager always works! Nele: Sometimes quietly, Mr. Mac.","Manfred: Schlager jeiht immer! Nele: Och ens leis, Mr. Mac.","Manfred: Schlager goht emmer! Nele: Au mol leis, Mr. Mac."]],
+["f",["Laut Seite ist Discofox der populärste Paartanz in Deutschland.","According to the site, Discofox is the most popular couple dance in Germany.","Laut Sigg es Discofox dä beliebtste Paartanz en Düütschland.","Laut Seite isch Discofox dr beliebtescht Paartanz en Deutschland."]]
 ];
 let sprI = Math.floor(Math.random() * SPR.length);
 function spruchCard(){
@@ -1174,14 +1176,14 @@ function renderResult(l){
 /* ---------- Zertifikat teilen: Text je nach Spieltag, mit Link zur App ---------- */
 /* Platzhalter: {r} richtige Antworten, {n} Fragen. Der Link zur App wird beim Teilen angehängt. */
 const SHT = {
- start:["Tanzstunde 1 im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Manfred und Nele haben sich 2010 beim Tanzen kennengelernt, ich mich eben beim Quiz. Und du? Teste dein Tanzwissen:","Dance lesson 1 passed in the Dance Chance Quiz: {r} of {n} correct. Manfred and Nele met while dancing in 2010, I met them in a quiz. And you? Test your dance knowledge:","Danzstund 1 em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Dä Manfred un de Nele han sich 2010 beim Danze kennejelehrt, ich beim Quiz. Un do? Test ding Danzwesse:"],
- regeln:["Die Grundregeln von Manfred und Nele gemeistert: {r} von {n} richtig. Der Arm geht über die Drehende, das Lächeln immer. Weißt du auch, was du auf der Tanzfläche willst? Hier zum Quiz:","Mastered the basic rules of Manfred and Nele: {r} of {n} correct. The arm goes over the person turning, the smile always. Do you know what you want on the dance floor? Try the quiz:","De Jrundrejele vum Manfred un de Nele jemeistert: {r} vun {n} richtig. Dä Aarm jeiht övver de Drihende, dat Laache immer. Wees do och, wat do op de Danzfläch wills? Hee zom Quiz:"],
- discofox:["Discofox-Stunde im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Laut Dance Chance der populärste Paartanz Deutschlands, und ich kann jetzt mitreden. Schaffst du das auch?","Discofox lesson passed in the Dance Chance Quiz: {r} of {n} correct. According to Dance Chance the most popular couple dance in Germany, and now I can join the conversation. Can you do it too?","Discofox-Stund em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Laut Dance Chance dä beleebtste Paardanz en Deutschland, un ich kann jetz metschwaade. Schaffs do dat och?"],
- walzer:["Discowalzer geschafft: {r} von {n} richtig. Wiener Walzer trifft Discofox, und mein Kopf dreht sich nur noch im Takt. Probier es aus:","Disco waltz done: {r} of {n} correct. Viennese waltz meets discofox, and my head now only spins in time. Give it a try:","Discowalzer jeschaff: {r} vun {n} richtig. Wiener Walzer trieff Discofox, un ming Kopp dräht sich nur noch em Takt. Prob et us:"],
- latino:["Latino-Stunde im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Step Touch, Rumba, Salsa: Die Hüfte weiß mehr als der Kopf. Und du?","Latin lesson passed in the Dance Chance Quiz: {r} of {n} correct. Step touch, rumba, salsa: the hips know more than the head. And you?","Latino-Stund em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Step Touch, Rumba, Salsa: De Hüff wees mih als dä Kopp. Un do?"],
- breakdance:["Breakdance-Stunde geschafft: {r} von {n} richtig. Combo, Moves, Battle: Ich bin aufgewärmt, zumindest im Kopf. Traust du dich?","Breakdance lesson done: {r} of {n} correct. Combo, moves, battle: I'm warmed up, at least in my head. Do you dare?","Breakdance-Stund jeschaff: {r} vun {n} richtig. Combo, Moves, Battle: Ich ben opjewärmp, winnichstens em Kopp. Wagß do dich?"],
- schlager:["Bossrunde im Dance-Chance-Quiz bezwungen: {r} von {n} richtig. Schlagerparty Berlin am 23. April 2027: Ich weiß jetzt, wo ich tanzen muss. Kommst du mit? Teste dich:","Boss round beaten in the Dance Chance Quiz: {r} of {n} correct. Schlager party in Berlin on 23 April 2027: now I know where to dance. Are you coming? Test yourself:","Bossrund em Dance-Chance-Quiz jeschaff: {r} vun {n} richtig. Schlagerparty en Berlin am 23. April 2027: Ich weiß jetz, wo ich danze muss. Küss do met? Test dich:"],
- master:["Alle 7 Tanzstunden im Dance-Chance-Quiz geschafft: Die Meister-Urkunde gehört mir! Manfred und Nele sind stolz. Wer tanzt mit?","All 7 dance lessons done in the Dance Chance Quiz: the Master certificate is mine! Manfred and Nele are proud. Who is dancing along?","All 7 Danzstunde em Dance-Chance-Quiz jeschaff: De Meister-Urkund jehööt mir! Dä Manfred un de Nele sin stolz. Wä danz met?"]
+ start:["Tanzstunde 1 im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Manfred und Nele haben sich 2010 beim Tanzen kennengelernt, ich mich eben beim Quiz. Und du? Teste dein Tanzwissen:","Dance lesson 1 passed in the Dance Chance Quiz: {r} of {n} correct. Manfred and Nele met while dancing in 2010, I met them in a quiz. And you? Test your dance knowledge:","Danzstund 1 em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Dä Manfred un de Nele han sich 2010 beim Danze kennejelehrt, ich beim Quiz. Un do? Test ding Danzwesse:","Tanzstond 1 em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Dr Manfred ond d'Nele hent sich 2010 beim Tanza kennaglernt, i hald beim Quiz. Ond du? Teschd dei Tanzwissa:"],
+ regeln:["Die Grundregeln von Manfred und Nele gemeistert: {r} von {n} richtig. Der Arm geht über die Drehende, das Lächeln immer. Weißt du auch, was du auf der Tanzfläche willst? Hier zum Quiz:","Mastered the basic rules of Manfred and Nele: {r} of {n} correct. The arm goes over the person turning, the smile always. Do you know what you want on the dance floor? Try the quiz:","De Jrundrejele vum Manfred un de Nele jemeistert: {r} vun {n} richtig. Dä Aarm jeiht övver de Drihende, dat Laache immer. Wees do och, wat do op de Danzfläch wills? Hee zom Quiz:","D'Grondregla vom Manfred ond vo d'Nele gmeischtert: {r} von {n} richtig. Dr Arm goht ibr d'Drehende, des Lächle emmer. Woisch du au, was du uff dr Tanzfläch witt? Do geht's zum Quiz:"],
+ discofox:["Discofox-Stunde im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Laut Dance Chance der populärste Paartanz Deutschlands, und ich kann jetzt mitreden. Schaffst du das auch?","Discofox lesson passed in the Dance Chance Quiz: {r} of {n} correct. According to Dance Chance the most popular couple dance in Germany, and now I can join the conversation. Can you do it too?","Discofox-Stund em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Laut Dance Chance dä beleebtste Paardanz en Deutschland, un ich kann jetz metschwaade. Schaffs do dat och?","Discofox-Stond em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Laut Dance Chance dr beliebtescht Paartanz en Deutschland, ond i kann jetzt mitschwätza. Schaffsch du des au?"],
+ walzer:["Discowalzer geschafft: {r} von {n} richtig. Wiener Walzer trifft Discofox, und mein Kopf dreht sich nur noch im Takt. Probier es aus:","Disco waltz done: {r} of {n} correct. Viennese waltz meets discofox, and my head now only spins in time. Give it a try:","Discowalzer jeschaff: {r} vun {n} richtig. Wiener Walzer trieff Discofox, un ming Kopp dräht sich nur noch em Takt. Prob et us:","Discowalzer gschafft: {r} von {n} richtig. Wiener Walzer trifft Discofox, ond mei Kopf dreht sich nemme, bloß no em Takt. Probier's hald aus:"],
+ latino:["Latino-Stunde im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Step Touch, Rumba, Salsa: Die Hüfte weiß mehr als der Kopf. Und du?","Latin lesson passed in the Dance Chance Quiz: {r} of {n} correct. Step touch, rumba, salsa: the hips know more than the head. And you?","Latino-Stund em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Step Touch, Rumba, Salsa: De Hüff wees mih als dä Kopp. Un do?","Latino-Stond em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Step Touch, Rumba, Salsa: D'Hüft woiß meh als dr Kopf. Ond du?"],
+ breakdance:["Breakdance-Stunde geschafft: {r} von {n} richtig. Combo, Moves, Battle: Ich bin aufgewärmt, zumindest im Kopf. Traust du dich?","Breakdance lesson done: {r} of {n} correct. Combo, moves, battle: I'm warmed up, at least in my head. Do you dare?","Breakdance-Stund jeschaff: {r} vun {n} richtig. Combo, Moves, Battle: Ich ben opjewärmp, winnichstens em Kopp. Wagß do dich?","Breakdance-Stond gschafft: {r} von {n} richtig. Combo, Moves, Battle: I bin aufgwärmt, wenigschtens em Kopf. Traesch di?"],
+ schlager:["Bossrunde im Dance-Chance-Quiz bezwungen: {r} von {n} richtig. Schlagerparty Berlin am 23. April 2027: Ich weiß jetzt, wo ich tanzen muss. Kommst du mit? Teste dich:","Boss round beaten in the Dance Chance Quiz: {r} of {n} correct. Schlager party in Berlin on 23 April 2027: now I know where to dance. Are you coming? Test yourself:","Bossrund em Dance-Chance-Quiz jeschaff: {r} vun {n} richtig. Schlagerparty en Berlin am 23. April 2027: Ich weiß jetz, wo ich danze muss. Küss do met? Test dich:","Bossrund em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Schlagerparty en Berlin am 23. April 2027: I woiß jetzt, wo i tanza muss. Kommsch mit? Teschd di:"],
+ master:["Alle 7 Tanzstunden im Dance-Chance-Quiz geschafft: Die Meister-Urkunde gehört mir! Manfred und Nele sind stolz. Wer tanzt mit?","All 7 dance lessons done in the Dance Chance Quiz: the Master certificate is mine! Manfred and Nele are proud. Who is dancing along?","All 7 Danzstunde em Dance-Chance-Quiz jeschaff: De Meister-Urkund jehööt mir! Dä Manfred un de Nele sin stolz. Wä danz met?","Älle 7 Tanzstonda em Dance-Chance-Quiz gschafft: D'Meister-Urkond ghört mir! Dr Manfred ond d'Nele sen stolz. Wer tanzt mit?"]
 };
 const certShareText = l => {   // Text hängt vom Zertifikat ab: Meister-Zertifikat oder Spieltag (nur direkt nach dem letzten Quiz zählt das Meister-Zertifikat)
   const k = !l || (view.v === "result" && allEarned()) ? "master" : l.id, tx = (SHT[k] || SHT.master)[li], p = (l && prog[l.id]) || {};
@@ -1238,26 +1240,26 @@ const ICO = {
 };
 function lico(k){ const s = h("span", {class:"lico", "aria-hidden":"true"}); if(ICO[k]) s.innerHTML = ICO[k]; else s.textContent = k; return s; }
 const CT = {
- head:["TANZ-URKUNDE","DANCE CERTIFICATE","DANZ-URKUND"],
- headM:["MEISTER-URKUNDE","MASTER CERTIFICATE","MEISTER-URKUND"],
- conf:["Manfred und Nele bestätigen mit einem Tänzchen und Augenzwinkern, dass","Manfred and Nele confirm with a little dance and a wink that","Dä Manfred un de Nele bestätije met enem Tänzche un Augezwinkere, dat"],
- did:["die Tanzstunde bestanden hat:","has passed the dance lesson:","de Danzstund bestande hät:"],
- didM:["alle sieben Tanzstunden bestanden hat und damit Tanzwissen auf Manfred-und-Nele-Niveau besitzt.","has passed all seven dance lessons and now holds dance knowledge at Manfred-and-Nele level.","all sibbe Danzstunde bestande hät un domet Danzwesse op Manfred-un-Nele-Niveau hät."],
- score:["richtig","correct","richtig"],
- qHead:["Das habe ich gewusst:","What I knew:","Dat han ich jewoss:"],
- qHeadM:["Alle sieben Tanzstunden gemeistert:","All seven dance lessons mastered:","All sibbe Danzstunde jemeistert:"],
- lines:[["Geschafft! Jeder Tanzlehrer hat mal mit dem Grundschritt angefangen.","Done! Every dance teacher once started with the basic step.","Jeschaff! Jeder Danzlehrer hät ens met däm Jrundschredd aanjefange."],
-        ["Stark! Die nächste Tanzstunde wartet schon auf dich.","Strong! The next dance lesson is already waiting for you.","Stark! De nächste Danzstund waad ald op dich."],
-        ["Perfekt! Da lächelt sogar Nele auf der Tanzfläche.","Perfect! Even Nele smiles on the dance floor.","Perfekt! Do laach sujar de Nele op de Danzfläch."]],
- linesN:[["Geschafft, {n}! Jeder Tanzlehrer hat mal mit dem Grundschritt angefangen.","Done, {n}! Every dance teacher once started with the basic step.","Jeschaff, {n}! Jeder Danzlehrer hät ens met däm Jrundschredd aanjefange."],
-        ["Stark, {n}! Die nächste Tanzstunde wartet schon auf dich.","Strong, {n}! The next dance lesson is already waiting for you.","Stark, {n}! De nächste Danzstund waad ald op dich."],
-        ["Perfekt, {n}! Da lächelt sogar Nele auf der Tanzfläche.","Perfect, {n}! Even Nele smiles on the dance floor.","Perfekt, {n}! Do laach sujar de Nele op de Danzfläch."]],
- lineMN:["{n}, du bist offiziell ein Dance-Chance-Profi (inoffiziell). Der erste Tanz geht auf Manfred!","{n}, you are officially a Dance Chance pro (unofficially). The first dance is on Manfred!","{n}, do bes offiziell e Dance-Chance-Profi (inoffiziell). Dä eezte Danz jeiht op dä Manfred!"],
- lineM:["Du bist offiziell ein Dance-Chance-Profi (inoffiziell). Der erste Tanz geht auf Manfred!","You are officially a Dance Chance pro (unofficially). The first dance is on Manfred!","Do bes offiziell e Dance-Chance-Profi (inoffiziell). Dä eezte Danz jeiht op dä Manfred!"],
- rankL:["Rang","Rank","Rang"],
- date:["Datum","Date","Datum"],
- sign:["Manfred & Nele","Manfred & Nele","Manfred & Nele"],
- foot:["Tanzen lernen mit Nele und Manfred · Dance-Chance-Quiz","Learn to dance with Nele and Manfred · Dance Chance Quiz","Danze lihre mit de Nele un dem Manfred · Dance-Chance-Quiz"]
+ head:["TANZ-URKUNDE","DANCE CERTIFICATE","DANZ-URKUND","TANZ-URKUNDLE"],
+ headM:["MEISTER-URKUNDE","MASTER CERTIFICATE","MEISTER-URKUND","MEISTER-URKUNDLE"],
+ conf:["Manfred und Nele bestätigen mit einem Tänzchen und Augenzwinkern, dass","Manfred and Nele confirm with a little dance and a wink that","Dä Manfred un de Nele bestätije met enem Tänzche un Augezwinkere, dat","Dr Manfred ond d'Nele bestätiget mit am Tänzle ond am Augazwinkra, dass"],
+ did:["die Tanzstunde bestanden hat:","has passed the dance lesson:","de Danzstund bestande hät:","d'Tanzstond bschdanda hot:"],
+ didM:["alle sieben Tanzstunden bestanden hat und damit Tanzwissen auf Manfred-und-Nele-Niveau besitzt.","has passed all seven dance lessons and now holds dance knowledge at Manfred-and-Nele level.","all sibbe Danzstunde bestande hät un domet Danzwesse op Manfred-un-Nele-Niveau hät.","älle siebe Tanzstonda bschdanda hot ond jetzt Tanzwissa uff Manfred-ond-Nele-Niveau hot."],
+ score:["richtig","correct","richtig","richtig"],
+ qHead:["Das habe ich gewusst:","What I knew:","Dat han ich jewoss:","Des hab i gwißt:"],
+ qHeadM:["Alle sieben Tanzstunden gemeistert:","All seven dance lessons mastered:","All sibbe Danzstunde jemeistert:","Älle siebe Tanzstonda gmeischtert:"],
+ lines:[["Geschafft! Jeder Tanzlehrer hat mal mit dem Grundschritt angefangen.","Done! Every dance teacher once started with the basic step.","Jeschaff! Jeder Danzlehrer hät ens met däm Jrundschredd aanjefange.","Gschafft! Jeder Tanzlehrer hot mol mit am Grondschritt agfanga."],
+        ["Stark! Die nächste Tanzstunde wartet schon auf dich.","Strong! The next dance lesson is already waiting for you.","Stark! De nächste Danzstund waad ald op dich.","Stark! D'nächscht Tanzstond wartet scho uff di."],
+        ["Perfekt! Da lächelt sogar Nele auf der Tanzfläche.","Perfect! Even Nele smiles on the dance floor.","Perfekt! Do laach sujar de Nele op de Danzfläch.","Perfekt! Do lächelt sogar d'Nele uff dr Tanzfläch."]],
+ linesN:[["Geschafft, {n}! Jeder Tanzlehrer hat mal mit dem Grundschritt angefangen.","Done, {n}! Every dance teacher once started with the basic step.","Jeschaff, {n}! Jeder Danzlehrer hät ens met däm Jrundschredd aanjefange.","Gschafft, {n}! Jeder Tanzlehrer hot mol mit am Grondschritt agfanga."],
+        ["Stark, {n}! Die nächste Tanzstunde wartet schon auf dich.","Strong, {n}! The next dance lesson is already waiting for you.","Stark, {n}! De nächste Danzstund waad ald op dich.","Stark, {n}! D'nächscht Tanzstond wartet scho uff di."],
+        ["Perfekt, {n}! Da lächelt sogar Nele auf der Tanzfläche.","Perfect, {n}! Even Nele smiles on the dance floor.","Perfekt, {n}! Do laach sujar de Nele op de Danzfläch.","Perfekt, {n}! Do lächelt sogar d'Nele uff dr Tanzfläch."]],
+ lineMN:["{n}, du bist offiziell ein Dance-Chance-Profi (inoffiziell). Der erste Tanz geht auf Manfred!","{n}, you are officially a Dance Chance pro (unofficially). The first dance is on Manfred!","{n}, do bes offiziell e Dance-Chance-Profi (inoffiziell). Dä eezte Danz jeiht op dä Manfred!","{n}, du bisch offiziell a Dance-Chance-Profi (inoffiziell). Dr erschte Tanz goht uff dr Manfred!"],
+ lineM:["Du bist offiziell ein Dance-Chance-Profi (inoffiziell). Der erste Tanz geht auf Manfred!","You are officially a Dance Chance pro (unofficially). The first dance is on Manfred!","Do bes offiziell e Dance-Chance-Profi (inoffiziell). Dä eezte Danz jeiht op dä Manfred!","Du bisch offiziell a Dance-Chance-Profi (inoffiziell). Dr erschte Tanz goht uff dr Manfred!"],
+ rankL:["Rang","Rank","Rang","Rang"],
+ date:["Datum","Date","Datum","Datum"],
+ sign:["Manfred & Nele","Manfred & Nele","Manfred & Nele","Manfred & Nele"],
+ foot:["Tanzen lernen mit Nele und Manfred · Dance-Chance-Quiz","Learn to dance with Nele and Manfred · Dance Chance Quiz","Danze lihre mit de Nele un dem Manfred · Dance-Chance-Quiz","Tanza lerna mit d'Nele ond am Manfred · Dance-Chance-Quiz"]
 };
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 function wrap(s, n){
@@ -1309,7 +1311,7 @@ function certQBlock(l, F){
 function certSVG(l){
   const M = !l, g = k => CT[k][li], n = nm.trim();
   const T = totals(), st = M ? T.st : starsOf(prog[l.id], l.q.length), right = M ? 0 : prog[l.id].best;
-  const d = new Date().toLocaleDateString(({de:"de-DE", en:"en-GB", ksh:"de-DE"})[LANGS[li][0]], {day:"2-digit", month:"long", year:"numeric"});
+  const d = new Date().toLocaleDateString(({de:"de-DE", en:"en-GB", ksh:"de-DE", swg:"de-DE"})[LANGS[li][0]], {day:"2-digit", month:"long", year:"numeric"});
   const F = 'font-family="Trebuchet MS, Segoe UI, Hiragino Maru Gothic ProN, Yu Gothic UI, Meiryo, sans-serif"';
   const ew = [...n].reduce((s, c) => s + (/[WMm@]/.test(c) ? 1.05 : /\s/.test(c) ? .3 : /[\u3000-\u9fff\uff00-\uffef]/.test(c) ? 1.25 : /[A-ZÄÖÜ]/.test(c) ? .74 : /[ilj.,'!|]/.test(c) ? .3 : .58), 0);
   const nsz = n ? Math.max(16, Math.min(64, Math.floor(860 / Math.max(6, ew)))) : 34;
@@ -2100,6 +2102,205 @@ fromHash(); render();
   ];
   return {MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS};
  },
+ swg: () => {
+  const MS = [
+   "Danza muss Spaß macha, gell? Älles andere isch bloß a Schrittfolg.",
+   "Wer führt, muss wissa, was er will, sonscht wird d'Frau ganz zappelig.",
+   "Lächle! A Tanz ohne Lächle isch bloß Laufa mit Takt.",
+   "Beim Drehe goht dr Arm über da Kopf vo dr Drehende. Älle Mol.",
+   "Rote Schuh send koi Pflicht, aber se machet schneller. Heidanei!",
+   "I bin dr Mr. Mac, ond i danz, bis d'Sohl glüht.",
+   "Aufwärma net vergessa: Knie ond Laune wellet warm sei.",
+   "%N, heut wird tanzt. S'Sofa kann warta, des lauft ned weg.",
+   "Führa heißt eilada, ned zerra wie an dr Leine.",
+   "Discofox isch wie a Sprach: heut a Wörtle, morga a ganzer Satz.",
+   "%N, kloine Schritt, no hosch au in dr Kuche no Platz.",
+   "Schlagerparty Berlin: 23. April 2027, Spindler & Klatt. Kalender her!",
+   "Freitag, 23. April 2027: Mr. Macs Schlagerparty in Berlin. Kommsch au?",
+   "In Berlin leg i selber uff. Evergreens ond Malle-Kracher, Ehrewort.",
+   "Alloi zur Schlagerparty in Berlin? Freile! Beim Refrain hosch Freund.",
+   "Tickets für Berlin gibt's bloß über Eventim. Ned beim Vetter Karle.",
+   "Brille sitzt, Schuh leuchtet, Viertele in dr Hand. Rhythmus, komm!",
+   "Dr Grundschritt isch wie Kehrwoch: jede Woch bissle, no sitzt er.",
+   "Zwoi bis drei kurze Einheite pro Woch langet. Qualität schlägt Marathon.",
+   "Discowalzer: Wiener Walzer plus Discofox-Figura. Des Beschte vo zwoi Welta.",
+   "%N, dei Füß wissed meh, als dei Kopf denkt. Lass se mache.",
+   "Breakdance: erscht Footwork, no Show. Ond vorher dehna!",
+   "Fehler? Ha no! Des send bloß Figura, wo no koin Name hent.",
+   "Oiner führt, oine folgt, beide hören uff d'Musik.",
+   "Latino heißt: Hüfte locker, Schultera ruhig, Laune hoch.",
+   "%N, hosch heut scho glacht? No dans oifach druff los.",
+   "A guter Führender denkt an dr nächscht Schritt, bevor dr Fuß hebt.",
+   "I han d'Nele 2010 beim Tanza troffa. Seitdem üb i, ihr ned uff d'Füß z'trampa.",
+   "Seit 2016 sen mir verheiratet. I führ, d'Nele lenkt. So isch's halt.",
+   "Mr. Mac sagt: Wer tanzt, braucht koi Ausred, bloß Musik.",
+   "Mit %N im Takt? Des gfällt! Sogar s'Sofa wackelt vor Neid.",
+   "D'drei goldene Regla aus Tanzstund 3? Kann i auswendig. Fascht.",
+   "Drei Gratis-Stunda beim Breakdance. Aber erscht dehna, gell!",
+   "Über 140 Videos: üba, wo d'witt, sogar em Urlaub am Pool.",
+   "Monatlich kündbar. Oifach mol probiera, no woisch Bescheid.",
+   "Em eigene Tempo tanza: S'Video wird nie müd. I scho.",
+   "Rückwärts tanza isch wie rückwärts oiparka: erscht gucka, no Mut.",
+   "Atme! Wer d'Luft anhält, tanzt wie a Statue em Schlossgarta.",
+   "Sing ruhig mit, %N. Beim Schlager isch Mitsinga Pflicht.",
+   "Brille beschlaga? No war dr Tanz heiß. Oder d'Maultaschesupp."
+  ];
+  const NS = [
+   "Schultera nonter, Kinn nuff. No sieht's leicht aus.",
+   "Atma hilft, gell? Au beim Manfred.",
+   "Folga heißt zuhöra, ned hinterherlaufa.",
+   "A Lächle isch dr beschte Schritt.",
+   "D'Brille hockt uff dr Stirn, Manfred. Scho a Weile.",
+   "%N, des kasch. Ganz ruhig.",
+   "Langsam isch au a Tempo. Des isch guat.",
+   "Guate Haltung erspart jeden zweite Fehler.",
+   "Rote Schuh send sei Art, ruhig z'bleiba. Funktioniert ned.",
+   "Wenn er stolpert, tanzet mir oifach weiter. Des isch d'Kunscht.",
+   "Guck ned uff d'Füß. Die laufet au alloi.",
+   "Locker bleiba, bissle weicher. D'Händ send koi Schraubstock.",
+   "Hör uff d'Musik, ned uff s'Echo em Kopf.",
+   "%N, Pausa send erlaubt. Wasser au.",
+   "Führa isch Eilada. Folga isch Annehma.",
+   "Seit 2010 üba mir zämma. Er isch no ned fertig.",
+   "Dr Arm goht über da Kopf, ned gega d'Frisur.",
+   "Jeder Afang wackelt, gell? Mei oiger au.",
+   "Bissle Eleganz kostet nix. Bloß Haltung.",
+   "%N, i sieh's: Des war scho schö.",
+   "Beim Walzer darf's fließa. Ned renna.",
+   "Manfred, ned scho wieder Schlager beim Frühstück.",
+   "Latino: D'Hüft bewegt sich, dr Oberkörper bleibt ruhig.",
+   "Schaffe, schaffe: aufwärma, dehna, no Applaus.",
+   "%N, Fehler derfet sei. Dr nächscht Takt kommt bestimmt."
+  ];
+  const TIPPS = [
+   [["M","Grundregel oins: Tanza muss Spaß macha. Des isch s'A ond O!"],["N","Ond wer lacht, atmet au. Des hilft ebbes."]],
+   [["M","Als Führender zauberscht ihr a Lächle ins Gsicht."],["N","Des klappt, wenn d'woisch, wo d'hi witt."]],
+   [["M","I führ, indem i sanft eilad."],["N","Ond i folg, weil i gern eiglada werd."]],
+   [["M","Wer führt, muss wissa, was er will."],["N","Sonscht steht sie do ond rät. Des isch ned romantisch."]],
+   [["M","Beim Drehe goht dei Arm über da Kopf vo dr Drehende."],["N","Über da Kopf, ned gega d'Ohra."]],
+   [["M","Grundschritt kloi, locker, em Takt. Dann goht's vo selber."],["N","Ond d'Knie weich, ned wie Bügelbretter."]],
+   [["M","Gschlossene Haltung: nah gnug für Kontakt, weit gnug zum Atma."],["N","Ond zum Zuhöra."]],
+   [["M","Platzsparend tanza goht sogar in dr Kuche. Hoch lebe d'kloine Schritt!"],["N","Solang koi Wäscheständer im Weg stoht."]],
+   [["M","Discowalzer: Wiener Walzer, gwürzt mit Discofox-Figura."],["N","Laut Seite au ohne Vorkenntnisse. Des glaub i."]],
+   [["M","Beim Walzer fließa, ned stampfa."],["N","Du moinsch: ned renna."]],
+   [["M","Latino fangt mit Step Touch a: Schritt, ran, Schritt, ran."],["N","D'Hüft macht dr Rest, gell, Manfred?"]],
+   [["M","Salsa: Gwicht wechsla, Schultera ruhig."],["N","Ond koi Ellbogen in d'Nachbarin."]],
+   [["M","Cha Cha: zwoimol langsam, no cha-cha-cha."],["N","Zähla därfsch. Singa lieber ned."]],
+   [["M","Breakdance fangt mit Footwork a, no komme d'Moves."],["N","Ond vorher aufwärma, sonscht fangt dr Rücka a Battle a."]],
+   [["M","Dehna isch Pflicht, au für Mr. Mac."],["N","Gerade für Mr. Mac."]],
+   [["M","Zwoi bis drei kurze Einheite pro Woch langet."],["N","Kurz ond oft isch besser als lang ond nie."]]
+  ];
+  const DIALOGE = [
+   [["M","Mei rote Schuh send heut b'sonders schnell."],["N","Se stehnd no an dr Garderobe, Manfred."],["M","Siehsch? So schnell send se. I sieh se it emol."],["N","Dei Brille siehsch au ned. D'hockt uff dr Stirn."]],
+   [["M","Nele, i liab di meh als Discofox!"],["N","Des isch viel."],["M","Fascht so viel wie Spätzle mit Soß ond Schlager."],["N","No bin i Platz drei. Immerhin uffm Treppche."]],
+   [["M","Führa isch wie Oiparka: I woiß emmer genau, wohi."],["N","Du brauchsch drei Anläuf ond dr Bordstoi."],["M","Ond du bisch mei Rückfahrkamera."],["N","I bin d'Handbrems."]],
+   [["M","I üb vorm Spiegel."],["N","Ond was sagt er?"],["M","Er sagt: guat. Bloß seitaverkehrt."],["N","No führt er heut. Er woiß wenigschtens, wo links isch."]],
+   [["N","Wo warsch gestern Abend?"],["M","Uffm Sofa. I han Bewegung visualisiert."],["N","Ond?"],["M","Des war so anstrengend, dass i eigschlafa bin. Em Takt."]],
+   [["M","I woiß emmer, was i will! Als Schwob erscht recht."],["N","Beim Tanza vielleicht. Bei dr Pizzakart wartet d'Bedienung seit zwanzig Minuta."],["M","Pizza hat au koin Takt!"],["N","No bstell em Walzertakt: oins, zwoi, drei: Margherita."]],
+   [["M","I han heut under dr Dusch Schlager gsunga."],["N","I woiß. D'Nachbarn hent mitklatscht."],["M","Zugab? Du bisch a Wunder, Nele!"],["N","Zugab gibt's bloß in Berlin."]],
+   [["M","Wo isch mei Brille? I sieh nix."],["N","Uff dr Stirn."],["M","Des isch guat. No han i wenigschtens Weitblick."],["N","Ond i Nachsicht."]],
+   [["M","Mir mache a Foto!"],["N","Brille gerad, Manfred."],["M","Send d'Schuh em Bild?"],["N","Mr sieht se vom Mond aus."]],
+   [["N","2010 hent mir üns beim Tanza kennaglernt."],["M","I han di gseha ond denkt: Die führ i!"],["N","Ond i han denkt: Der muss üba."],["M","Seitdem üb i. Seit 2016 sogar verheiratet."]],
+   [["N","Warum sagets älle Mr. Mac zu dir?"],["M","Weil des cooler klingt als Manfred, dr Stolperer."],["N","Manfred, auf Hochdeutsch bitte."],["M","Ha? Des isch doch Hochdeutsch!"],["N","Noi. Aber i lieb's trotzdem."]],
+   [["M","I steh morga früh um sechs uff ond tanz Walzer."],["N","Du stohsch morga um zehne uff."],["M","No tanz i Walzer em Liega."],["N","Des hoißt Schnarcha, Schatz. Em Dreivierteltakt."]],
+   [["M","S'regnet. Perfekt zum Tanza em Wohnzimmer!"],["N","Ond zum Möbelrücka."],["M","Möbel send bloß Tanzpartner mit schlechter Haltung."],["N","Dr Couchtisch hat di geschtern bissa."]],
+   [["M","I han üns a neus Navi kauft."],["N","Ond? Find't's da Weg?"],["M","Des sagt bloß: Bitte wenda. Seit Stuagart."],["N","Des isch koi Navi. Des bin i."]],
+   [["M","Wenn i tanz, klatschet d'Leut."],["N","Us Mitleid, Manfred."],["M","Us Begeisterung!"],["N","Geschtern hosch di vorm Kühlschrank verbeugt."]],
+   [["M","Heut führ i!"],["N","Gern. Wohi?"],["M","Ähm ... kurze Pause."],["N","Grundsatz fünf, Manfred: wissa, was ma will."],["M","I will Kaffee."]],
+   [["M","Oins, zwoi, drei, vier, fünf!"],["N","Es gibt bloß vier Schläg."],["M","Dr fünfte isch für d'Stimmung."],["N","Ond dr sechste für mei Nerva."]],
+   [["M","Mir könnet älles, außer Hochdeutsch!"],["N","Er moint: Mir könnet älles."],["M","Wieso übersetzscht du mi?"],["N","Weil's d'Leut sonscht ned verstohnt, Schatz."]],
+   [["N","%N, hat dr Manfred dir scho vo seine rote Schuh verzählt?"],["M","Bloß dreimol."],["N","No heut zum viertamol."],["M","Se send rot."],["N","Jo, Schatz."]],
+   [["M","Guck, %N isch do!"],["N","Hallo %N. Dr Manfred hat di überall gsuacht."],["M","Dreimol. Oimol em Kühlschrank."],["N","%N isch doch koi Joghurt."]],
+   [["M","%N, a Tipp vom Mr. Mac: Lächla!"],["N","Ond oiner vo dr Nele: au beim Zähla."],["M","Siehsch? Mir send uns oinig. A Wunder!"],["N","Gnieß es. Es isch selta."]],
+   [["M","I pack scho für Berlin."],["N","D'Party isch erscht em April, Manfred."],["M","Mr ka d'Schuh ned früh gnug polira."],["N","Du hosch se heut morga scho dreimol poliert."],["M","Se waret no ned rot gnug."]],
+   [["N","Manfred, warum läuft scho wieder Schlager beim Frühstück?"],["M","S'Ei schmeckt besser mit Refrain."],["N","S'Ei isch steihart. Du hosch's drei Lieder lang kocht."]],
+   [["M","I han en neue Tanzpartner."],["N","Wie bitte?"],["M","Dr Wäscheständer. Er folgt mir überallhi."],["N","Weil du en seit Mondag hinter dir herziehsch."]],
+   [["M","Heidanei!"],["N","Manfred, s'isch Oktober."],["M","Heidanei kennt koi Jahreszeit."],["N","Aber d'Nachbarn kennet d'Hausordnung."]]
+  ];
+  const WERBUNG = [
+   [["M","Berlin, uffgepasst! Freitag, 23. April 2027: Mr. Macs Schlagerparty!"],["N","Ond wer legt uff?"],["M","Kult-Schlager-DJ Manfred. Also i!"],["N","D'Seite sagt Kult. I sag: Hoffnung."]],
+   [["M","Spindler & Klatt in Berlin-Kreuzberg, direkt an dr Spree!"],["N","A alter Backsteinbau, früher a Heeresbäckerei."],["M","Heut bacha mir dort Hits, frisch aus em Ofa!"],["N","Bitte koi Brötle, Manfred."]],
+   [["M","Berlin, Tickets gibt's bloß über Eventim!"],["N","Ned beim Vetter Karle."],["M","Ond ned per Brieftaub!"],["N","D'Taube hent scho abgsagt."]],
+   [["M","Am 23. April in Berlin: ab 20 Uhr ankomma, ab 21 Uhr geht's richtig los!"],["N","Ond gega zwoi Uhr isch Schluss."],["M","Für d'Füß. D'Ohra singet no."],["N","D'Nachbarn weniger."]],
+   [["M","Berlin kriegt Evergreens, Malle-Kracher ond Schwabastreich-Stimmung!"],["N","Au für Leut, die no nie Spätzle gessa hent?"],["M","Die schunkelet spätestens beim Refrain mit."],["N","Leider wahr. I au."]],
+   [["M","Alloi nach Berlin zur Schlagerparty? Koi Problem!"],["N","Wer alloi kommt, goht ned alloi hoim."],["M","Nele!"],["N","Mit neue Freund, Manfred. Mit neue Freund."]],
+   [["M","Am 23. April in Berlin: 18 Euro Mindestverzehr, aber koi zweits Eintrittsgeld!"],["N","S'Guthaba kommt uff a Verzehrkart."],["M","Du hosch uffpasst."],["N","Oiner vo uns muss des."]],
+   [["M","Nach Berlin: U1 oder U3 bis Schlesisches Tor, scho bisch do!"],["N","Oder S ond U Warschauer Straße."],["M","Du kennsch Berlin besser als i."],["N","Du verläufsch di scho in dr Kuche."]],
+   [["M","In Berlin moderier i live, i sing mit, i tanz!"],["N","Ond wer legt no uff?"],["M","Ähm ... dr Plattaspieler?"],["N","Siehsch: Planung. Grundsatz fünf."]],
+   [["M","D'Schlagerparty startet in Berlin, weitere Städt sollet folga!"],["N","München, Frankfurt ond Düsseldorf send in Planung."],["M","I pack d'rote Schuh scho ei."],["N","Se send seit Woche em Koffer, Schatz."]]
+  ];
+  const TANZ = [
+   [["M","Grundschritt, ond oins, zwoi, drei! Des geht!"],["N","Kleiner, Manfred. Des isch a Kuche, koi Ballsaal."]],
+   [["N","Schö ruhig, Arm weich."],["M","I führ, i führ!"],["N","Em Kreis. Seit drei Minuta."]],
+   [["M","Ond Drehung, Arm über da Kopf!"],["N","Über da Kopf, ned druff. Mei Frisur hat Gfühle."]],
+   [["M","Oins, zwoi, drei, oins, zwoi, drei!"],["N","Schwebe, Manfred, ned marschiera."]],
+   [["N","Schultera nonter, mir gleitet."],["M","I flieg scho!"],["N","Du hüpfsch."]],
+   [["M","Walzer plus Discofox. Wie schmeckt des?"],["N","Noch Schwung. Ond noch Lächle."]],
+   [["M","Step Touch: Schritt, ran, Schritt, ran!"],["N","Hüft locker, Schultera ruhig. Des send zwoi verschiedene Körperteile."]],
+   [["N","Ond Salsa: Gwicht wechsla."],["M","I wechsel, i wechsel!"],["N","Ned d'Schuh."]],
+   [["M","Heidanei! Cha Cha: zwoimol langsam, no cha-cha-cha!"],["N","Ond lacha. Des ghört debei."]]
+  ];
+  const PEEK = [
+   ["M","Heidanei! I guck bloß, ob oiner tanzt."],
+   ["M","Psst, i bin ned do. Bloß mei Brille."],
+   ["M","Rote Schuh gsichtet? Des bin i!"],
+   ["M","Bis glei, i such bloß da Takt."],
+   ["N","Guata Tag. I guck, ob dr Manfred ebbes agstellt hat."],
+   ["N","I wink kurz ond geh wieder. Elegant, gell?"],
+   ["N","Älles guat. Er isch bloß wieder dr Mr. Mac."],
+   ["N","Ned erschrecka. Mir üba scho em Hintergrund."]
+  ];
+  const STOLPER = [
+   [["M","Hoppla! I bin uff mei oigene Schuh traa!"],["N","Uff da rote?"],["M","Uff da rote. Dia send so schnell, die überholet sich selber."]],
+   [["M","Des war Absicht. A neue Figur!"],["N","Wie hoißt se?"],["M","Dr Mr.-Mac-Rutscher."]],
+   [["M","Ups, dr Teppich hat agfanga."],["N","Dr Teppich liegt do seit 2012."],["M","No hat er halt gübt."]],
+   [["M","Nele, i lieg uffm Boda. Mit Absicht."],["N","I woiß. Vorher hosch no Hallo gsagt."]]
+  ];
+  const NAMEN = [
+   ["M","%N, du bisch a Naturtalent! Ond des ohne Training."],
+   ["N","%N, ganz ruhig. Jeder Schritt zählt."],
+   ["M","Weiter so, %N, d'Füß lachet scho!"],
+   ["N","%N, des machsch elegant."],
+   ["M","%N, heut wirsch zum Tanzstar. Mr. Mac garantiert's."],
+   ["N","%N, Fehler ghöret debei. Mir goht's au so."],
+   ["M","%N, mit dir macht s'Quiz Spaß!"],
+   ["N","Schö, dass du do bisch, %N. Wirklich."],
+   ["M","%N, Mr. Mac isch stolz uff di."],
+   ["N","%N, des kasch. Atma ond lächla."]
+  ];
+  const VORSTELLUNG = [
+   [["M","Hallo! I bin dr Manfred, aber älle sagets Mr. Mac zu mir."],["N","I bin d'Nele. Willkomma bei üns."],["M","Brille, rote Schuh, guate Laune: Des bin i."],["N","Ond i bin die mit dr Geduld."],["M","Mir send Tanzlehrer. Los, a Quiz?"]],
+   [["M","Guata Tag, i bin dr Manfred. Brille, rote Schuh, Mr. Mac."],["N","I bin d'Nele, die Elegante vo üns zwoi."],["M","Mir send Tanzlehrer ond a Paar, ond schwätzet, wie üns dr Schnabel gwachsa isch."],["N","Unser Motto: Tanza muss Spaß macha. Komm zum Quiz!"]],
+   [["M","Hallo, mir send dr Manfred ond d'Nele!"],["N","Er trägt Brille ond rote Schuh. I trag Haltung."],["M","Ond i bin dr Mr. Mac, a Schwob mit Taktgfühl."],["N","Meischtens."],["M","Komm, Tanza muss Spaß macha, au beim Quiz!"]]
+  ];
+  const NAMEQ = [
+   [["M","Wie hoißt du eigentlich? Trag bitte dein Name ei."],["N","Er kommt uffs Zertifikat. Ganz ruhig."]],
+   [["M","Na, schüchtern? Ohne Name ka i di ned lobe!"],["N","A Vorname langt scho, mehr brauchet mir ned."]],
+   [["M","Sonscht sag i Herr oder Frau Unbekannt zu dir!"],["N","Des klingt noch Krimi. Lieber dein Name."]],
+   [["M","Wie hoißt jetzt? Mr. Mac bittet freundlich, aber dringend: dein Name!"],["N","Des hoißt: Schreib endlich dein Name nei. Sonscht bleibt a Lück."]],
+   [["M","I tanz uff oim Bei, bis du dein Name eitrags!"],["N","Des macht er wirklich. Bitte hilf ihm."]],
+   [["M","Letzte Chance, sonscht send mei rote Schuh weg!"],["N","Des will koiner. Name eitraga, bitte."]]
+  ];
+  const GRUSS = [
+   [["M","Heidanei, %N! Do bisch wieder, d'Schuh glänzet scho."],["N","Er hat se extra poliert."]],
+   [["N","Schö, di z'sehe, %N."],["M","I han die ganze Zeit Schlager brummt. Ohne Pause."],["N","I bin bissle müd."]],
+   [["M","%N! Mr. Mac begrüßt di mit Brille ond Applaus."],["N","Dr Applaus isch bloß er selber."]]
+  ];
+  const LOB = [
+   [["M","Super, %N! Dein Name klingt noch Tanzparkett."],["N","Uffm Zertifikat sieht er elegant aus."],["M","Des gfällt! Auf zur erschte Lektion!"]],
+   [["N","Danke, %N. Des war doch ebbes Oifaches, gell?"],["M","Dein Name hat Rhythmus!"],["N","Fang mit Lektion 1 a, mir warta."]],
+   [["M","Hallo %N, jetzt send mir Freund!"],["N","Ond Tanzpartner em Geischt."],["M","Los goht's mit Lektion 1!"]],
+   [["M","Du bisch a Wunder, %N! Dein Name isch fascht so schö wie mei Schuh."],["N","Fascht."],["M","Komm, d'erschte Lektion wartet."]],
+   [["N","Willkomma, %N. Schö, dass du debei bisch."],["M","Jetzt wird tanzt, bildlich gsproche!"],["N","Fang gleich mit Lektion 1 a."]],
+   [["M","Perfekt, %N! Dei Zertifikat freut sich scho."],["N","Ond mir au."],["M","Hüpf in d'erschte Lektion!"]]
+  ];
+  const TSCHUESS = [
+   ["M","Bis dann! Ond denk dra: Tanza muss Spaß macha. Heidanei!"],
+   ["N","Uff Wiederseha, %N. Ond lächle uff em Hoimweg."],
+   ["M","Ade, %N! Mr. Mac winkt mit dr Brille."]
+  ];
+  return {MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS};
+ },
   };
   const sprache = () => ({MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS} = FIG_TXT[LANGS[li][0]]());
 
@@ -2190,7 +2391,7 @@ fromHash(); render();
     b.classList.add("z" + seite);
     b.style.setProperty("--zp", Math.round(waag ? Math.max(14, Math.min(h - 14, fy)) : Math.max(16, Math.min(w - 16, fx))) + "px");
   }
-  const ERSATZ = {de:"Tänzer", en:"dancer", ksh:"Tänzer"};
+  const ERSATZ = {de:"Tänzer", en:"dancer", ksh:"Tänzer", swg:"Tänzerle"};
   function sag(g, txt, ms, muss){ sprache();
     if(!muss && !redet) return;
     document.querySelectorAll(".runbub").forEach(x => x.remove());
@@ -2226,12 +2427,34 @@ fromHash(); render();
     if(ach.intro) return; ach.intro = true; save();
     await pause(200); await sprich(gs, pick(VORSTELLUNG)); await pause(300);
   }
-  async function szene(d, wahl, danach){
-    const dir = rd(), gs = await paarEin(d, dir); await pause(200);
+  /* Anfangsszene: Manfred kommt von rechts, Nele von links, sie geben sich ein Bussi, danach fliegen Küsse und Herzen nach oben */
+  function herzen(x, y){
+    for(let i = 0; i < 10; i++){
+      const e = document.createElement("div"); e.className = "runherz"; e.setAttribute("aria-hidden", "true"); e.textContent = pick(["❤️", "💕", "💋", "💖", "❤️", "💞"]);
+      e.style.left = (x + rnd(-24, 24)) + "px"; e.style.top = (y - 36) + "px"; e.style.setProperty("--dx", Math.round(rnd(-46, 46)) + "px"); e.style.animationDelay = (i * 130) + "ms"; e.style.animationDuration = rnd(1.7, 2.5).toFixed(2) + "s";
+      document.body.appendChild(e); setTimeout(() => e.remove(), 4200);
+    }
+  }
+  async function kussEin(d){
+    const y = bodenY(d), cx = rnd(.4, .6) * d.W;
+    const gs = {M: neu("M", {x: d.W + 40, y, f: -1}), N: neu("N", {x: -40, y, f: 1})};
+    await Promise.all([gehe(gs.M, cx + 17, .2), gehe(gs.N, cx - 17, .2)]);
+    setze(gs.M, {f: -1}); setze(gs.N, {f: 1}); await pause(300);
+    const m0 = gs.M.s, n0 = gs.N.s;
+    const lean = (s, a) => [{transform: T(s)}, {transform: T(Object.assign({}, s, {x: s.x + a * 5, r: a * 14, y: s.y - 2}))}, {transform: T(Object.assign({}, s, {x: s.x + a * 5, r: a * 14, y: s.y - 2}))}, {transform: T(s)}];
+    const kuss = Promise.all([anim(gs.M, lean(m0, -1), 1100, m0), anim(gs.N, lean(n0, 1), 1100, n0)]); kuss.catch(() => {});
+    await pause(480); herzen(cx, y); await kuss; await pause(1300);
+    return gs;
+  }
+  let gekuesst = false;
+  async function szene(d, wahl, danach, kuss){
+    if(kuss === undefined) kuss = !gekuesst;
+    const dir = rd(); let gs;
+    if(kuss){ gekuesst = true; gs = await kussEin(d); } else gs = await paarEin(d, dir);
+    await pause(200);
     await wahl(gs); if(danach) await danach(gs);
     await pause(250); await paarAus(gs, d, dir);
-  }
-  /* Auftritt 1: eine Figur läuft quer über den Bildschirm, mit 0 bis 2 Stopps (Hüpfer, Spruch, Pirouette, Hüftschwung) */
+  }  /* Auftritt 1: eine Figur läuft quer über den Bildschirm, mit 0 bis 2 Stopps (Hüpfer, Spruch, Pirouette, Hüftschwung) */
   async function quer(d){
     const dir = rd(), e = R() < .35 && hasName() ? pick(NAMEN) : (() => { const w = wer(); letzteSolo = w; return [w, pick(w === "M" ? MS : NS)]; })();
     const g = neu(e[0], {x: rein(dir, d), y: bodenY(d), f: dir}), n = pick([0, 0, 1, 2]);
@@ -2299,7 +2522,7 @@ fromHash(); render();
   }
   /* Auftritt 10: Begrüßung (nach einem Sprachwechsel oder zufällig): ein Dialog mit dem Vornamen, am Ende ein Abschiedssatz */
   async function hallo(d){
-    await szene(d, async gs => { await vorstellen(gs); await sprich(gs, pick(GRUSS)); const e = pick(TSCHUESS); sag(gs[e[0]], e[1], dauer(e[1]) + 200, true); await pause(dauer(e[1])); });
+    await szene(d, async gs => { await vorstellen(gs); await sprich(gs, pick(GRUSS)); const e = pick(TSCHUESS); sag(gs[e[0]], e[1], dauer(e[1]) + 200, true); await pause(dauer(e[1])); }, undefined, true);
   }
   /* Namensfrage: wird mit jeder Wiederholung etwas drängender und lustiger; zeigt auf das Eingabefeld */
   function nameNudge(){
@@ -2312,11 +2535,11 @@ fromHash(); render();
     if(typeof hasName === "function" && hasName()) return;
     ach.nq = (ach.nq || 0) + 1; save(); stopBeiName = true;
     const q = NAMEQ[Math.min(ach.nq - 1, NAMEQ.length - 1)];
-    await szene(d, async gs => { await vorstellen(gs); sag(gs.M, q[0][1], dauer(q[0][1]) + 200, true); await sprung(gs.M, 22); await pause(dauer(q[0][1]) + 200); nameNudge(); sag(gs.N, q[1][1], dauer(q[1][1]) + 200, true); await pause(dauer(q[1][1]) + 200); });
+    await szene(d, async gs => { await vorstellen(gs); sag(gs.M, q[0][1], dauer(q[0][1]) + 200, true); await sprung(gs.M, 22); await pause(dauer(q[0][1]) + 200); nameNudge(); sag(gs.N, q[1][1], dauer(q[1][1]) + 200, true); await pause(dauer(q[1][1]) + 200); }, undefined, true);
   }
   /* Lob: kommt sofort, wenn gerade ein Name eingetragen wurde, mit Konfetti */
   async function lob(d){
-    await szene(d, async gs => { try{ if(typeof confetti === "function") confetti(); }catch(e){} await sprich(gs, pick(LOB)); await drehung(gs.N, 1); });
+    await szene(d, async gs => { try{ if(typeof confetti === "function") confetti(); }catch(e){} await sprich(gs, pick(LOB)); await drehung(gs.N, 1); }, undefined, true);
   }
   /* Begrüßung einmal je Sitzung, wenn der Name schon da ist */
   async function begruessung(d){
@@ -2347,7 +2570,7 @@ fromHash(); render();
     if(abbruch() || laeuft) return; laeuft = true; sprache(); actLi = li;
     redet = !!name || (!(view && view.v === "quiz") && redetDiesmal());
     try{ await waehle(name)(dim()); } catch(e){ if(!e || e.message !== "stop") console.error("Figur:", e); }
-    aktiv.splice(0).forEach(e => e.remove()); document.querySelectorAll(".runbub,.runnote").forEach(b => b.remove());
+    aktiv.splice(0).forEach(e => e.remove()); document.querySelectorAll(".runbub,.runnote,.runherz").forEach(b => b.remove());
     laeuft = false; stopBeiName = false; actLi = null;
   }
   /* Warten, aber sofort wach werden, wenn gerade ein Name eingetragen wurde (dann folgt das Lob) oder die Sprache gewechselt wurde */
@@ -2368,7 +2591,7 @@ fromHash(); render();
       if(zurueck){ zurueck = false; await wait(800); n = "hallo"; }
       if(lobOffen){ lobOffen = false; n = "lob"; await wait(700); }
       else if(sprachNeu){ sprachNeu = false; n = "hallo"; await wait(500); }
-      else if(!n && brauchtName() && (erster || R() < .7)) n = "name"; else if(!n && erster && hatName() && grussFaellig()) n = "gruss"; else if(!n && erster && R() < .5) n = "hallo";
+      else if(!n && brauchtName() && (erster || R() < .7)) n = "name"; else if(!n && erster && hatName() && grussFaellig()) n = "gruss"; else if(!n && erster && !hatName() && R() < .5) n = "hallo";
       await auftritt(n); erster = false; await warte(test !== undefined ? 1500 : (brauchtName() ? rnd(15000, 30000) : (R() < .15 ? rnd(4000, 9000) : rnd(25000, 80000))));
     }
   })();
