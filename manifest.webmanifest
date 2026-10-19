@@ -1,7 +1,7 @@
 {
-  "name": "Tanzen lernen mit Nele und Manfred – Dance-Chance-Quiz",
+  "name": "Tanzen lernen mit Nela und Manfred – Dance-Chance-Quiz",
   "short_name": "Dance Chance Quiz",
-  "description": "Tanzwissen in 7 Tanzstunden mit Manfred und Nele (Discofox, Discowalzer, Latino, Breakdance, Schlagerparty Berlin), Quiz, Humor und Urkunden. Deutsch, English, Kölsch. Läuft auch offline.",
+  "description": "Tanzwissen in 8 Tanzstunden mit Manfred und Nela (Discofox, Discowalzer, Latino, Breakdance, Schlagerparty Berlin), Quiz, Humor und Urkunden. Deutsch, English, Kölsch. Läuft auch offline.",
   "id": "/dancechance/",
   "start_url": "./",
   "scope": "./",
