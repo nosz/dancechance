@@ -409,7 +409,7 @@ h2.secrow .cnt{font-size:.9rem;color:var(--mute);font-weight:700}
 <div id="live" class="sr" aria-live="polite"></div>
 <script>
 "use strict";
-const VERSION = "1.1.0", STAND = "19.10.2026";
+const VERSION = "1.2.0", STAND = "19.10.2026";
 const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"],["swg","SCHWÄB","Schwäbisch"]];
 const KEY = "dancechance_quiz_v1";
 const SHARE_URL = "https://nosz.github.io/dancechance/";
@@ -1684,7 +1684,7 @@ fromHash(); render();
   const R = Math.random, pick = a => a[Math.floor(R() * a.length)], rnd = (a, b) => a + R() * (b - a);
   const wait = ms => new Promise(r => setTimeout(r, ms));
   /* Alle Texte der Figuren in den drei Sprachen: Manfred (M) und Nela (N) sprechen immer so wie die oben im Menü eingestellte Sprache. sprache() wählt bei jedem Auftritt und bei jeder Sprechblase die passenden Texte. */
-  let MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON;
+  let MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON, GRUSSFORM, GRUSSA, GRUSSM, GRUSSD, GRUSSE, GRUSSANT;
   const FIG_TXT = {
  de: () => {
   const MS = [
@@ -2543,6 +2543,25 @@ fromHash(); render();
    [["M","Ich bin leicht wie eine Feder! Nela, ich hebe ab!"],["N","Ich sehe es. Du wirst kleiner, Schatz."],["M","Sag dem Nutzer, er soll weitertanzen! Ich komme wieder! Irgendwann!"]],
    [["M","Der Ballon ist rot! Wie meine Schuhe! Dat is ein Zeichen!"],["N","Das Zeichen heißt: Loslassen."],["M","Nur wenn ich unten bin! Bis gleich, Schatz, ich schwebe nur kurz!"]],
    [["M","Nela, halt mich fest! Der Ballon hat Pläne!"],["N","Ich halte dich. Seit 2016. Aber nicht den Ballon."],["M","Dann bis gleich! Wenn die Luft raus ist, bin ich wieder da!"]]
+  ],
+  GRUSSFORM: ["Einen {a}, {b} und {c} guten {t}, %N!", "Einen {a} {b} und obendrein {c} guten {t}, %N!", "Ich wünsche dir einen {a}, {b} und {c} guten {t}, %N!", "Einen {a}, {b} und {c} guten {t} für dich, %N!", "Einen {a} und {b} guten {t}, %N!", "Ich wünsche dir einen {a} und {b} guten {t}, %N!", "Einen {a} und {b} guten {t} für dich und deine Schuhe, %N!", "Einen wunderschönen {a} guten {t}, %N!", "Einen {a} guten {t}, %N, und ab auf die Tanzfläche!", "Ich wünsche dir einen {a} guten {t}, %N!"],
+  GRUSSA: ["hypergalaktischen", "optivamionösen", "wunderschönen", "gigantischen", "superfantastischen", "kosmischen", "glitzernden", "tanzbaren", "turbo-sensationellen", "bombastischen", "schlagerseligen", "funkelnden", "zauberhaften", "schwerelosen", "himmlischen", "schwungvollen", "megafabulösen", "ultrapompösen", "fluffigfantastischen", "tralalaglanzvollen", "quatschtastischen", "kribbelbunten", "rhythmusgeladenen", "phänomenalen", "megaglorreichen", "zappelglücklichen", "hyperflimmernden", "oberfidelen"],
+  GRUSSM: "Morgen",
+  GRUSSD: "Tag",
+  GRUSSE: "Abend",
+  GRUSSANT: [
+   [["N","Optivamionös ist kein Wort, Manfred."],["M","Dann ist es jetzt eins. Gern geschehen!"]],
+   [["N","Du hast dich heute schon wieder selbst übertroffen."],["M","Dat war der Plan, Schatz."]],
+   [["N","Hat jemand das Wort geprüft?"],["M","Der Duden wurde informiert. Er schweigt vor Ehrfurcht."]],
+   [["N","Gestern waren es noch drei Silben weniger."],["M","Fortschritt, Schatz! Jeden Tag ein bisschen mehr Glitzer."]],
+   [["N","Sogar mein Wörterbuch hat sich erschrocken."],["M","Dein Wörterbuch is nur neidisch. Dat verstehe ich."]],
+   [["N","Ich liebe dich. Aber nicht jedes Wort davon."],["M","Dat reicht mir! Den Rest nenne ich Charme."]],
+   [["N","Deine Begrüßung klingt wie ein Zungenbrecher."],["M","Und sie geht runter wie Kölsch! Probier mal!"]],
+   [["N","Ich sag nur: Guten Tag. Das genügt."],["M","Genügt? Dat is was für Montage! Ich bin Mr. Mac!"]],
+   [["N","Kann man das auch buchstabieren?"],["M","Man kann alles, wenn man es mit Schwung sagt!"]],
+   [["N","Des Wort gibt es net, Manfred. I hab nachgschaut."],["M","Dann trag es halt ein! Duden, wir kommen!"]],
+   [["N","Der Nutzer guckt, als bräuchte er einen Kaffee."],["M","Dann kriegt er einen. Mit Glitzer drauf!"]],
+   [["N","Manfred, ein einfaches Hallo hätte auch gereicht."],["M","Hallo? Dat is mir zu leise! Ich brauch Fanfaren!"]]
   ]
  },
  en: {
@@ -2604,6 +2623,25 @@ fromHash(); render();
    [["M","I'm light as a feather! Nela, I'm taking off!"],["N","I can see. You're getting smaller, darling."],["M","Tell the user to keep dancing! I'll be back! Eventually!"]],
    [["M","The balloon is red! Like my shoes! It's a sign!"],["N","The sign says: let go."],["M","Only once I'm down! Back in a bit, darling, I'm just floating!"]],
    [["M","Nela, hold me tight! The balloon has plans!"],["N","I'm holding you. Have been since 2016. But not the balloon."],["M","Then see you soon! When the air's out, I'll be back!"]]
+  ],
+  GRUSSFORM: ["The most {a}, {b} and {c} good {t} to you, %N!", "Sending you the most {a}, {b} and, on top, {c} good {t}, %N!", "Good {t}, %N, you {a}, {b} and {c} dancer!", "To you, %N: the most {a}, {b} and {c} good {t}!", "The most {a} and {b} good {t} to you, %N!", "I wish you the most {a} and {b} good {t}, %N!", "Good {t}, %N, you {a} and {b} dancer!", "The most wonderful {a} good {t} to you, %N!", "Good {t}, %N! Let's make it the most {a} one ever!", "I wish you the most {a} good {t}, %N!"],
+  GRUSSA: ["hypergalactic", "optivamionous", "beautiful", "gigantic", "super-fantastic", "cosmic", "glittering", "danceable", "turbo-sensational", "bombastic", "schlager-happy", "sparkling", "magical", "weightless", "heavenly", "swinging", "mega-fabulous", "ultra-pompous", "fluffy-fantastic", "tralala-splendid", "nonsense-tastic", "jiggle-bright", "rhythm-packed", "phenomenal", "mega-glorious", "wiggle-happy", "hyper-twinkling", "super-duper"],
+  GRUSSM: "morning",
+  GRUSSD: "day",
+  GRUSSE: "evening",
+  GRUSSANT: [
+   [["N","Optivamionous is not a word, Manfred."],["M","It is now. You're welcome!"]],
+   [["N","You've outdone yourself again today."],["M","That was the plan, darling."]],
+   [["N","Did anyone check that word?"],["M","The dictionary was informed. It's speechless with awe."]],
+   [["N","Yesterday it was three syllables shorter."],["M","Progress, darling! A little more sparkle every day."]],
+   [["N","Even my dictionary got scared."],["M","Your dictionary is just jealous. I understand."]],
+   [["N","I love you. Not every word of it, though."],["M","That's enough for me! I call the rest charm."]],
+   [["N","Your greeting sounds like a tongue twister."],["M","And it goes down like a cold beer! Try it!"]],
+   [["N","A simple good day would have done."],["M","Done? Done is for Mondays! I'm Mr. Mac!"]],
+   [["N","Can that even be spelled?"],["M","Anything can, if you say it with swing!"]],
+   [["N","That word doesn't exist, Manfred. I looked it up."],["M","Then add it! Dictionary, here we come!"]],
+   [["N","The user looks like they need a coffee."],["M","Then they get one. With glitter on top!"]],
+   [["N","Manfred, a simple hello would have been enough."],["M","Hello? Far too quiet! I need fanfares!"]]
   ]
  },
  ksh: {
@@ -2665,6 +2703,25 @@ fromHash(); render();
    [["M","Ich ben liich wie en Fedder! Nela, ich hevv av!"],["N","Ich sinn et. Do weeds kleiner, Schatz."],["M","Sag däm Nutzer, hä soll widder danze! Ich kumm zeröck! Irjendwann!"]],
    [["M","Dä Ballon es rud! Wie ming Schohn! Dat es e Zeiche!"],["N","Dat Zeiche heiß: Loslosse."],["M","Nor wenn ich unge ben! Bes jlich, Schatz, ich schwevv ens!"]],
    [["M","Nela, halt mich fass! Dä Ballon hät Pläng!"],["N","Ich halt dich. Sick 2016. Ävver nit dä Ballon."],["M","Dann bes jlich! Wenn de Luff erus es, ben ich widder do!"]]
+  ],
+  GRUSSFORM: ["Ene {a}, {b} un {c} jode {t}, %N!", "Ene {a} {b} un obendrop {c} jode {t}, %N!", "Ich wünsch dir ene {a}, {b} un {c} jode {t}, %N!", "Ene {a}, {b} un {c} jode {t} för dich, %N!", "Ene {a} un {b} jode {t}, %N!", "Ich wünsch dir ene {a} un {b} jode {t}, %N!", "Ene {a} un {b} jode {t} för dich un ding Schohn, %N!", "Ene wunderschöne {a} jode {t}, %N!", "Ene {a} jode {t}, %N, un ab op de Danzfläch!", "Ich wünsch dir ene {a} jode {t}, %N!"],
+  GRUSSA: ["hypergalaktische", "optivamionöse", "wunderschöne", "gigantische", "superfantastische", "kosmische", "glitzernde", "danzbare", "turbo-sensationelle", "bombastische", "schlagerselije", "funkelnde", "zauberhafte", "schwerelose", "himmlische", "schwungvolle", "megafabulöse", "ultrapompöse", "fluffijfantastische", "tralalaglanzvolle", "quatschtastische", "kribbelbunte", "rhythmusjeladene", "jeckfantastische", "megaglorreiche", "zappeljlöcklije", "hyperflimmernde", "kölsch-fidele"],
+  GRUSSM: "Morje",
+  GRUSSD: "Dag",
+  GRUSSE: "Ovend",
+  GRUSSANT: [
+   [["N","Optivamionös, dat es kei Wort, Manfred."],["M","Dann es et jetzt eins. Jän jeschäh!"]],
+   [["N","Do häs dich hück widder selvs övertroffe."],["M","Dat wor dä Plan, Schatz."]],
+   [["N","Hät einer dat Wort nohjeluurt?"],["M","Dä Duden weiß Bescheid. Hä schweich vör Ihrfurch."]],
+   [["N","Jestere wore et noch dreij Silbe winnijer."],["M","Fortschrett, Schatz! Jede Dag e Bröckche mieh Jlitzer."]],
+   [["N","Sellefs ming Wörterbooch hät sich erschrocke."],["M","Ding Wörterbooch es nur nidisch. Dat verstonn ich."]],
+   [["N","Ich han dich leev. Ävver nit jedes Wort dovun."],["M","Dat reich mir! Dä Rest nenne ich Charme."]],
+   [["N","Ding Begrößung klingk wie e Tungebreche."],["M","Un se jeiht erunger wie e Kölsch! Prob et!"]],
+   [["N","Ich sage nur: Jode Dag. Dat jenööch."],["M","Jenööch? Dat es för Mondaach! Ich ben Mr. Mac!"]],
+   [["N","Kann mer dat och buchstabeere?"],["M","Mer kann alles, wenn mer et met Schwung sage!"]],
+   [["N","Dat Wort jitt et nit, Manfred. Ich han nohjeluurt."],["M","Dann trag et en! Duden, mer kumme!"]],
+   [["N","Dä Nutzer luurt, als bruch hä e Käffche."],["M","Dann kritt hä eins. Met Jlitzer drop!"]],
+   [["N","Manfred, e eijfaches Hallo hät och jereich."],["M","Hallo? Dat es mir ze leis! Ich bruch Fanfare!"]]
   ]
  },
  swg: {
@@ -2726,10 +2783,29 @@ fromHash(); render();
    [["M","I be leicht wia a Feder! Nela, i heb ab!"],["N","I seh's. Du wirsch kleiner, Schatz."],["M","Sag em Nutzer, er soll weitertanze! I komm wieder! Irgendwann!"]],
    [["M","Dr Ballon isch rot! Wia mei Schuh! Des isch a Zeiche!"],["N","S Zeiche heißt: Loslasse."],["M","Bloß wenn i unte be! Bis glei, Schatz, i schwebe bloß a bissle!"]],
    [["M","Nela, halt mi fescht! Dr Ballon hat Pläne!"],["N","I halt di. Seit 2016. Aber net dr Ballon."],["M","No bis glei! Wenn d' Luft raus isch, be i wieder do!"]]
+  ],
+  GRUSSFORM: ["En {a}, {b} ond {c} guade {t}, %N!", "En {a} {b} ond obedrei {c} guade {t}, %N!", "I wünsch dir en {a}, {b} ond {c} guade {t}, %N!", "En {a}, {b} ond {c} guade {t} für di, %N!", "En {a} ond {b} guade {t}, %N!", "I wünsch dir en {a} ond {b} guade {t}, %N!", "En {a} ond {b} guade {t} für di ond dei Schuh, %N!", "En wunderschöne {a} guade {t}, %N!", "En {a} guade {t}, %N, ond ab uff d Tanzfläch!", "I wünsch dir en {a} guade {t}, %N!"],
+  GRUSSA: ["hypergalaktische", "optivamionöse", "wunderschöne", "gigantische", "superfantastische", "kosmische", "glitzernde", "tanzbare", "turbo-sensationelle", "bombastische", "schlagerselige", "funkelnde", "zauberhafte", "schwerelose", "himmlische", "schwungvolle", "megafabulöse", "ultrapompöse", "fluffigfantastische", "tralalaglanzvolle", "quatschtastische", "kribbelbunte", "rhythmusgeladene", "sagenhafte", "megaglorreiche", "zappelglückliche", "hyperflimmernde", "oberfidele"],
+  GRUSSM: "Morge",
+  GRUSSD: "Tag",
+  GRUSSE: "Obed",
+  GRUSSANT: [
+   [["N","Optivamionös isch koi Wort, Manfred."],["M","No isch es jetzt oins. Gern gscheha!"]],
+   [["N","Du hosch di heut scho wieder selbscht übertroffe."],["M","Des war dr Plan, Schatz."]],
+   [["N","Hot oiner des Wort prüft?"],["M","Dr Duden woiß Bscheid. Er schwiagt vor Ehrfurcht."]],
+   [["N","Gescht warets no drei Silbe weniger."],["M","Fortschritt, Schatz! Jeden Tag a bissle meh Glitzer."]],
+   [["N","Sogar mei Wörterbuch hot sich verschrocke."],["M","Dei Wörterbuch isch bloß neidisch. Des versteh i."]],
+   [["N","I mag di. Aber ned jedes Wort davo."],["M","Des langt mir! Dr Rescht heißt bei mir Charme."]],
+   [["N","Dei Begrüßung klingt wia a Zungebrecher."],["M","Ond sie got runter wia a Viertele! Probier es!"]],
+   [["N","I sag bloß: Guta Tag. Des langt."],["M","Langt? Des isch fir Mondäg! I be Mr. Mac!"]],
+   [["N","Kasch du des au buchstabiere?"],["M","Ma kann älles, wenn ma es mit Schwong sagt!"]],
+   [["N","Des Wort gibt es net, Manfred. I han nachgschaut."],["M","No trag es halt ei! Duden, mir komme!"]],
+   [["N","Dr Nutzer guckt, als bräucht er en Kaffee."],["M","No kriegt er oin. Mit Glitzer drauf!"]],
+   [["N","Manfred, a oifaches Hallo hätt au glangt."],["M","Hallo? Des isch mir zu leis! I brauch Fanfare!"]]
   ]
  },
   };
-  const sprache = () => ({MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON} = Object.assign({}, FIG_TXT[LANGS[li][0]](), FIG_NEU[LANGS[li][0]]));
+  const sprache = () => ({MS, NS, TIPPS, DIALOGE, WERBUNG, TANZ, PEEK, STOLPER, NAMEN, VORSTELLUNG, NAMEQ, GRUSS, LOB, TSCHUESS, JAGD, KLETTER, DECKE, VERSTECK, PUFF, BALLON, GRUSSFORM, GRUSSA, GRUSSM, GRUSSD, GRUSSE, GRUSSANT} = Object.assign({}, FIG_TXT[LANGS[li][0]](), FIG_NEU[LANGS[li][0]]));
 
   const aktiv = []; let redet = true;
   /* Zufallsmix: Mischbeutel statt reinem Zufall. Jeder Auftritt kommt pro Runde gemäß Gewicht vor und nie zweimal direkt hintereinander; die Startrichtung wechselt meistens. */
@@ -2880,17 +2956,22 @@ fromHash(); render();
     await pause(480); herzen(cx, y); await kuss; await pause(1300);
     return gs;
   }
-  let gekuesst = false;
+  /* Manfreds Markenzeichen: überschwängliche Begrüßung aus einem Baukasten (zwei oder drei Wortungetüme, Tageszeit nach der Uhr), jedes Mal anders */
+  function manfredGruss(){
+    sprache(); const h = new Date().getHours(), t = h < 11 ? GRUSSM : h < 17 ? GRUSSD : GRUSSE, f = pick(GRUSSFORM), w = mische(GRUSSA.filter(x => !f.includes(x)));   /* nie ein Wort doppelt, auch wenn die Vorlage eines fest enthält */
+    return f.replace("{a}", w[0]).replace("{b}", w[1]).replace("{c}", w[2]).replace("{t}", t);
+  }
+  const grussZeilen = voll => [["M", manfredGruss()]].concat(voll ? pick(GRUSSANT) : []);  let gekuesst = false;
   async function szene(d, wahl, danach, kuss){
-    if(kuss === undefined) kuss = !gekuesst;
+    if(kuss === undefined) kuss = !gekuesst;   /* kuss: true = Kuss und volle Begrüßung, "kurz" = Kuss und Manfreds Gruß, "ohne" = nur Kuss */
     const dir = rd(); let gs;
-    if(kuss){ gekuesst = true; gs = await kussEin(d); } else gs = await paarEin(d, dir);
+    if(kuss){ gekuesst = true; gs = await kussEin(d); if(kuss !== "ohne") await sprich(gs, grussZeilen(kuss !== "kurz")); } else gs = await paarEin(d, dir);
     await pause(200);
     await wahl(gs); if(danach) await danach(gs);
     await pause(250); await paarAus(gs, d, dir);
   }  /* Auftritt 1: eine Figur läuft quer über den Bildschirm, mit 0 bis 2 Stopps (Hüpfer, Spruch, Pirouette, Hüftschwung) */
   async function quer(d){
-    const dir = rd(), e = R() < .35 && hasName() ? pick(NAMEN) : (() => { const w = wer(); letzteSolo = w; return [w, pick(w === "M" ? MS : NS)]; })();
+    const dir = rd(), e = R() < .35 && hasName() ? pick(NAMEN) : (() => { const w = wer(); letzteSolo = w; return [w, w === "M" && R() < .3 ? manfredGruss() : pick(w === "M" ? MS : NS)]; })();
     const g = neu(e[0], {x: rein(dir, d), y: bodenY(d), f: dir}), n = pick([0, 0, 1, 2]);
     for(let i = 0; i < n; i++){
       const x = (i + 1 + rnd(-.3, .3)) / (n + 1) * d.W; await gehe(g, dir > 0 ? x : d.W - x);
@@ -2908,6 +2989,8 @@ fromHash(); render();
     sag(g, e[1], dauer(e[1]) + 200, true); await sprung(g, 14); await stehen(g, dauer(e[1]));
     await gehe(g, dir > 0 ? -30 : d.W + 30, .12);
   }
+  /* Begrüßungs-Auftritt: Manfred wünscht überschwänglich einen guten Tag, Nela kommentiert trocken */
+  async function morgen(d){ await szene(d, async gs => { await sprich(gs, grussZeilen(true)); }, kurz); }
   /* Auftritt 3: Tanz-Tipp von Manfred, Nela ergänzt */
   async function tipp(d){ await szene(d, async gs => { const t = pick(TIPPS); await sprich(gs, t.map((z, i) => [i ? "N" : "M", z[1]])); }, kurz); }
   /* Auftritt 4: lustiges Gespräch */
@@ -2969,11 +3052,11 @@ fromHash(); render();
     if(typeof hasName === "function" && hasName()) return;
     ach.nq = (ach.nq || 0) + 1; save(); stopBeiName = true;
     const q = NAMEQ[Math.min(ach.nq - 1, NAMEQ.length - 1)];
-    await szene(d, async gs => { await vorstellen(gs); sag(gs.M, q[0][1], dauer(q[0][1]) + 200, true); await sprung(gs.M, 22); await pause(dauer(q[0][1]) + 200); nameNudge(); sag(gs.N, q[1][1], dauer(q[1][1]) + 200, true); await pause(dauer(q[1][1]) + 200); }, undefined, true);
+    await szene(d, async gs => { await vorstellen(gs); sag(gs.M, q[0][1], dauer(q[0][1]) + 200, true); await sprung(gs.M, 22); await pause(dauer(q[0][1]) + 200); nameNudge(); sag(gs.N, q[1][1], dauer(q[1][1]) + 200, true); await pause(dauer(q[1][1]) + 200); }, undefined, "kurz");
   }
   /* Lob: kommt sofort, wenn gerade ein Name eingetragen wurde, mit Konfetti */
   async function lob(d){
-    await szene(d, async gs => { try{ if(typeof confetti === "function") confetti(); }catch(e){} await sprich(gs, pick(LOB)); await drehung(gs.N, 1); }, undefined, true);
+    await szene(d, async gs => { try{ if(typeof confetti === "function") confetti(); }catch(e){} await sprich(gs, pick(LOB)); await drehung(gs.N, 1); }, undefined, "ohne");
   }
   /* Begrüßung einmal je Sitzung, wenn der Name schon da ist */
   async function begruessung(d){
@@ -2983,7 +3066,7 @@ fromHash(); render();
   /* Auftritt 11 und 12: Manfred oder Nela kommen allein (die beiden erscheinen nicht immer zusammen): sie bleiben stehen, sagen einen Spruch oder Tipp, tanzen einen Schritt und gehen wieder */
   let letzteSolo = null;
   async function solo(d, w){
-    letzteSolo = w; const dir = rd(), g = neu(w, {x: rein(dir, d), y: bodenY(d), f: dir}), n = R() < .4 ? 2 : 1, ls = mische([...(w === "M" ? MS : NS)]).slice(0, n);
+    letzteSolo = w; const dir = rd(), g = neu(w, {x: rein(dir, d), y: bodenY(d), f: dir}), n = R() < .4 ? 2 : 1, ls = mische([...(w === "M" ? MS : NS)]).slice(0, n); if(w === "M" && R() < .4) ls[0] = manfredGruss();
     await gehe(g, rnd(.25, .75) * d.W); await pause(200);
     for(const z of ls){ sag(g, z, dauer(z) + 200, true); if(R() < .6) sprung(g, 18).catch(() => {}); await pause(dauer(z) + 250); }
     const a = w === "M" ? pick(["w", "h", "p", "w"]) : pick(["p", "p", "w"]);
@@ -3047,7 +3130,7 @@ fromHash(); render();
   }
   /* Puff: plötzlich taucht eine Figur mitten im Bild auf (mit Funken), sagt etwas und verschwindet wieder */
   async function puff(d){
-    const e = pick(PUFF), x = rnd(.14, .86) * d.W, y = rnd(d.hb + 90, d.H - 90), g = neu(e[0], {x, y, f: R() < .5 ? 1 : -1, z: .02});
+    const e = pick(PUFF).slice(); if(e[0] === "M" && R() < .3) e[1] = manfredGruss(); const x = rnd(.14, .86) * d.W, y = rnd(d.hb + 90, d.H - 90), g = neu(e[0], {x, y, f: R() < .5 ? 1 : -1, z: .02});
     funken(x, y); const s1 = Object.assign({}, g.s, {z: 1.25}), s2 = Object.assign({}, g.s, {z: 1});
     await anim(g, [{transform: T(g.s)}, {transform: T(s1)}, {transform: T(s2)}], 450, s2);
     sag(g, e[1], dauer(e[1]) + 200, true); await sprung(g, 18); await pause(dauer(e[1]));
@@ -3063,7 +3146,7 @@ fromHash(); render();
       const fliegt = anim(gs.M, [{transform: T(s)}, {transform: T(Object.assign({}, s, {y: s.y - 160, x: s.x + dir * 12, r: -dir * 6}))}, {transform: T(e)}], 4200, e); fliegt.catch(() => {});
       await pause(900); sprung(gs.N, 14).catch(() => {}); await fliegt;
     }, undefined, false);
-  }  const MUSTER = {jagd: [jagd, 3], frech: [d => jagd(d, true), 3], kletter: [kletter, 2], decke: [decke, 2], versteck: [versteck, 2], puff: [puff, 4], ballon: [ballon, 2], quer: [quer, 3], gucken: [gucken, 3], manfred: [manfred, 5], nela: [nela, 5], tipp: [tipp, 3], dialog: [dialog, 3], werbung: [werbung, 2], discofox: [d => tanz(d, 0), 2], walzer: [d => tanz(d, 1), 2], latino: [d => tanz(d, 2), 2], stolpern: [stolpern, 1], hallo: [hallo, 1]};
+  }  const MUSTER = {morgen: [morgen, 3], jagd: [jagd, 3], frech: [d => jagd(d, true), 3], kletter: [kletter, 2], decke: [decke, 2], versteck: [versteck, 2], puff: [puff, 4], ballon: [ballon, 2], quer: [quer, 3], gucken: [gucken, 3], manfred: [manfred, 5], nela: [nela, 5], tipp: [tipp, 3], dialog: [dialog, 3], werbung: [werbung, 2], discofox: [d => tanz(d, 0), 2], walzer: [d => tanz(d, 1), 2], latino: [d => tanz(d, 2), 2], stolpern: [stolpern, 1], hallo: [hallo, 1]};
   const SPEZIAL = {name: namensfrage, gruss: begruessung, lob: lob, kuss: d => szene(d, async gs => { await sprich(gs, pick(TIPPS).map((z, i) => [i ? "N" : "M", z[1]])); }, undefined, true)};
   function waehle(name){
     if(name && SPEZIAL[name]) return SPEZIAL[name];
