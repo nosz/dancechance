@@ -432,7 +432,7 @@ const S = {
  nSite:["Die Online-Tanzschule","The online dance school","De Online-Danzschull","Die Online-Tanzschul"],
  nHist:["Mr. Macs Schlagerparty Berlin","Mr. Mac's Schlager Party Berlin","Mr. Macs Schlagerparty en Berlin","Mr. Macs Schlagerparty en Berlin"],
  nCorp:["Gratis-Videos zum Reinschnuppern","Free videos to try","Jratis-Videos zom Erinschnuppere","Gratis-Videos zum Neischnuppere"],
- nExt:["öffnet im gleichen Tab","opens in the same tab","määt em selve Tab op","macht em gleiche Tab uff"],
+ nExt:["öffnet in einem neuen Tab","opens in a new tab","määt en enem neue Tab op","macht en emene neue Tab uff"],
  nameQ:["Wie dürfen Manfred und Nela dich nennen?","What may Manfred and Nela call you?","Wie sulle dä Manfred un de Nela dich nenne?","Wia derfet dr Manfred ond d Nela di nenne?"],
  nameSub:["Für Begrüßung, Quiz und Urkunde. Dein Name bleibt auf diesem Gerät.","For greetings, quiz and certificate. Your name stays on this device.","För et Begröße, dat Quiz un de Urkund. Ding Name bliev op dingem Jerät.","Fürs Begrüße, s Quiz ond d Urkunde. Dei Name bleibt uff dem Gerät."],
  nameP2:["Dein Name oder Tanz-Name","Your name or dance name","Ding Name odder Danz-Name","Dei Name odr Tanz-Name"],
@@ -1196,7 +1196,11 @@ function empfehlungen(){
 }
 function legalNav(){
   const L = [["legImp", DC + "impressum/"], ["legPriv", DC + "datenschutz/"], ["legAgb", DC + "agb/"]];
-  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.map((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]));
+  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.flatMap((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]));
+}
+/* Alle Links zu anderen Seiten (Slider, Empfehlungen, Social Media, Rechtliches, Quellen) öffnen in einem eigenen Browser-Tab, damit die App geöffnet bleibt */
+function linkeNeu(){
+  document.querySelectorAll('a[href^="http"]').forEach(a => { try{ if(new URL(a.href).origin !== location.origin){ a.target = "_blank"; const r = new Set((a.rel || "").split(/\s+/).filter(Boolean)); r.add("noopener"); a.rel = [...r].join(" "); } }catch(e){} });
 }
 const SPR = [
 ["g",["Manfred sagt: Der Takt ist mein Freund. Nela sagt: Dann hör ihm bitte zu.","Manfred says: the beat is my friend. Nela says: then please listen to it.","Manfred säät: Dä Takt es ming Fründ. Nela säät: Dann hür im doch ens zo.","Manfred moint: Dr Takt isch mei Freund. D'Nela moint: No hör ihm halt mol zua."]],
@@ -1357,6 +1361,7 @@ const SHT = {
  walzer:["Discowalzer geschafft: {r} von {n} richtig. Wiener Walzer trifft Discofox, und mein Kopf dreht sich nur noch im Takt. Probier es aus:","Disco waltz done: {r} of {n} correct. Viennese waltz meets discofox, and my head now only spins in time. Give it a try:","Discowalzer jeschaff: {r} vun {n} richtig. Wiener Walzer trieff Discofox, un ming Kopp dräht sich nur noch em Takt. Prob et us:","Discowalzer gschafft: {r} von {n} richtig. Wiener Walzer trifft Discofox, ond mei Kopf dreht sich nemme, bloß no em Takt. Probier's hald aus:"],
  latino:["Latino-Stunde im Dance-Chance-Quiz bestanden: {r} von {n} richtig. Step Touch, Rumba, Salsa: Die Hüfte weiß mehr als der Kopf. Und du?","Latin lesson passed in the Dance Chance Quiz: {r} of {n} correct. Step touch, rumba, salsa: the hips know more than the head. And you?","Latino-Stund em Dance-Chance-Quiz bestande: {r} vun {n} richtig. Step Touch, Rumba, Salsa: De Hüff wees mih als dä Kopp. Un do?","Latino-Stond em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Step Touch, Rumba, Salsa: D'Hüft woiß meh als dr Kopf. Ond du?"],
  breakdance:["Breakdance-Stunde geschafft: {r} von {n} richtig. Combo, Moves, Battle: Ich bin aufgewärmt, zumindest im Kopf. Traust du dich?","Breakdance lesson done: {r} of {n} correct. Combo, moves, battle: I'm warmed up, at least in my head. Do you dare?","Breakdance-Stund jeschaff: {r} vun {n} richtig. Combo, Moves, Battle: Ich ben opjewärmp, winnichstens em Kopp. Wagß do dich?","Breakdance-Stond gschafft: {r} von {n} richtig. Combo, Moves, Battle: I bin aufgwärmt, wenigschtens em Kopf. Traesch di?"],
+ faq:["Tanzstunde „Häufige Fragen & Shop“ im Dance-Chance-Quiz geschafft: {r} von {n} richtig. Ich weiß jetzt, wie der Zugang funktioniert, dass man auch allein starten darf und was im Tanz-Tanz-Gutschein steckt. Und du? Teste dich:","Dance lesson “FAQ & Shop” done in the Dance Chance Quiz: {r} of {n} correct. Now I know how access works, that you can start on your own and what is in the Tanz-Tanz voucher. And you? Test yourself:","Danzstund „Häufige Fraare & Shop“ em Dance-Chance-Quiz jeschaff: {r} vun {n} richtig. Ich weiß jetz, wie dä Zojang fluppt, dat mer och alleen aanfange darf un wat em Tanz-Tanz-Gutschein steiht. Un do? Test dich:","Tanzstund „Oft gfrogte Sacha & Shop“ em Dance-Chance-Quiz gschafft: {r} vo {n} richtig. I woiß jetzt, wia dr Zugang geht, dass mr au allei afange derf ond was em Tanz-Tanz-Gutschei drinsteckt. Ond du? Probier di aus:"],
  schlager:["Bossrunde im Dance-Chance-Quiz bezwungen: {r} von {n} richtig. Schlagerparty Berlin am 23. April 2027: Ich weiß jetzt, wo ich tanzen muss. Kommst du mit? Teste dich:","Boss round beaten in the Dance Chance Quiz: {r} of {n} correct. Schlager party in Berlin on 23 April 2027: now I know where to dance. Are you coming? Test yourself:","Bossrund em Dance-Chance-Quiz jeschaff: {r} vun {n} richtig. Schlagerparty en Berlin am 23. April 2027: Ich weiß jetz, wo ich danze muss. Küss do met? Test dich:","Bossrund em Dance-Chance-Quiz gschafft: {r} von {n} richtig. Schlagerparty en Berlin am 23. April 2027: I woiß jetzt, wo i tanza muss. Kommsch mit? Teschd di:"],
  master:["Alle Tanzstunden im Dance-Chance-Quiz geschafft: Die Meister-Urkunde gehört mir! Manfred und Nela sind stolz. Wer tanzt mit?","All dance lessons done in the Dance Chance Quiz: the Master certificate is mine! Manfred and Nela are proud. Who is dancing along?","All Danzstunde em Dance-Chance-Quiz jeschaff: De Meister-Urkund jehööt mir! Dä Manfred un de Nela sin stolz. Wä danz met?","Älle Tanzstonda em Dance-Chance-Quiz gschafft: D'Meister-Urkond ghört mir! Dr Manfred ond d'Nela sen stolz. Wer tanzt mit?"]
 };
@@ -2786,8 +2791,8 @@ function stuckPruefen(){
 addEventListener("resize", syncHH);
 let stuckBusy = false;
 addEventListener("scroll", () => { if(stuckBusy) return; stuckBusy = true; requestAnimationFrame(() => { stuckBusy = false; stuckPruefen(); }); }, {passive:true});
-{ const _render = render; render = function(...a){ const r = _render.apply(this, a); syncHH(); return r; }; }
-syncHH();
+{ const _render = render; render = function(...a){ const r = _render.apply(this, a); linkeNeu(); syncHH(); return r; }; }
+linkeNeu(); syncHH();
 </script>
 </body>
 </html>
