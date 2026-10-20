@@ -409,7 +409,7 @@ h2.secrow .cnt{font-size:.9rem;color:var(--mute);font-weight:700}
 <div id="live" class="sr" aria-live="polite"></div>
 <script>
 "use strict";
-const VERSION = "1.2.0", STAND = "19.10.2026";
+const VERSION = "1.2.1", STAND = "19.10.2026";
 const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"],["swg","SCHWÄB","Schwäbisch"]];
 const KEY = "dancechance_quiz_v1";
 const SHARE_URL = "https://nosz.github.io/dancechance/";
@@ -1197,7 +1197,7 @@ function empfehlungen(){
 }
 function legalNav(){
   const L = [["legImp", DC + "impressum/"], ["legPriv", DC + "datenschutz/"], ["legAgb", DC + "agb/"]];
-  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.flatMap((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]));
+  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.flatMap((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]).concat([h("span", {"aria-hidden":"true", text:"·"}), h("a", {href:"https://nosz.github.io/norbert-szpak", target:"_blank", rel:"noopener noreferrer", text:"Created by Norbert"})]));
 }
 /* Alle Links zu anderen Seiten (Slider, Empfehlungen, Social Media, Rechtliches, Quellen) öffnen in einem eigenen Browser-Tab, damit die App geöffnet bleibt */
 function linkeNeu(){
