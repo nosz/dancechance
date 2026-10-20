@@ -1197,7 +1197,7 @@ function empfehlungen(){
 }
 function legalNav(){
   const L = [["legImp", DC + "impressum/"], ["legPriv", DC + "datenschutz/"], ["legAgb", DC + "agb/"]];
-  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.flatMap((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]).concat([h("span", {"aria-hidden":"true", text:"·"}), h("a", {href:"https://nosz.github.io/norbert-szpak", target:"_blank", rel:"noopener noreferrer", text:"Created by Norbert"})]));
+  return h("nav", {class:"legal", "aria-label":"Dance Chance: " + L.map(x => t(x[0])).join(", ")}, L.flatMap((x, i) => [i ? h("span", {"aria-hidden":"true", text:"·"}) : null, h("a", {href:x[1], rel:"noopener", text:t(x[0])})]));
 }
 /* Alle Links zu anderen Seiten (Slider, Empfehlungen, Social Media, Rechtliches, Quellen) öffnen in einem eigenen Browser-Tab, damit die App geöffnet bleibt */
 function linkeNeu(){
@@ -1594,7 +1594,7 @@ function chrome(){
       h("ul", {class:"srclist"}, sl.src.map(s => h("li", null, h("a", {href:s[1], rel:"noopener"}, s[0]))))) : null,
     view.v !== "home" ? h("div", {class:"fhome"}, h("button", {type:"button", class:"btn ghost", onclick:() => go("home")}, (() => { const s = h("span", {"aria-hidden":"true"}); s.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-6h4v6"/></svg>'; return s; })(), h("span", {text:t("toHome")}))) : null,
     view.v === "home" ? h("div", {class:"fcard"}, h("span", {class:"fic", "aria-hidden":"true"}, "ℹ️"), h("div", null, h("p", {class:"fdisc", text:t("disc")}), h("p", {class:"ftrans", text:t("trans")}))) : null,
-    view.v === "home" ? h("p", {class:"fver"}, h("span", {text:t("ver") + " " + VERSION + " · " + STAND})) : null, legalNav()].filter(Boolean));   // Info und Version nur auf der ersten Seite
+    view.v === "home" ? h("p", {class:"fver"}, h("span", {text:t("ver") + " " + VERSION + " · Created by Norbert"})) : null, legalNav()].filter(Boolean));   // Info und Version nur auf der ersten Seite
 }
 $("#brand").onclick = () => {
   if(view.v === "home"){ const rm = matchMedia("(prefers-reduced-motion: reduce)").matches; window.scrollTo({top:0, behavior: rm ? "auto" : "smooth"}); $("#main").focus({preventScroll:true}); }
