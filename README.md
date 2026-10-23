@@ -2,7 +2,7 @@
 
 # Tanzen lernen mit Nela und Manfred (Dance-Chance-Quiz)
 
-**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.2.2, Stand 23.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
+**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.2.3, Stand 23.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
 
 > **Veröffentlichung:** GitHub-Repository `dancechance` (Benutzer `nosz`), Adresse `https://nosz.github.io/dancechance/`. Alle Dateien der Liste unten ins Hauptverzeichnis des Repositories legen (ohne Unterordner; der Ordner `tests` bleibt lokal), GitHub Pages auf den Hauptzweig stellen. Bei anderer Adresse in `index.html` (canonical, og:url, og:image, twitter:image, `SHARE_URL`) und in dieser README anpassen.
 
@@ -56,7 +56,8 @@ Alle Fakten in Lektionen, Fragen und Sprüchen stammen von diesen Seiten. Die Wi
 - Links zu Instagram, TikTok und YouTube hängen von den Konten ab, die auf dance-chance.de verlinkt sind.
 
 ## Changelog
-- 1.2.2 (23.10.2026): Im Fuß steht jetzt „Website Design by Norbert“ statt „Created by Norbert“ (gleiches Design, gleicher Link).
+- 1.2.3 (23.10.2026): Autoren-Hinweis im Fuß als auffälliger Knopf überarbeitet (ganzer Text ist der Link auf https://nosz.github.io/norbert-szpak/); Version angehoben, alle Tests und die Link-Pflicht-Prüfung erneut.
+- 1.2.2 (23.10.2026): Im Fuß steht jetzt „Website Design by Norbert“ statt „Created by Norbert“ (auffälliger Knopf unter der Version, der ganze Text ist der Link auf https://nosz.github.io/norbert-szpak/).
 - 1.2.1 (20.10.2026): Im Fuß steht neben der Version „Created by Norbert“ statt des Datums (kein Link neben Impressum, Datenschutz und AGB).
 - 1.2.0 (19.10.2026): **Manfreds Begrüßung:** er wünscht überschwänglich einen guten Morgen, Tag oder Abend (Tageszeit nach der Uhr) aus einem Baukasten mit zwei oder drei Wortungetümen, z. B. „Einen hypergalaktischen und optivamionösen guten Morgen“ oder „Einen wunderschönen gigantischen guten Tag“ (10 Vorlagen, 28 Wörter je Sprache, in allen vier Sprachen); Nela antwortet trocken-humorvoll (30 Antworten, 18 davon beziehen sich auf genau die Wörter, die Manfred gewählt hat). Zu hören beim Start nach dem Kuss, im eigenen Begrüßungs-Auftritt (`?lauf=morgen`) und manchmal in Einzelauftritten.
 - 1.1.0 (19.10.2026): **Vier Sprachen** (Schwäbisch neu im Menü oben), Heldin heißt überall **Nela**, **Start immer der Kuss** (Manfred von rechts, Nela von links, in der Mitte des Bildschirms, danach fliegen Herzen und Küsse nach oben), **Überraschungen:** die Figuren erscheinen auch einzeln, mitten im Bild, kopfüber an der Decke, an der Wand, mit Luftballon, plötzlich mit Funken oder beim Verstecken; **Verfolgungsjagden** (Manfred ist frech und haut ab, Nela rennt hinterher), Tanzen zusammen mit Noten, neue lustige Dialoge, Sprechblasen verdecken keinen Kopf. **Slider** (Party, Shop, Tanz normal anders) mit weichem Überblenden und Pause, **Empfehlungen** mit Links, **Social Media**, **Impressum/Datenschutz/AGB** dezent im Fuß, neue Tanzstunde **Häufige Fragen & Shop**, alle Links zu anderen Seiten öffnen in einem eigenen Tab, Vorschaubild und Beschreibung nennen alle vier Sprachen, Hinweis „inoffiziell“ entfernt (Erlaubnis des Eigentümers).
