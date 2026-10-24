@@ -2,7 +2,7 @@
 
 # Tanzen lernen mit Nela und Manfred (Dance-Chance-Quiz)
 
-**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.2.4, Stand 23.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
+**Datei:** `index.html` (eine Datei, offline lauffähig, Version 1.2.5, Stand 23.10.2026). Einfach im Browser öffnen oder auf einem Webserver ablegen.
 
 > **Veröffentlichung:** GitHub-Repository `dancechance` (Benutzer `nosz`), Adresse `https://nosz.github.io/dancechance/`. Alle Dateien der Liste unten ins Hauptverzeichnis des Repositories legen (ohne Unterordner; der Ordner `tests` bleibt lokal), GitHub Pages auf den Hauptzweig stellen. Bei anderer Adresse in `index.html` (canonical, og:url, og:image, twitter:image, `SHARE_URL`) und in dieser README anpassen.
 
@@ -56,6 +56,7 @@ Alle Fakten in Lektionen, Fragen und Sprüchen stammen von diesen Seiten. Die Wi
 - Links zu Instagram, TikTok und YouTube hängen von den Konten ab, die auf dance-chance.de verlinkt sind.
 
 ## Changelog
+- 1.2.5 (24.10.2026): Teilen und Zertifikat-Download in App-Browsern (Facebook, Instagram, Messenger) repariert: Erkennung mit Hinweis "Im Browser öffnen", Zertifikat-Bild zum Speichern per langem Druck, Fehlerbehandlung beim Download.
 - 1.2.4 (23.10.2026): **Fehler behoben: Die Seite scrollte beim Lesen von selbst nach oben** (der Namens-Hinweis zog die Seite zum Namensfeld; sie scrollt jetzt nie mehr von selbst, das Feld pulsiert nur, wenn es sichtbar ist). **Autoren-Knopf** mit deutlichem Link-Symbol, Symbol für externe Seite und sichtbarer Adresse. **Name-Knopf heißt jetzt „Speichern“** (statt „Das bin ich“), mit Speichern-Symbol; er ist grau, solange das Feld leer ist, wird aktiv und pulsiert bei neuem Text und zeigt „Gespeichert“ (grün), wenn nichts mehr zu speichern ist; nach dem Speichern erscheint eine Bestätigung. Version angehoben.
 - 1.2.3 (23.10.2026): Autoren-Hinweis im Fuß als auffälliger Knopf überarbeitet (ganzer Text ist der Link auf https://nosz.github.io/norbert-szpak/); Version angehoben, alle Tests und die Link-Pflicht-Prüfung erneut.
 - 1.2.2 (23.10.2026): Im Fuß steht jetzt „Website Design by Norbert“ statt „Created by Norbert“ (auffälliger Knopf unter der Version, der ganze Text ist der Link auf https://nosz.github.io/norbert-szpak/).
