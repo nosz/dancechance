@@ -1,5 +1,5 @@
 /* Dance-Chance-Quiz - Service Worker. VERSION muss mit VERSION in index.html uebereinstimmen. */
-const VERSION = "1.4.4";
+const VERSION = "1.4.5";
 const CACHE = "dancechance-quiz-" + VERSION;
 const CORE = ["./", "index.html", "manifest.webmanifest"];
 const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", "figures/manfred.webp", "figures/nela.webp", ...Array.from({length:10}, (_,i) => `figures/manfred-${i+1}.webp`), ...Array.from({length:10}, (_,i) => `figures/nela-${i+1}.webp`)];
