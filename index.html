@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="de">
 <head>
 <meta charset="utf-8">
@@ -449,7 +449,7 @@ a.credit:focus-visible{outline:3px solid #fff;outline-offset:4px;box-shadow:0 0 
 <div id="live" class="sr" aria-live="polite"></div>
 <script>
 "use strict";
-const VERSION = "1.4.6", STAND = "25.10.2026";
+const VERSION = "1.5.0", STAND = "25.10.2026";
 const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"],["swg","SCHWÄB","Schwäbisch"]];
 const KEY = "dancechance_quiz_v1";
 const SHARE_URL = "https://nosz.github.io/dancechance/";
@@ -2993,10 +2993,10 @@ fromHash(); render();
   window.addEventListener("dancechance-language-change", () => {
     sprachNeu = true;
     // Sprachwechsel erzwingt den nächsten Look, statt den zuletzt sichtbaren erneut zu verwenden.
-    outfitNaechster = outfitAktuell % 10 + 1;
+    outfitNaechster = outfitAktuell % 7 + 1;
   });
   /* Ein gemeinsamer Outfit-Zähler: jeder neue Auftritt (auch nach Sprachwechsel) bekommt den nächsten Look. */
-  let outfitNaechster = 1 + Math.floor(Math.random() * 10), outfitAktuell = outfitNaechster;   // Sprache beim Start des Auftritts; wechselt die Sprache oben im Menü, bricht der Auftritt ab und die beiden melden sich gleich in der neuen Sprache
+  let outfitNaechster = 1 + Math.floor(Math.random() * 7), outfitAktuell = outfitNaechster;   // Sprache beim Start des Auftritts; wechselt die Sprache oben im Menü, bricht der Auftritt ab und die beiden melden sich gleich in der neuen Sprache
   let stopBeiName = false;   // während der Namensfrage: sobald ein Name da ist, sofort aufhören
   function abbruch(){ return document.hidden || (actLi !== null && li !== actLi) || (stopBeiName && typeof hasName === "function" && hasName()); }
   function neu(w, s){
@@ -3350,7 +3350,7 @@ fromHash(); render();
     if(abbruch() || buehneBelegt()) return false;
     laeuft = true; sperreBuehnenknopf(true); sprache(); actLi = li;
     // Jeder neue Bühnenauftritt erhält den nächsten Look – Sprache und Auftrittstyp sind dafür unerheblich.
-    outfitAktuell = outfitNaechster; outfitNaechster = outfitNaechster % 10 + 1;
+    outfitAktuell = outfitNaechster; outfitNaechster = outfitNaechster % 7 + 1;
     redet = !!name || (!(view && view.v === "quiz") && redetDiesmal());
     try{ await waehle(name)(dim()); } catch(e){ if(!e || e.message !== "stop") console.error("Figur:", e); }
     aktiv.splice(0).forEach(e => e.remove()); document.querySelectorAll(".runbub,.runnote,.runherz").forEach(b => b.remove());

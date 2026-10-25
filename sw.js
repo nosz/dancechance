@@ -1,8 +1,8 @@
-/* Dance-Chance-Quiz - Service Worker. VERSION muss mit VERSION in index.html uebereinstimmen. */
-const VERSION = "1.4.6";
+﻿/* Dance-Chance-Quiz - Service Worker. VERSION muss mit VERSION in index.html uebereinstimmen. */
+const VERSION = "1.5.0";
 const CACHE = "dancechance-quiz-" + VERSION;
 const CORE = ["./", "index.html", "manifest.webmanifest"];
-const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", "figures/manfred.webp", "figures/nela.webp", ...Array.from({length:10}, (_,i) => `figures/manfred-${i+1}.webp`), ...Array.from({length:10}, (_,i) => `figures/nela-${i+1}.webp`)];
+const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", "figures/manfred.webp", "figures/nela.webp", ...Array.from({length:7}, (_,i) => `figures/manfred-${i+1}.webp`), ...Array.from({length:7}, (_,i) => `figures/nela-${i+1}.webp`)];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, {cache:"reload"}))).then(() => Promise.allSettled(OPTIONAL.map(u => c.add(new Request(u, {cache:"reload"}))))))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(n => n.startsWith("dancechance-quiz-") && n !== CACHE).map(n => caches.delete(n)))).then(() => self.clients.claim())); });
 self.addEventListener("message", e => { if(e.data === "SKIP_WAITING") self.skipWaiting(); });
