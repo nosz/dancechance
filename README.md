@@ -56,6 +56,7 @@ Alle Fakten in Lektionen, Fragen und Sprüchen stammen von diesen Seiten. Die Wi
 - Links zu Instagram, TikTok und YouTube hängen von den Konten ab, die auf dance-chance.de verlinkt sind.
 
 ## Changelog
+- 1.4.0 (25.10.2026): Neue Outfit-Modenschau für Nela und Manfred als in der App erreichbare Bildgalerie ergänzt; Versionsnummer in App-Fußzeile und Service Worker synchronisiert. Hinweis: Die Modenschau ist eine visuelle Vorschau. Die animierten Figuren verwenden weiterhin die bestehenden transparenten Figurenbilder; neue Kleidungsformen sind noch nicht als einzelne transparente Animations-Assets integriert.
 - 1.2.9 (25.10.2026): Startkuss überarbeitet: Figuren bleiben zusammen in der Mitte, lehnen sich sichtbar zueinander und halten den Kuss kurz, statt sofort wieder auseinanderzugehen. Sieben wechselnde Farblooks für die Outfits bei neuen Auftritten.
 
 - 1.2.6 (24.10.2026): Teilen und Zertifikat-Download in App-Browsern (Facebook, Instagram, Messenger) repariert: Erkennung mit Hinweis "Im Browser öffnen", Zertifikat-Bild zum Speichern per langem Druck, Fehlerbehandlung beim Download.
