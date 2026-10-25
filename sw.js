@@ -1,8 +1,8 @@
 /* Dance-Chance-Quiz - Service Worker. VERSION muss mit VERSION in index.html uebereinstimmen. */
-const VERSION = "1.2.5";
+const VERSION = "1.2.8";
 const CACHE = "dancechance-quiz-" + VERSION;
 const CORE = ["./", "index.html", "manifest.webmanifest"];
-const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg"];
+const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", "figures/manfred.webp", "figures/nela.webp"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE).then(() => Promise.allSettled(OPTIONAL.map(u => c.add(u)))))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(n => n.startsWith("dancechance-quiz-") && n !== CACHE).map(n => caches.delete(n)))).then(() => self.clients.claim())); });
 self.addEventListener("message", e => { if(e.data === "SKIP_WAITING") self.skipWaiting(); });
