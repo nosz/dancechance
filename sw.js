@@ -1,8 +1,8 @@
 ﻿/* Dance-Chance-Quiz - Service Worker. VERSION muss mit VERSION in index.html uebereinstimmen. */
-const VERSION = "1.5.0";
+const VERSION = "1.5.2";
 const CACHE = "dancechance-quiz-" + VERSION;
 const CORE = ["./", "index.html", "manifest.webmanifest"];
-const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", "figures/manfred.webp", "figures/nela.webp", ...Array.from({length:7}, (_,i) => `figures/manfred-${i+1}.webp`), ...Array.from({length:7}, (_,i) => `figures/nela-${i+1}.webp`)];
+const OPTIONAL = ["favicon.png", "apple-touch-icon.png", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "dancechance_vorschau.jpg", ...["manfred", "nela", ...Array.from({length:7}, (_,i) => `manfred-${i+1}`), ...Array.from({length:7}, (_,i) => `nela-${i+1}`)].map(n => `figures/${n}.webp?v=${VERSION}`)];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE.map(u => new Request(u, {cache:"reload"}))).then(() => Promise.allSettled(OPTIONAL.map(u => c.add(new Request(u, {cache:"reload"}))))))); });
 self.addEventListener("activate", e => { e.waitUntil(caches.keys().then(k => Promise.all(k.filter(n => n.startsWith("dancechance-quiz-") && n !== CACHE).map(n => caches.delete(n)))).then(() => self.clients.claim())); });
 self.addEventListener("message", e => { if(e.data === "SKIP_WAITING") self.skipWaiting(); });
@@ -10,11 +10,15 @@ const timeout = (p, ms) => new Promise((res, rej) => { const t = setTimeout(() =
 self.addEventListener("fetch", e => {
   const r = e.request; if(r.method !== "GET") return; const u = new URL(r.url); if(u.origin !== location.origin) return;
   if(r.mode === "navigate"){
-    e.respondWith(timeout(fetch(r), 4000).then(res => { const cp = res.clone(); caches.open(CACHE).then(c => c.put("index.html", cp)); return res; }).catch(() => caches.match("index.html", {ignoreSearch:true}).then(x => x || caches.match("./"))));
+    e.respondWith(timeout(fetch(r, {cache:"no-cache"}), 4000).then(res => { const cp = res.clone(); caches.open(CACHE).then(c => c.put("index.html", cp)); return res; }).catch(() => caches.match("index.html", {ignoreSearch:true}).then(x => x || caches.match("./"))));
+    return;
+  }
+  if(u.pathname.includes("/figures/")){ // Figuren: nur exakter Treffer samt ?v=VERSION, sonst frisch vom Server (nie ein altes Bild einer anderen Version)
+    e.respondWith(caches.match(r).then(hit => hit || fetch(r, {cache:"no-cache"}).then(res => { if(res && res.ok){ const cp = res.clone(); caches.open(CACHE).then(c => c.put(r, cp)); } return res; }).catch(() => caches.match(r, {ignoreSearch:true}))));
     return;
   }
   e.respondWith(caches.match(r, {ignoreSearch:true}).then(hit => {
-    const net = fetch(r).then(res => { if(res && res.ok){ const cp = res.clone(); caches.open(CACHE).then(c => c.put(r, cp)); } return res; }).catch(() => hit);
+    const net = fetch(r, {cache:"no-cache"}).then(res => { if(res && res.ok){ const cp = res.clone(); caches.open(CACHE).then(c => c.put(r, cp)); } return res; }).catch(() => hit);
     return hit || net;
   }));
 });

@@ -23,17 +23,17 @@
 <meta property="og:title" content="Tanzen lernen mit Nela und Manfred: das Dance-Chance-Quiz">
 <meta property="og:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 8 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. KSH: 8 Danzstunde met däm Manfred un de Nela, Quiz un Urkunde. SWG: 8 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
 <meta property="og:url" content="https://nosz.github.io/dancechance/">
-<meta property="og:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=1">
+<meta property="og:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=2">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Tanzen lernen mit Nela und Manfred: zwei kleine Pixel-Tanzlehrer vor einem Herz. Learn to dance with Nela and Manfred. Danze lihre mit de Nela un dem Manfred. Tanze lerne mit dr Nela ond am Manfred.">
+<meta property="og:image:alt" content="Tanzen lernen mit Nela und Manfred: zwei Comic-Tanzlehrer vor einem Herz. Learn to dance with Nela and Manfred. Danze lihre mit de Nela un dem Manfred. Tanze lerne mit dr Nela ond am Manfred.">
 <meta property="og:locale" content="de_DE">
 <meta property="og:locale:alternate" content="en_GB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tanzen lernen mit Nela und Manfred: das Dance-Chance-Quiz">
 <meta name="twitter:description" content="DE: 8 Tanzstunden mit Manfred und Nela: Discofox, Discowalzer, Latino, Breakdance, Quiz und Urkunden. EN: 8 dance lessons with Manfred and Nela: discofox, disco waltz, Latin, breakdance, quiz and certificates. KSH: 8 Danzstunde met däm Manfred un de Nela, Quiz un Urkunde. SWG: 8 Tanzstunde mit em Manfred ond dr Nela, Quiz ond Urkunde.">
-<meta name="twitter:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=1"><style>
+<meta name="twitter:image" content="https://nosz.github.io/dancechance/dancechance_vorschau.jpg?v=2"><style>
 :root{
   --pri:#e5167a;--pri-d:#c4106a;--pri-l:#fde6f1;--herobg:linear-gradient(135deg,#ffe0ee,#ffe9cc);
   --bg:#f8f1e7;--card:#fffdf8;--ink:#241238;--mute:#5b4d68;--line:#eadfd2;
@@ -449,7 +449,7 @@ a.credit:focus-visible{outline:3px solid #fff;outline-offset:4px;box-shadow:0 0 
 <div id="live" class="sr" aria-live="polite"></div>
 <script>
 "use strict";
-const VERSION = "1.5.0", STAND = "25.10.2026";
+const VERSION = "1.5.2", STAND = "25.10.2026";
 const LANGS = [["de","DE","Deutsch"],["en","EN","English"],["ksh","KÖLSCH","Kölsch"],["swg","SCHWÄB","Schwäbisch"]];
 const KEY = "dancechance_quiz_v1";
 const SHARE_URL = "https://nosz.github.io/dancechance/";
@@ -1746,7 +1746,7 @@ if("serviceWorker" in navigator && /^https?:$/.test(location.protocol)){
   navigator.serviceWorker.addEventListener("controllerchange", () => { if(!hadController){ hadController = true; return; } if(reloading) return; reloading = true; location.reload(); });
   window.addEventListener("load", () => {
     const first = !navigator.serviceWorker.controller;
-    navigator.serviceWorker.register("sw.js").then(reg => {
+    navigator.serviceWorker.register("sw.js", {updateViaCache:"none"}).then(reg => {
       const upd = w => snack(t("updT"), t("updB"), () => w.postMessage("SKIP_WAITING"));
       if(reg.waiting && navigator.serviceWorker.controller) upd(reg.waiting);
       reg.addEventListener("updatefound", () => { const w = reg.installing; if(w) w.addEventListener("statechange", () => { if(w.state === "installed"){ if(navigator.serviceWorker.controller) upd(w); else snack(t("offT"), null, null, 4500); } }); });
