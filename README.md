@@ -1,3 +1,5 @@
+- 1.4.4 (25.10.2026): Sechs Figuren-Assets in `figures/` durch echte Kleidungs-Silhouetten ersetzt und ergänzt: Nela trägt jetzt unter anderem einen schwingenden roten Rock, elegante weite Hosen und ein violettes Disco-Minikleid; Manfred erhält einen klassischen dunklen Anzug, einen modernen Hemd-Look und eine Weste-Sakko-Kombination. Die vorhandene Rotation nutzt diese Bilder direkt auf der Tanzfläche. Keine Modenschau, keine zusätzlichen Buttons oder Menüs. App und Service Worker auf 1.4.4 aktualisiert.
+- 1.4.2 (25.10.2026): Den unerwünschten, fest angehefteten Button „Neue Outfit-Modenschau“ und die zugehörigen Cache-Einträge entfernt. Die Oberfläche bleibt unverändert; Outfit-Erweiterungen gehören ausschließlich zu den transparenten Figuren-Assets und deren bestehendem Auftrittswechsel.
 [![Tanzen lernen mit Nela und Manfred: das Dance-Chance-Quiz](dancechance_vorschau.jpg)](https://nosz.github.io/dancechance/)
 
 # Tanzen lernen mit Nela und Manfred (Dance-Chance-Quiz)
@@ -56,7 +58,8 @@ Alle Fakten in Lektionen, Fragen und Sprüchen stammen von diesen Seiten. Die Wi
 - Links zu Instagram, TikTok und YouTube hängen von den Konten ab, die auf dance-chance.de verlinkt sind.
 
 ## Changelog
-- 1.4.0 (25.10.2026): Neue Outfit-Modenschau für Nela und Manfred als in der App erreichbare Bildgalerie ergänzt; Versionsnummer in App-Fußzeile und Service Worker synchronisiert. Hinweis: Die Modenschau ist eine visuelle Vorschau. Die animierten Figuren verwenden weiterhin die bestehenden transparenten Figurenbilder; neue Kleidungsformen sind noch nicht als einzelne transparente Animations-Assets integriert.
+- 1.4.3 (25.10.2026): Sechs neue transparente WebP-Dateien in `figures/` ergänzt (`nela-8.webp` bis `nela-10.webp`, `manfred-8.webp` bis `manfred-10.webp`). Die vorhandene Auftrittsrotation erweitert sich von 7 auf 10 Outfit-Dateien je Figur; Service Worker cachet alle 10 Varianten. Die neuen Dateien bieten zusätzliche Farblooks auf Basis der vorhandenen Figurenrenders; neue Schnittformen sind damit noch nicht modelliert.
+- 1.4.1 (25.10.2026): Versionsnummer in App und Service Worker synchronisiert; Beschriftung der Outfit-Galerie präzisiert. Die Modenschau zeigt die geplanten eleganten Discofox-Looks. Hinweis: Die animierten Figuren verwenden weiterhin die vorhandenen transparenten Figurenbilder; eigenständige neue Kleidungsformen müssen als passende transparente Animations-Assets erstellt werden, bevor sie im Bühnenauftritt erscheinen.
 - 1.2.9 (25.10.2026): Startkuss überarbeitet: Figuren bleiben zusammen in der Mitte, lehnen sich sichtbar zueinander und halten den Kuss kurz, statt sofort wieder auseinanderzugehen. Sieben wechselnde Farblooks für die Outfits bei neuen Auftritten.
 
 - 1.2.6 (24.10.2026): Teilen und Zertifikat-Download in App-Browsern (Facebook, Instagram, Messenger) repariert: Erkennung mit Hinweis "Im Browser öffnen", Zertifikat-Bild zum Speichern per langem Druck, Fehlerbehandlung beim Download.
